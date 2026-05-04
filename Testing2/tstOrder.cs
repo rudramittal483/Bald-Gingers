@@ -1,8 +1,8 @@
-﻿using ClassLibrary;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using ClassLibrary;
 
-namespace Testing2
+namespace TestingOrders
 {
     [TestClass]
     public class tstOrder
@@ -10,10 +10,10 @@ namespace Testing2
         [TestMethod]
         public void InstanceOK()
         {
-            //create an instance of the class we want to create
-            clsOrder AOrder = new clsOrder();
-            //test to see that it exists
-            Assert.IsNotNull(AOrder);
+            // Create an instance of the class we want to create
+            clsOrder AnOrder = new clsOrder();
+            // Test to see that it exists
+            Assert.IsNotNull(AnOrder);
         }
     }
 }
