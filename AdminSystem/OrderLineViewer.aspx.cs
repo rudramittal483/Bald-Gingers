@@ -12,6 +12,9 @@ public partial class _1Viewer : System.Web.UI.Page
     {
         clsOrderLine AnOrderLine = new clsOrderLine();
         AnOrderLine = (clsOrderLine)Session["AnOrderLine"];
-        Response.Write(AnOrderLine.LaptopNo);
+        Response.Write("OrderLine No: " + AnOrderLine.OrderLineNo + "<br/>");
+        Response.Write("Order No: " + AnOrderLine.OrderNo + "<br/>");
+        Response.Write("Laptop No: " + AnOrderLine.LaptopNo + "<br/>");
+        Response.Write("Quantity: " + AnOrderLine.Quantity + "<br/>");
     }
 }
