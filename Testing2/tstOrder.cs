@@ -60,8 +60,8 @@ namespace TestingOrders
         public void TotalAmountPropertyOK()
         {
             clsOrder AnOrder = new clsOrder();
-            // Use decimal for currency
-            decimal TestData = 1499.99m;
+            // Use double for currency
+            double TestData = 1499.99;
             AnOrder.TotalAmount = TestData;
             Assert.AreEqual(AnOrder.TotalAmount, TestData);
         }
