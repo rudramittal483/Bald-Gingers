@@ -49,5 +49,44 @@ namespace TestingOrderLines
             AnOrderLine.Quantity = TestData;
             Assert.AreEqual(AnOrderLine.Quantity, TestData);
         }
+
+        [TestMethod]
+        public void FindMethodOK()
+        {
+            clsOrderLine AnOrderLine = new clsOrderLine();
+            Assert.IsTrue(AnOrderLine.Find(1));
+        }
+
+        [TestMethod]
+        public void TestOrderLineNoFound()
+        {
+            clsOrderLine AnOrderLine = new clsOrderLine();
+            Boolean Found = AnOrderLine.Find(1);
+            Assert.IsTrue(AnOrderLine.OrderLineNo == 1);
+        }
+
+        [TestMethod]
+        public void TestOrderNoFound()
+        {
+            clsOrderLine AnOrderLine = new clsOrderLine();
+            Boolean Found = AnOrderLine.Find(1);
+            Assert.IsTrue(AnOrderLine.OrderNo == 1);
+        }
+
+        [TestMethod]
+        public void TestLaptopNoFound()
+        {
+            clsOrderLine AnOrderLine = new clsOrderLine();
+            Boolean Found = AnOrderLine.Find(1);
+            Assert.IsTrue(AnOrderLine.LaptopNo == 1);
+        }
+
+        [TestMethod]
+        public void TestQuantityFound()
+        {
+            clsOrderLine AnOrderLine = new clsOrderLine();
+            Boolean Found = AnOrderLine.Find(1);
+            Assert.IsTrue(AnOrderLine.Quantity == 1);
+        }
     }
 }
