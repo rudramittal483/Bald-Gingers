@@ -25,7 +25,8 @@
             <asp:TextBox ID="txtBrand" runat="server" height="25px" style="z-index: 1; left: 268px; top: 92px; position: absolute" width="168px"></asp:TextBox>
         </p>
         <p>
-            &nbsp;</p>
+            <asp:Button ID="btnFind" runat="server" OnClick="btnFind_Click" style="z-index: 1; left: 528px; top: 39px; position: absolute; width: 64px; bottom: 713px" Text="Find" />
+        </p>
         <p>
             <asp:Label ID="lblDataAdded" runat="server" style="z-index: 1; left: 9px; top: 214px; position: absolute" Text="Date Added" width="103px"></asp:Label>
             <asp:TextBox ID="txtModelName" runat="server" height="25px" style="z-index: 1; left: 268px; top: 154px; position: absolute" width="168px"></asp:TextBox>
