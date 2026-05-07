@@ -74,5 +74,60 @@ namespace TestingOrders
             AnOrder.DeliveryAddress = TestData;
             Assert.AreEqual(AnOrder.DeliveryAddress, TestData);
         }
+
+        [TestMethod]
+        public void FindMethodOK()
+        {
+            clsOrder AnOrder = new clsOrder();
+            Assert.IsTrue(AnOrder.Find(1));
+        }
+
+        [TestMethod]
+        public void TestOrderNoFound()
+        {
+            clsOrder AnOrder = new clsOrder();
+            Boolean Found = AnOrder.Find(21);
+            Assert.AreEqual(AnOrder.OrderNo, 21);
+        }
+
+        [TestMethod]
+        public void TestCustomerNoFound()
+        {
+            clsOrder AnOrder = new clsOrder();
+            Boolean Found = AnOrder.Find(1);
+            Assert.IsTrue(AnOrder.CustomerNo == 1);
+        }
+
+        [TestMethod]
+        public void TestOrderDateFound()
+        {
+            clsOrder AnOrder = new clsOrder();
+            Boolean Found = AnOrder.Find(21);
+            Assert.AreEqual(AnOrder.OrderDate, new DateTime(2026, 05, 07));
+        }
+
+        [TestMethod]
+        public void TestTotalAmountFound()
+        {
+            clsOrder AnOrder = new clsOrder();
+            Boolean Found = AnOrder.Find(1);
+            Assert.IsTrue(AnOrder.TotalAmount == 50.00);
+        }
+
+        [TestMethod]
+        public void TestDeliveryAddressFound()
+        {
+            clsOrder AnOrder = new clsOrder();
+            Boolean Found = AnOrder.Find(1);
+            Assert.IsTrue(AnOrder.DeliveryAddress == "Test Street");
+        }
+
+        [TestMethod]
+        public void TestIsDispatchedFound()
+        {
+            clsOrder AnOrder = new clsOrder();
+            Boolean Found = AnOrder.Find(21);
+            Assert.AreEqual(AnOrder.IsDispatched, true);
+        }
     }
 }
