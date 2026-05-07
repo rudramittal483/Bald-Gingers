@@ -6,7 +6,7 @@
         <div>
             <asp:Label ID="lblOrderLineNo" runat="server" style="position: absolute; left: 10px; top: 20px;" Text="Line Number"></asp:Label>
             <asp:TextBox ID="txtOrderLineNo" runat="server" style="position: absolute; left: 150px; top: 20px;"></asp:TextBox>
-
+            <asp:Button ID="btnFind" runat="server" Text="Find" style="position: absolute; left: 320px; top: 20px;" OnClick="btnFindLine_Click" />
             <asp:Label ID="lblOrderNo" runat="server" style="position: absolute; left: 10px; top: 60px;" Text="Order Number"></asp:Label>
             <asp:TextBox ID="txtOrderNo" runat="server" style="position: absolute; left: 150px; top: 60px;"></asp:TextBox>
 

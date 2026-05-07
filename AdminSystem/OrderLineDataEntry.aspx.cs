@@ -26,4 +26,26 @@ public partial class OrderLineDataEntry : System.Web.UI.Page
     {
         Response.Redirect("TeamMainMenu.aspx");
     }
+
+    protected void btnFindLine_Click(object sender, EventArgs e)
+    {
+        clsOrderLine AnOrderLine = new clsOrderLine();
+        Int32 OrderLineNo;
+        Boolean Found = false;
+
+        if (txtOrderLineNo.Text != "")
+        {
+            OrderLineNo = Convert.ToInt32(txtOrderLineNo.Text);
+            Found = AnOrderLine.Find(OrderLineNo);
+
+            if (Found == true)
+            {
+                txtOrderNo.Text = AnOrderLine.OrderNo.ToString();
+                txtLaptopNo.Text = AnOrderLine.LaptopNo.ToString();
+                txtQuantity.Text = AnOrderLine.Quantity.ToString();
+                lblError.Text = "";
+            }
+            else { lblError.Text = "Order Line not found."; }
+        }
+    }
 }

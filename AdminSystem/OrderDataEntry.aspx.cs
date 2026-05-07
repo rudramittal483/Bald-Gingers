@@ -25,4 +25,28 @@ public partial class OrderDataEntry : System.Web.UI.Page
     {
         Response.Redirect("TeamMainMenu.aspx");
     }
+
+    protected void btnFind_Click(object sender, EventArgs e)
+    {
+        clsOrder AnOrder = new clsOrder();
+        Int32 OrderNo;
+        Boolean Found = false;
+
+        if (txtOrderNo.Text != "")
+        {
+            OrderNo = Convert.ToInt32(txtOrderNo.Text);
+            Found = AnOrder.Find(OrderNo);
+
+            if (Found == true)
+            {
+                txtCustomerNo.Text = AnOrder.CustomerNo.ToString();
+                txtOrderDate.Text = AnOrder.OrderDate.ToString();
+                txtTotalAmount.Text = AnOrder.TotalAmount.ToString();
+                txtDeliveryAddress.Text = AnOrder.DeliveryAddress;
+                chkIsDispatched.Checked = AnOrder.IsDispatched;
+                lblError.Text = "";
+            }
+            else { lblError.Text = "Order not found."; }
+        }
+    }
 }
