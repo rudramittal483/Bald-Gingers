@@ -28,7 +28,7 @@ namespace ClassLibrary
         //date added property
         public DateTime DateAdded
         {
-            get 
+            get
             {
                 //return the private data
                 return mDateAdded;
@@ -103,17 +103,33 @@ namespace ClassLibrary
 
         public bool Find(int laptopId)
         {
-            //set the private data member to the test data value
-            mLaptopId = 4;
-            mDateAdded = Convert.ToDateTime("10-02-2024");
-            mInStock = true;
-            mModel = "Spectre x360";
-            mBrand = "HP";
-            mPrice = 1249.99;
-            // always return true 
-            return true;
-        }
+            //create an instance of the data connection
+            clsDataConnection DB = new clsDataConnection();
+            //add the parameter for the laptop id to search for
+            DB.AddParameter("@LaptopId", laptopId);
+            //execute the stored procedure
+            DB.Execute("sproc_tblStock_FilterByLaptopId");
+            //if one record is found (there should be either one or zero!)
+            if (DB.Count == 1)
+            {
+                //copy the data from the database to the private data members
+                mLaptopId = Convert.ToInt32(DB.DataTable.Rows[0]["LaptopId"]);
+                mDateAdded = Convert.ToDateTime(DB.DataTable.Rows[0]["DateAdded"]);
+                mInStock = Convert.ToBoolean(DB.DataTable.Rows[0]["InStock"]);
+                mModel = Convert.ToString(DB.DataTable.Rows[0]["ModelName"]);
+                mBrand = Convert.ToString(DB.DataTable.Rows[0]["Brand"]);
+                mPrice = Convert.ToDouble(DB.DataTable.Rows[0]["Price"]);
+                //return that everything worked OK
+                return true;
+            }
+            //if no record was found
+            else
+            {
+                //return false indicating a problem
+                return false;
+            }
 
-       
+
+        }
     }
 }
