@@ -10,16 +10,36 @@ public partial class OrderLineDataEntry : System.Web.UI.Page
 {
     protected void btnOK_Click(object sender, EventArgs e)
     {
+        // Create a new instance of clsOrderLine
         clsOrderLine AnOrderLine = new clsOrderLine();
 
-        AnOrderLine.OrderLineNo = Convert.ToInt32(txtOrderLineNo.Text);
-        AnOrderLine.OrderNo = Convert.ToInt32(txtOrderNo.Text);
-        AnOrderLine.LaptopNo = Convert.ToInt32(txtLaptopNo.Text);
-        AnOrderLine.Quantity = Convert.ToInt32(txtQuantity.Text);
+        // Capture inputs as strings for validation
+        string OrderNo = txtOrderNo.Text;
+        string LaptopNo = txtLaptopNo.Text;
+        string Quantity = txtQuantity.Text;
 
-        Session["AnOrderLine"] = AnOrderLine;
+        string Error = "";
 
-        Response.Redirect("OrderLineViewer.aspx");
+        // Validate the data
+        Error = AnOrderLine.Valid(OrderNo, LaptopNo, Quantity);
+
+        if (Error == "")
+        {
+            // If valid, map to properties and convert types
+            AnOrderLine.OrderLineNo = Convert.ToInt32(txtOrderLineNo.Text);
+            AnOrderLine.OrderNo = Convert.ToInt32(OrderNo);
+            AnOrderLine.LaptopNo = Convert.ToInt32(LaptopNo);
+            AnOrderLine.Quantity = Convert.ToInt32(Quantity);
+
+            // Store in session and redirect
+            Session["AnOrderLine"] = AnOrderLine;
+            Response.Redirect("OrderLineViewer.aspx");
+        }
+        else
+        {
+            // Show errors in the red label
+            lblError.Text = Error;
+        }
     }
 
     protected void btnCancel_Click(object sender, EventArgs e)

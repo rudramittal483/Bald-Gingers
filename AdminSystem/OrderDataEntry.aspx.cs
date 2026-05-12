@@ -11,14 +11,33 @@ public partial class OrderDataEntry : System.Web.UI.Page
     protected void btnOK_Click(object sender, EventArgs e)
     {
         clsOrder AnOrder = new clsOrder();
-        AnOrder.OrderNo = Convert.ToInt32(txtOrderNo.Text);
-        AnOrder.CustomerNo = Convert.ToInt32(txtCustomerNo.Text);
-        AnOrder.OrderDate = Convert.ToDateTime(txtOrderDate.Text);
-        AnOrder.TotalAmount = Convert.ToDouble(txtTotalAmount.Text);
-        AnOrder.DeliveryAddress = txtDeliveryAddress.Text;
-        AnOrder.IsDispatched = chkIsDispatched.Checked;
-        Session["AnOrder"] = AnOrder;
-        Response.Redirect("OrderViewer.aspx");
+
+        string CustomerNo = txtCustomerNo.Text;
+        string OrderDate = txtOrderDate.Text;
+        string TotalAmount = txtTotalAmount.Text;
+        string DeliveryAddress = txtDeliveryAddress.Text;
+
+        string Error = "";
+
+        Error = AnOrder.Valid(CustomerNo, OrderDate, TotalAmount, DeliveryAddress);
+
+        if (Error == "")
+        {
+            AnOrder.OrderNo = Convert.ToInt32(txtOrderNo.Text);
+            AnOrder.CustomerNo = Convert.ToInt32(CustomerNo);
+            AnOrder.OrderDate = Convert.ToDateTime(OrderDate);
+            AnOrder.TotalAmount = Convert.ToDouble(TotalAmount);
+            AnOrder.DeliveryAddress = DeliveryAddress;
+            AnOrder.IsDispatched = chkIsDispatched.Checked;
+
+            Session["AnOrder"] = AnOrder;
+
+            Response.Redirect("OrderViewer.aspx");
+        }
+        else
+        {
+            lblError.Text = Error;
+        }
     }
 
     protected void btnCancel_Click(object sender, EventArgs e)
