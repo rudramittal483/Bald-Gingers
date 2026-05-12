@@ -7,6 +7,11 @@ namespace TestingOrders
     [TestClass]
     public class tstOrder
     {
+        string CustomerNo = "1";
+        string OrderDate = DateTime.Now.Date.ToShortDateString();
+        string TotalAmount = "50.00";
+        string DeliveryAddress = "Test Street";
+
         [TestMethod]
         public void InstanceOK()
         {
@@ -128,6 +133,40 @@ namespace TestingOrders
             clsOrder AnOrder = new clsOrder();
             Boolean Found = AnOrder.Find(21);
             Assert.AreEqual(AnOrder.IsDispatched, true);
+        }
+
+        [TestMethod]
+        public void ValidMethodOK()
+        {
+            clsOrder AnOrder = new clsOrder();
+            String Error = AnOrder.Valid(CustomerNo, OrderDate, TotalAmount, DeliveryAddress);
+            Assert.AreEqual(Error, "");
+        }
+
+        [TestMethod]
+        public void DeliveryAddressMinLessOne()
+        {
+            clsOrder AnOrder = new clsOrder();
+            String Error = AnOrder.Valid(CustomerNo, OrderDate, TotalAmount, "");
+            Assert.AreNotEqual(Error, "");
+        }
+
+        [TestMethod]
+        public void DeliveryAddressMaxPlusOne()
+        {
+            clsOrder AnOrder = new clsOrder();
+            String Error = "";
+            string TestData = "".PadRight(51, 'a');
+            Error = AnOrder.Valid(CustomerNo, OrderDate, TotalAmount, TestData);
+            Assert.AreNotEqual(Error, "");
+        }
+
+        [TestMethod]
+        public void OrderDateInvalidData()
+        {
+            clsOrder AnOrder = new clsOrder();
+            String Error = AnOrder.Valid(CustomerNo, "this is not a date!", TotalAmount, DeliveryAddress);
+            Assert.AreNotEqual(Error, "");
         }
     }
 }
