@@ -172,7 +172,7 @@ namespace Testing3
             //invoke the method
             Found = AStock.Find(LaptopId);
             //check the date added
-            if (AStock.DateAdded != Convert.ToDateTime("10-02-2024"))
+            if (AStock.DateAdded != Convert.ToDateTime("02-10-2024"))
             {
                 OK = false;
             }

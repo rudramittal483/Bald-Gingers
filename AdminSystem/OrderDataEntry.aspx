@@ -26,7 +26,7 @@
 
             <asp:Button ID="btnOK" runat="server" style="position: absolute; left: 10px; top: 300px;" Text="OK" OnClick="btnOK_Click" />
             <asp:Button ID="btnCancel" runat="server" style="position: absolute; left: 80px; top: 300px;" Text="Cancel" OnClick="btnCancel_Click" />
-        </div>z
+        </div>
     </form>
 </body>
 </html>
