@@ -30,5 +30,28 @@ namespace ClassLibrary
             }
             else { return false; }
         }
+
+        public string Valid(string orderNo, string laptopNo, string quantity)
+        {
+            String Error = "";
+            Int32 OrderNoTemp;
+            Int32 LaptopNoTemp;
+            Int32 QuantityTemp;
+            try { OrderNoTemp = Convert.ToInt32(orderNo); }
+            catch { Error = Error + "The order number is not a valid number : "; }
+
+            try { LaptopNoTemp = Convert.ToInt32(laptopNo); }
+            catch { Error = Error + "The laptop number is not a valid number : "; }
+
+            try
+            {
+                QuantityTemp = Convert.ToInt32(quantity);
+                if (QuantityTemp < 1) { Error = Error + "Quantity must be at least 1 : "; }
+                if (QuantityTemp > 50) { Error = Error + "Quantity must be 50 or less : "; }
+            }
+            catch { Error = Error + "The quantity is not a valid number : "; }
+
+            return Error;
+        }
     }
 }

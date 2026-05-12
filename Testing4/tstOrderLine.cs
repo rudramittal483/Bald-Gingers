@@ -7,6 +7,10 @@ namespace TestingOrderLines
     [TestClass]
     public class tstOrderLine
     {
+        string OrderNo = "1";
+        string LaptopNo = "1";
+        string Quantity = "1";
+
         [TestMethod]
         public void InstanceOK()
         {
