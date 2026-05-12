@@ -11,7 +11,7 @@
         <div>
                 <asp:Label ID="lblCustomerNo" runat="server" style="position: absolute; left: 10px; top: 20px;" Text="Customer No"></asp:Label>
                 <asp:TextBox ID="txtCustomerNo" runat="server" style="position: absolute; left: 150px; top: 20px;"></asp:TextBox>
-
+                <asp:Button ID="btnFind" runat="server" style="position: absolute; left: 358px; top: 16px;" Text="Find" OnClick="btnFind_Click" />
                 <asp:Label ID="lblFirstName" runat="server" style="position: absolute; left: 10px; top: 60px;" Text="First Name"></asp:Label>
                 <asp:TextBox ID="txtFirstName" runat="server" style="position: absolute; left: 150px; top: 60px;"></asp:TextBox>
 

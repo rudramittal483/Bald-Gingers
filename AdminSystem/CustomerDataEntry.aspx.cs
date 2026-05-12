@@ -26,4 +26,29 @@ public partial class _1_DataEntry : System.Web.UI.Page
     {
         Response.Redirect("TeamMainMenu.aspx");
     }
+
+    protected void btnFind_Click(object sender, EventArgs e)
+    {
+        clsCustomer AnCustomer = new clsCustomer();
+        Int32 CustomerNo;
+        Boolean Found = false;
+
+        if (txtCustomerNo.Text != "")
+        {
+            CustomerNo = Convert.ToInt32(txtCustomerNo.Text);
+            Found = AnCustomer.Find(CustomerNo);
+           
+            if (Found == true)
+            {
+                txtCustomerNo.Text = AnCustomer.CustomerNo.ToString();
+                txtFirstName.Text = AnCustomer.FirstName.ToString();
+                txtLastName.Text = AnCustomer.LastName.ToString();
+                txtDateJoined.Text = AnCustomer.DateJoined.ToString();
+                txtEmail.Text = AnCustomer.Email.ToString();
+                chkIsActive.Checked = AnCustomer.IsActiveAccount;
+                lblError.Text = "";
+            }
+            else { lblError.Text = "Customer not found."; }
+        }
+    }
 }
