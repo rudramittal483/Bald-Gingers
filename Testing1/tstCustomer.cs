@@ -7,6 +7,12 @@ namespace Testing6
     [TestClass]
     public class tstCustomer
     {
+        string CustomerNo = "1";
+        string FirstName = "John";
+        string LastName = "Smith";
+        string Email = "john.smith@gaming.com";
+        string DateJoined = DateTime.Now.Date.ToShortDateString();
+
         [TestMethod]
         public void InstanceOK()
         {
@@ -179,6 +185,64 @@ namespace Testing6
                 OK = false;
             }
             Assert.IsTrue(OK);
+        }
+
+        [TestMethod]
+        public void ValidMethodOK()
+        {
+            //create an instance of the class we want to create
+            clsCustomer ACustomer = new clsCustomer();
+            //string variable to store any error message
+            String Error = "";
+            //invoke the method
+            Error = ACustomer.Valid(FirstName, LastName, Email, DateJoined);
+            //test to see that the result is correct
+            Assert.AreEqual(Error, "");
+        }
+
+        [TestMethod]
+        public void FirstNameMinLessOne()
+        {
+            //create an instance of the class we want to create
+            clsCustomer ACustomer = new clsCustomer();
+            //string variable to store any error message
+            String Error = "";
+            //create some test data to pass to the method
+            string TestData = ""; //this should trigger an error
+                                  //invoke the method
+            Error = ACustomer.Valid(TestData, LastName, Email, DateJoined);
+            //test to see that the result is correct
+            Assert.AreNotEqual(Error, "");
+        }
+
+        [TestMethod]
+        public void FirstNameMaxPlusOne()
+        {
+            //create an instance of the class we want to create
+            clsCustomer ACustomer = new clsCustomer();
+            //string variable to store any error message
+            String Error = "";
+            //create some test data to pass to the method
+            string TestData = "".PadRight(51, 'a');
+            //invoke the method
+            Error = ACustomer.Valid(TestData, LastName, Email, DateJoined);
+            //test to see that the result is correct
+            Assert.AreNotEqual(Error, "");
+        }
+
+        [TestMethod]
+        public void DateJoinedInvalidData()
+        {
+            //create an instance of the class we want to create
+            clsCustomer ACustomer = new clsCustomer();
+            //string variable to store any error message
+            String Error = "";
+            //create some test data to pass to the method
+            string TestData = "this is not a date!";
+            //invoke the method
+            Error = ACustomer.Valid(FirstName, LastName, Email, TestData);
+            //test to see that the result is correct
+            Assert.AreNotEqual(Error, "");
         }
     }
 }
