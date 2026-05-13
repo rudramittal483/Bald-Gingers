@@ -16,21 +16,46 @@ public partial class _1_DataEntry : System.Web.UI.Page
     {
         //create a new instance of clsStock
         ClassLibrary.clsStock AStock = new ClassLibrary.clsStock();
-        //get the data entered by the user
-        AStock.LaptopId = Convert.ToInt32(txtLaptopId.Text);
-        AStock.Brand = txtBrand.Text;
-        AStock.Model = txtModelName.Text;
-        AStock.DateAdded = Convert.ToDateTime(txtDataAdded.Text);
-        AStock.Price = Convert.ToDouble(txtPrice.Text);
-        AStock.InStock = chkInStock.Checked;
 
-        //store the object in the session
-        Session["AStock"] = AStock;
+        //capture the laptop id
+        string LaptopId = txtLaptopId.Text;
+        //capture the brand
+        string Brand = txtBrand.Text;
+        //capture the model name
+        string ModelName = txtModelName.Text;
+        //capture the date added
+        string DateAdded = txtDataAdded.Text;
+        //capture the price
+        string Price = txtPrice.Text;
+        //capture the in stock status
+        string InStock = chkInStock.Checked.ToString();
+        //variable to store any error messages
+        string Error = "";
+        //validate the data
+        Error = AStock.Valid(ModelName, Brand, Price, DateAdded);
+        if (Error == "")
+        {
 
-        //navigate to the view page
-        Response.Redirect("StockViewer.aspx");
+            //get the data entered by the user
+            AStock.LaptopId = Convert.ToInt32(txtLaptopId.Text);
+            AStock.Brand = txtBrand.Text;
+            AStock.Model = txtModelName.Text;
+            AStock.DateAdded = Convert.ToDateTime(txtDataAdded.Text);
+            AStock.Price = Convert.ToDouble(txtPrice.Text);
+            AStock.InStock = chkInStock.Checked;
+
+            //store the object in the session
+            Session["AStock"] = AStock;
+
+            //navigate to the view page
+            Response.Redirect("StockViewer.aspx");
+        }
+        else
+        {
+            //display the error message
+            lblError.Text = Error;
+        }
     }
-
     protected void btnFind_Click(object sender, EventArgs e)
     {
         //create instance of the stock class
