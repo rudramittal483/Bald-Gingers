@@ -71,25 +71,25 @@ namespace ClassLibrary
             Double AmountTemp;
             Int32 CustomerNoTemp;
 
-            if (deliveryAddress.Length == 0) { Error = Error + "The delivery address may not be blank : "; }
-            if (deliveryAddress.Length > 50) { Error = Error + "The delivery address must be less than 50 characters : "; }
+            if (deliveryAddress.Length == 0) { Error = Error + "The delivery address may not be blank. "; }
+            if (deliveryAddress.Length > 50) { Error = Error + "The delivery address must be less than 50 characters. "; }
 
             try { CustomerNoTemp = Convert.ToInt32(customerNo); }
-            catch { Error = Error + "The customer number is not a valid number : "; }
+            catch { Error = Error + "The customer number is not a valid number. "; }
             try
             {
                 AmountTemp = Convert.ToDouble(totalAmount);
-                if (AmountTemp < 0.01) { Error = Error + "The amount must be at least 0.01 : "; }
+                if (AmountTemp < 0.01) { Error = Error + "The amount must be at least 0.01. "; }
             }
-            catch { Error = Error + "The total amount is not a valid number : "; }
+            catch { Error = Error + "The total amount is not a valid number. "; }
 
             try
             {
                 DateTemp = Convert.ToDateTime(orderDate);
-                if (DateTemp < DateTime.Now.Date) { Error = Error + "The date cannot be in the past : "; }
-                if (DateTemp > DateTime.Now.Date) { Error = Error + "The date cannot be in the future : "; }
+                if (DateTemp < DateTime.Now.Date) { Error = Error + "The date cannot be in the past. "; }
+                if (DateTemp > DateTime.Now.Date) { Error = Error + "The date cannot be in the future. "; }
             }
-            catch { Error = Error + "The date was not a valid date : "; }
+            catch { Error = Error + "The date was not a valid date. "; }
 
             return Error;
         }

@@ -132,38 +132,36 @@ namespace ClassLibrary
 
         }
 
-        public string Valid(string model, string brand, string price, string dateAdded)
+        public string Valid(string Model, string Brand, string Price, string DateAdded)
         {
-            //create a string variable to store the error
             String Error = "";
-            //create a temporary variable to store date values
             DateTime DateTemp;
+            Double PriceTemp;
+            Int32 LaptopIdTemp;
 
-            //create an instance of DateTime to compare with DateTemp
-            //in the if statement
-            DateTime DateComp = DateTime.Now.Date;
+            if (Model.Length == 0) { Error = Error + "The model may not be blank. "; }
+            if (Model.Length > 100) { Error = Error + "The model must be less than 100 characters. "; }
+
+            if (Brand.Length == 0) { Error = Error + "The Brand may not be blank. "; }
+            if (Brand.Length > 100) { Error = Error + "The Brand must be less than 100 characters. "; }
+
+            try { LaptopIdTemp = Convert.ToInt32(LaptopId); }
+            catch { Error = Error + "The laptop ID is not a valid number. "; }
             try
             {
-                //copy the dateAdded value to the DateTemp variable
-                DateTemp = Convert.ToDateTime(dateAdded);
-                if (DateTemp < DateComp) //compare dateAdded with Date
-                {
-                    //record the error
-                    Error = Error + "The date cannot be in the past : ";
-                }
-                //check to see if the date is greater than today's date
-                if (DateTemp > DateComp)
-                {
-                    //record the error
-                    Error = Error + "The date cannot be in the future : ";
-                }
+                PriceTemp = Convert.ToDouble(Price);
+                if (PriceTemp < 0.01) { Error = Error + "The price must be at least 0.01. "; }
             }
-            catch
+            catch { Error = Error + "The price is not a valid number. "; }
+
+            try
             {
-                //record the error
-                Error = Error + "The date was not a valid date : ";
+                DateTemp = Convert.ToDateTime(DateAdded);
+                if (DateTemp < DateTime.Now.Date) { Error = Error + "The date cannot be in the past. "; }
+                if (DateTemp > DateTime.Now.Date) { Error = Error + "The date cannot be in the future. "; }
             }
-            //return any error messages
+            catch { Error = Error + "The date was not a valid date. "; }
+
             return Error;
         }
     }

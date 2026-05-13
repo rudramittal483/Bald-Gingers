@@ -40,7 +40,7 @@
             <asp:CheckBox ID="chkInStock" runat="server" style="z-index: 1; left: 268px; top: 320px; position: absolute" Text="In Stock" height="25px" width="168px" />
         </p>
         <p>
-            <asp:Label ID="lblError" runat="server" style="z-index: 1; left: 9px; top: 376px; position: absolute" width="103px"></asp:Label>
+            <asp:Label ID="lblError" runat="server" style="z-index: 1; left: 272px; top: 381px; position: absolute" width="103px"></asp:Label>
         </p>
         <p>
             <asp:Button ID="btnOK" runat="server" style="z-index: 1; left: 42px; top: 430px; position: absolute" Text="OK" OnClick="btnOK_Click" />

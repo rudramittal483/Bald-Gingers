@@ -182,7 +182,7 @@ namespace Testing3
             //invoke the method
             Found = AStock.Find(LaptopId);
             //check the date added
-            if (AStock.DateAdded != Convert.ToDateTime("02-10-2024"))
+            if (AStock.DateAdded != Convert.ToDateTime("10-02-2024"))
             {
                 OK = false;
             }
@@ -314,7 +314,7 @@ namespace Testing3
         public void DateAddedMin()
         {
             //create an instance of the class we want to create
-            clsStock AStock = new clsStock  ();
+            clsStock AStock = new clsStock();
             //string variable to store any error message
             String Error = "";
             //create a variable to store the test date data
@@ -328,6 +328,7 @@ namespace Testing3
             //test to see that the result is correct
             Assert.AreEqual(Error, "");
         }
+
         [TestMethod]
         public void DateAddedMinPlusOne()
         {
@@ -378,6 +379,131 @@ namespace Testing3
             String Error = "";
             //set the date variable to a non date value
             string DateAdded = "this is not a date!";
+            //invoke the method
+            Error = AStock.Valid(Model, Brand, Price, DateAdded);
+            //test to see that the result is correct
+            Assert.AreNotEqual(Error, "");
+        }
+
+        [TestMethod]
+        public void PriceInvalidData()
+        {
+            //create an instance of the class we want to create
+            clsStock AStock = new clsStock();
+            //string variable to store any error message
+            String Error = "";
+            //set the price variable to a non numeric value
+            string Price = "this is not a price!";
+            //invoke the method
+            Error = AStock.Valid(Model, Brand, Price, DateAdded);
+            //test to see that the result is correct
+            Assert.AreNotEqual(Error, "");
+        }
+
+        [TestMethod]
+        public void ModelMaxPlusOne()
+        {
+            //create an instance of the class we want to create
+            clsStock AStock = new clsStock();
+            //string variable to store any error message
+            String Error = "";
+            //set the model variable to a string that is too long
+            string Model = "";
+            Model = Model.PadRight(101, 'a');
+            //invoke the method
+            Error = AStock.Valid(Model, Brand, Price, DateAdded);
+            //test to see that the result is correct
+            Assert.AreNotEqual(Error, "");
+        }
+
+        [TestMethod]
+        public void BrandMaxPlusOne()
+        {
+            //create an instance of the class we want to create
+            clsStock AStock = new clsStock();
+            //string variable to store any error message
+            String Error = "";
+            //set the brand variable to a string that is too long
+            string Brand = "";
+            Brand = Brand.PadRight(101, 'a');
+            //invoke the method
+            Error = AStock.Valid(Model, Brand, Price, DateAdded);
+            //test to see that the result is correct
+            Assert.AreNotEqual(Error, "");
+        }
+
+        [TestMethod]
+        public void PriceMinLessOne()
+        {
+            //create an instance of the class we want to create
+            clsStock AStock = new clsStock();
+            //string variable to store any error message
+            String Error = "";
+            //set the price variable to a negative value
+            string Price = "-1";
+            //invoke the method
+            Error = AStock.Valid(Model, Brand, Price, DateAdded);
+            //test to see that the result is correct
+            Assert.AreNotEqual(Error, "");
+        }
+
+
+        [TestMethod]
+        public void ModelInvalidData()
+        {
+            //create an instance of the class we want to create
+            clsStock AStock = new clsStock();
+            //string variable to store any error message
+            String Error = "";
+            //set the model variable to an empty string
+            string Model = "";
+            //invoke the method
+            Error = AStock.Valid(Model, Brand, Price, DateAdded);
+            //test to see that the result is correct
+            Assert.AreNotEqual(Error, "");
+        }
+
+        [TestMethod]
+        public void BrandInvalidData()
+        {
+            //create an instance of the class we want to create
+            clsStock AStock = new clsStock();
+            //string variable to store any error message
+            String Error = "";
+            //set the brand variable to an empty string
+            string Brand = "";
+            //invoke the method
+            Error = AStock.Valid(Model, Brand, Price, DateAdded);
+            //test to see that the result is correct
+            Assert.AreNotEqual(Error, "");
+        }
+
+        [TestMethod]
+        public void ModelMinMinusOne()
+        {
+            //create an instance of the class we want to create
+            clsStock AStock = new clsStock();
+            //string variable to store any error message
+            String Error = "";
+            //set the model variable to a string that is too short
+            string Model = "";
+            Model = Model.PadRight(0, 'a');
+            //invoke the method
+            Error = AStock.Valid(Model, Brand, Price, DateAdded);
+            //test to see that the result is correct
+            Assert.AreNotEqual(Error, "");
+        }
+
+        [TestMethod]
+        public void BrandMinMinusOne()
+        {
+            //create an instance of the class we want to create
+            clsStock AStock = new clsStock();
+            //string variable to store any error message
+            String Error = "";
+            //set the brand variable to a string that is too short
+            string Brand = "";
+            Brand = Brand.PadRight(0, 'a');
             //invoke the method
             Error = AStock.Valid(Model, Brand, Price, DateAdded);
             //test to see that the result is correct
