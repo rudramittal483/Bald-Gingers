@@ -165,7 +165,7 @@ namespace Testing6
             Boolean OK = true;
             Int32 CustomerNo = 1;
             Found = ACustomer.Find(CustomerNo);
-            if (ACustomer.DateJoined != Convert.ToDateTime("01/15/2026"))
+            if (ACustomer.DateJoined != Convert.ToDateTime("15/01/2026"))
             {
                 OK = false;
             }
