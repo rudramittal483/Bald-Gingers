@@ -24,7 +24,7 @@
                 <asp:Label ID="lblDateJoined" runat="server" style="position: absolute; left: 10px; top: 180px;" Text="Date Joined"></asp:Label>
                 <asp:TextBox ID="txtDateJoined" runat="server" style="position: absolute; left: 150px; top: 180px;"></asp:TextBox>
 
-                <asp:CheckBox ID="chkIsActive" runat="server" style="position: absolute; left: 10px; top: 220px;" Text="Active" />
+                <asp:CheckBox ID="chkIsActiveAccount" runat="server" style="position: absolute; left: 10px; top: 220px;" Text="Active" />
 
                 <asp:Label ID="lblError" runat="server" style="position: absolute; left: 10px; top: 260px;" Text="" ForeColor="Red"></asp:Label>
 
