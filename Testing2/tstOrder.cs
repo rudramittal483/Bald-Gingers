@@ -142,7 +142,7 @@ namespace TestingOrders
             String Error = AnOrder.Valid(CustomerNo, OrderDate, TotalAmount, DeliveryAddress);
             Assert.AreEqual(Error, "");
         }
-
+ 
         [TestMethod]
         public void DeliveryAddressMinLessOne()
         {
