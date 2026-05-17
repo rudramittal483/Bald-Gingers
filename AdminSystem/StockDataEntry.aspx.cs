@@ -19,29 +19,44 @@ public partial class _1_DataEntry : System.Web.UI.Page
 
         //capture the laptop id
         string LaptopId = txtLaptopId.Text;
+        //capture the discount id
+        string DiscountId = txtDiscountId.Text;
         //capture the brand
         string Brand = txtBrand.Text;
         //capture the model name
         string ModelName = txtModelName.Text;
         //capture the date added
-        string DateAdded = txtDataAdded.Text;
+        string DateAdded = txtDateAdded.Text;
         //capture the price
         string Price = txtPrice.Text;
+        //capture the quantity
+        string Quantity = txtQuantity.Text;
         //capture the in stock status
         string InStock = chkInStock.Checked.ToString();
         //variable to store any error messages
         string Error = "";
         //validate the data
-        Error = AStock.Valid(ModelName, Brand, Price, DateAdded);
+        Error = AStock.Valid(ModelName, Brand, Price, DateAdded, DiscountId, Quantity);
         if (Error == "")
         {
 
             //get the data entered by the user
             AStock.LaptopId = Convert.ToInt32(txtLaptopId.Text);
+            if (txtDiscountId.Text.Length == 0)
+            {
+                // Assign a default value that represents "no discount" or "null" in your system
+                AStock.DiscountId = 0;
+            }
+            else
+            {
+                // It's not empty, so it's safe(r) to attempt conversion
+                AStock.DiscountId = Convert.ToInt32(txtDiscountId.Text);
+            }
             AStock.Brand = txtBrand.Text;
             AStock.Model = txtModelName.Text;
-            AStock.DateAdded = Convert.ToDateTime(txtDataAdded.Text);
+            AStock.DateAdded = Convert.ToDateTime(txtDateAdded.Text);
             AStock.Price = Convert.ToDouble(txtPrice.Text);
+            AStock.Quantity = Convert.ToInt32(txtQuantity.Text);
             AStock.InStock = chkInStock.Checked;
 
             //store the object in the session
@@ -74,8 +89,10 @@ public partial class _1_DataEntry : System.Web.UI.Page
             //display the values of the properties in the form
             txtBrand.Text = AStock.Brand;
             txtModelName.Text = AStock.Model;
-            txtDataAdded.Text = AStock.DateAdded.ToString();
+            txtDateAdded.Text = AStock.DateAdded.ToString();
             txtPrice.Text = AStock.Price.ToString();
+            txtDiscountId.Text = AStock.DiscountId.ToString();
+            txtQuantity.Text = AStock.Quantity.ToString();
             chkInStock.Checked = AStock.InStock;
         }
     }

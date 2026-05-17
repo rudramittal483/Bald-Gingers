@@ -37,6 +37,8 @@ namespace Testing3
             TestItem.Brand = "HP";
             TestItem.Price = 1249.99;
             TestItem.DateAdded = DateTime.Now.Date;
+            TestItem.DiscountId = 1;
+            TestItem.Quantity = 25;
             //add the item to the list
             TestList.Add(TestItem);
             //assign the data to the property
@@ -59,6 +61,8 @@ namespace Testing3
             TestStock.Brand = "HP";
             TestStock.Price = 1249.99;
             TestStock.DateAdded = DateTime.Now.Date;
+            TestStock.DiscountId = 1;
+            TestStock.Quantity = 25;
             //assign the data to the property
             AllStocks.ThisStock = TestStock;
             //test to see that the two values are the same
@@ -83,6 +87,8 @@ namespace Testing3
             TestItem.Brand = "HP";
             TestItem.Price = 1249.99;
             TestItem.DateAdded = DateTime.Now.Date;
+            TestItem.DiscountId = 1;
+            TestItem.Quantity = 25;
             //add the item to the list
             TestList.Add(TestItem);
             //assign the data to the property
