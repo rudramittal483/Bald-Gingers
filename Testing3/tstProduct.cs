@@ -15,8 +15,6 @@ namespace Testing3
         string Brand = "HP";
         string Price = 1249.99.ToString();
         string DateAdded = DateTime.Now.Date.ToString();
-        string DiscountId = 1.ToString();
-        string Quantity = 25.ToString();
 
 
         [TestMethod]
@@ -105,32 +103,6 @@ namespace Testing3
             //test to see that the two values are the same
             Assert.AreEqual(AStock.Price, TestData);
 
-        }
-
-        [TestMethod]
-        public void DiscountIdPropertyOK()
-        {
-            //create an instance of the class we want to create
-            clsStock AStock = new clsStock();
-            //create some test data to assign to the property
-            Int32 TestData = 1;
-            //assign the data to the property
-            AStock.DiscountId = TestData;
-            //test to see that the two values are the same
-            Assert.AreEqual(AStock.DiscountId, TestData);
-        }
-
-        [TestMethod]
-        public void QuantityPropertyOK()
-        {
-            //create an instance of the class we want to create
-            clsStock AStock = new clsStock();
-            //create some test data to assign to the property
-            Int32 TestData = 10;
-            //assign the data to the property
-            AStock.Quantity = TestData;
-            //test to see that the two values are the same
-            Assert.AreEqual(AStock.Quantity, TestData);
         }
 
         [TestMethod]
@@ -285,50 +257,6 @@ namespace Testing3
         }
 
         [TestMethod]
-        public void DiscountIdFound()
-        {
-            //create an instance of the class we want to create
-            clsStock AStock = new clsStock();
-            //boolean variable to store the results of the validation
-            Boolean Found = false;
-            //create boolean variable to record if data is OK (assume it is)
-            Boolean OK = true;
-            //create some test data to use with the method
-            Int32 LaptopId = 4;
-            //invoke the method
-            Found = AStock.Find(LaptopId);
-            //check the discount id
-            if (AStock.DiscountId != 1)
-            {
-                OK = false;
-            }
-            //test to see that the result is correct
-            Assert.IsTrue(OK);
-        }
-
-        [TestMethod]
-        public void QuantityFound()
-        {
-            //create an instance of the class we want to create
-            clsStock AStock = new clsStock();
-            //boolean variable to store the results of the validation
-            Boolean Found = false;
-            //create boolean variable to record if data is OK (assume it is)
-            Boolean OK = true;
-            //create some test data to use with the method
-            Int32 LaptopId = 4;
-            //invoke the method
-            Found = AStock.Find(LaptopId);
-            //check the quantity
-            if (AStock.Quantity != 25)
-            {
-                OK = false;
-            }
-            //test to see that the result is correct
-            Assert.IsTrue(OK);
-        }
-
-        [TestMethod]
         public void ValidMethodOK()
         {
             //create an instance of the class we want to create
@@ -336,7 +264,7 @@ namespace Testing3
             //boolean variable to store the results of the validation
             Boolean OK = true;
             //invoke the method
-            String Error = AStock.Valid(Model, Brand, Price, DateAdded, DiscountId, Quantity);
+            String Error = AStock.Valid(Model, Brand, Price, DateAdded);
             //test to see that the result is correct
             Assert.AreEqual(Error, "");
         }
@@ -357,7 +285,7 @@ namespace Testing3
             //convert the date variable to a string variable
             string DateAdded = TestDate.ToString();
             //invoke the method
-            Error = AStock.Valid(Model, Brand, Price, DateAdded, DiscountId, Quantity);
+            Error = AStock.Valid(Model, Brand, Price, DateAdded);
             //test to see that the result is correct
             Assert.AreNotEqual(Error, "");
         }
@@ -377,7 +305,7 @@ namespace Testing3
             //convert the date variable to a string variable
             string DateAdded = TestDate.ToString();
             //invoke the method
-            Error = AStock.Valid(Model, Brand, Price, DateAdded, DiscountId, Quantity);
+            Error = AStock.Valid(Model, Brand, Price, DateAdded);
             //test to see that the result is correct
             Assert.AreNotEqual(Error, "");
         }
@@ -396,7 +324,7 @@ namespace Testing3
             //convert the date variable to a string variable
             string DateAdded = TestDate.ToString();
             //invoke the method
-            Error = AStock.Valid(Model, Brand, Price, DateAdded, DiscountId, Quantity);
+            Error = AStock.Valid(Model, Brand, Price, DateAdded);
             //test to see that the result is correct
             Assert.AreEqual(Error, "");
         }
@@ -417,7 +345,7 @@ namespace Testing3
             //convert the date variable to a string variable
             string DateAdded = TestDate.ToString();
             //invoke the method
-            Error = AStock.Valid(Model, Brand, Price, DateAdded, DiscountId, Quantity);
+            Error = AStock.Valid(Model, Brand, Price, DateAdded);
             //test to see that the result is correct
             Assert.AreNotEqual(Error, "");
         }
@@ -437,7 +365,7 @@ namespace Testing3
             //convert the date variable to a string variable
             string DateAdded = TestDate.ToString();
             //invoke the method
-            Error = AStock.Valid(Model, Brand, Price, DateAdded, DiscountId, Quantity);
+            Error = AStock.Valid(Model, Brand, Price, DateAdded);
             //test to see that the result is correct
             Assert.AreNotEqual(Error, "");
         }
@@ -452,7 +380,7 @@ namespace Testing3
             //set the date variable to a non date value
             string DateAdded = "this is not a date!";
             //invoke the method
-            Error = AStock.Valid(Model, Brand, Price, DateAdded, DiscountId, Quantity);
+            Error = AStock.Valid(Model, Brand, Price, DateAdded);
             //test to see that the result is correct
             Assert.AreNotEqual(Error, "");
         }
@@ -467,7 +395,7 @@ namespace Testing3
             //set the price variable to a non numeric value
             string Price = "this is not a price!";
             //invoke the method
-            Error = AStock.Valid(Model, Brand, Price, DateAdded, DiscountId, Quantity);
+            Error = AStock.Valid(Model, Brand, Price, DateAdded);
             //test to see that the result is correct
             Assert.AreNotEqual(Error, "");
         }
@@ -483,7 +411,7 @@ namespace Testing3
             string Model = "";
             Model = Model.PadRight(101, 'a');
             //invoke the method
-            Error = AStock.Valid(Model, Brand, Price, DateAdded, DiscountId, Quantity);
+            Error = AStock.Valid(Model, Brand, Price, DateAdded);
             //test to see that the result is correct
             Assert.AreNotEqual(Error, "");
         }
@@ -499,7 +427,7 @@ namespace Testing3
             string Brand = "";
             Brand = Brand.PadRight(101, 'a');
             //invoke the method
-            Error = AStock.Valid(Model, Brand, Price, DateAdded, DiscountId, Quantity);
+            Error = AStock.Valid(Model, Brand, Price, DateAdded);
             //test to see that the result is correct
             Assert.AreNotEqual(Error, "");
         }
@@ -514,7 +442,7 @@ namespace Testing3
             //set the price variable to a negative value
             string Price = "-1";
             //invoke the method
-            Error = AStock.Valid(Model, Brand, Price, DateAdded, DiscountId, Quantity);
+            Error = AStock.Valid(Model, Brand, Price, DateAdded);
             //test to see that the result is correct
             Assert.AreNotEqual(Error, "");
         }
@@ -530,7 +458,7 @@ namespace Testing3
             //set the model variable to an empty string
             string Model = "";
             //invoke the method
-            Error = AStock.Valid(Model, Brand, Price, DateAdded, DiscountId, Quantity);
+            Error = AStock.Valid(Model, Brand, Price, DateAdded);
             //test to see that the result is correct
             Assert.AreNotEqual(Error, "");
         }
@@ -545,7 +473,7 @@ namespace Testing3
             //set the brand variable to an empty string
             string Brand = "";
             //invoke the method
-            Error = AStock.Valid(Model, Brand, Price, DateAdded, DiscountId, Quantity);
+            Error = AStock.Valid(Model, Brand, Price, DateAdded);
             //test to see that the result is correct
             Assert.AreNotEqual(Error, "");
         }
@@ -561,7 +489,7 @@ namespace Testing3
             string Model = "";
             Model = Model.PadRight(0, 'a');
             //invoke the method
-            Error = AStock.Valid(Model, Brand, Price, DateAdded, DiscountId, Quantity);
+            Error = AStock.Valid(Model, Brand, Price, DateAdded);
             //test to see that the result is correct
             Assert.AreNotEqual(Error, "");
         }
@@ -577,67 +505,7 @@ namespace Testing3
             string Brand = "";
             Brand = Brand.PadRight(0, 'a');
             //invoke the method
-            Error = AStock.Valid(Model, Brand, Price, DateAdded, DiscountId, Quantity);
-            //test to see that the result is correct
-            Assert.AreNotEqual(Error, "");
-        }
-
-        [TestMethod]
-        public void DiscountIdMinLessOne()
-        {
-            //create an instance of the class we want to create
-            clsStock AStock = new clsStock();
-            //string variable to store any error message
-            String Error = "";
-            //set the discount id variable to a value less than the minimum
-            string DiscountId = "-1";
-            //invoke the method
-            Error = AStock.Valid(Model, Brand, Price, DateAdded, DiscountId, Quantity);
-            //test to see that the result is correct
-            Assert.AreNotEqual(Error, "");
-        }
-
-        [TestMethod]
-        public void QuantityMinLessOne()
-        {
-            //create an instance of the class we want to create
-            clsStock AStock = new clsStock();
-            //string variable to store any error message
-            String Error = "";
-            //set the quantity variable to a value less than the minimum
-            string Quantity = "-1";
-            //invoke the method
-            Error = AStock.Valid(Model, Brand, Price, DateAdded, DiscountId, Quantity);
-            //test to see that the result is correct
-            Assert.AreNotEqual(Error, "");
-        }
-
-        [TestMethod]
-        public void QuantityInvalidData()
-        {
-            //create an instance of the class we want to create
-            clsStock AStock = new clsStock();
-            //string variable to store any error message
-            String Error = "";
-            //set the quantity variable to a non numeric value
-            string Quantity = "this is not a quantity!";
-            //invoke the method
-            Error = AStock.Valid(Model, Brand, Price, DateAdded, DiscountId, Quantity);
-            //test to see that the result is correct
-            Assert.AreNotEqual(Error, "");
-        }
-
-        [TestMethod]
-        public void DiscountIdInvalidData()
-        {
-            //create an instance of the class we want to create
-            clsStock AStock = new clsStock();
-            //string variable to store any error message
-            String Error = "";
-            //set the discount id variable to a non numeric value
-            string DiscountId = "this is not a discount id!";
-            //invoke the method
-            Error = AStock.Valid(Model, Brand, Price, DateAdded, DiscountId, Quantity);
+            Error = AStock.Valid(Model, Brand, Price, DateAdded);
             //test to see that the result is correct
             Assert.AreNotEqual(Error, "");
         }

@@ -5,11 +5,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{FDF1944D-85CF-4AAF-AB55-C62255437A06}</ProjectGuid>
+    <ProjectGuid>{7032FF54-9316-4FFF-9612-EBA55F9781BA}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Testing6</RootNamespace>
-    <AssemblyName>Testing6</AssemblyName>
+    <RootNamespace>Testing3</RootNamespace>
+    <AssemblyName>Testing3</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -50,8 +50,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="tstDiscount.cs" />
-    <Compile Include="tstDiscountCollection.cs" />
+    <Compile Include="tstStock.cs" />
+    <Compile Include="tstStockCollection.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -16,10 +16,12 @@ public partial class _1Viewer : System.Web.UI.Page
         AStock = (clsStock)Session["AStock"];
         //display the data for this entry
         Response.Write("Laptop ID: " + AStock.LaptopId + "<br/>");
+        Response.Write("Discount ID: " + AStock.DiscountId + "<br/>");
         Response.Write("Brand: " + AStock.Brand + "<br/>");
         Response.Write("Model Name: " + AStock.Model + "<br/>");
         Response.Write("Date Added: " + AStock.DateAdded + "<br/>");
         Response.Write("Price: " + AStock.Price + "<br/>");
+        Response.Write("Quantity: " + AStock.Quantity + "<br/>");
         Response.Write("In Stock: " + AStock.InStock + "<br/>");
     }
 }
