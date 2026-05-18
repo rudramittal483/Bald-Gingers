@@ -8,17 +8,43 @@ using ClassLibrary;
 
 public partial class _1_DataEntry : System.Web.UI.Page
 {
+    Int32 LaptopId;
     protected void Page_Load(object sender, EventArgs e)
     {
-
+        
+        //get the number of the stock to be processed
+        LaptopId = Convert.ToInt32(Session["LaptopId"]);
+        if (IsPostBack == false)
+        {
+            //if this is not a new record
+            if (LaptopId != -1)
+            {
+                //display the current data for the record
+                DisplayStock();
+            }
+        }
     }
+    void DisplayStock()
+    {
+        //create an instance of the stock class
+        clsStockCollection StockCollection = new clsStockCollection();
+        //find the record to update
+        StockCollection.ThisStock.Find(LaptopId);
+        //display the data for this record
+        txtBrand.Text = StockCollection.ThisStock.Brand;
+        txtModelName.Text = StockCollection.ThisStock.Model;
+        txtDateAdded.Text = StockCollection.ThisStock.DateAdded.ToString();
+        txtPrice.Text = StockCollection.ThisStock.Price.ToString();
+        txtDiscountId.Text = StockCollection.ThisStock.DiscountId.ToString();
+        txtQuantity.Text = StockCollection.ThisStock.Quantity.ToString();
+        chkInStock.Checked = StockCollection.ThisStock.InStock;
+    }
+
     protected void btnOK_Click(object sender, EventArgs e)
     {
         //create a new instance of clsStock
         ClassLibrary.clsStock AStock = new ClassLibrary.clsStock();
 
-        //capture the laptop id
-        string LaptopId = txtLaptopId.Text;
         //capture the discount id
         string DiscountId = txtDiscountId.Text;
         //capture the brand
@@ -41,7 +67,7 @@ public partial class _1_DataEntry : System.Web.UI.Page
         {
 
             //get the data entered by the user
-            AStock.LaptopId = Convert.ToInt32(txtLaptopId.Text);
+            AStock.LaptopId = LaptopId;
             if (txtDiscountId.Text.Length == 0)
             {
                 // Assign a default value that represents "no discount" or "null" in your system
@@ -58,10 +84,25 @@ public partial class _1_DataEntry : System.Web.UI.Page
             AStock.Price = Convert.ToDouble(txtPrice.Text);
             AStock.Quantity = Convert.ToInt32(txtQuantity.Text);
             AStock.InStock = chkInStock.Checked;
+            //create a new instance of the stock collection
+            ClassLibrary.clsStockCollection StockList = new ClassLibrary.clsStockCollection();
 
-            //store the object in the session
+            //if this is a new record i.e. LaptopId = -1 then add the data
+            if (LaptopId == -1)
+            {
+                StockList.ThisStock = AStock;
+                StockList.Add();
+            }
+            else //otherwise it must be an update
+            {
+                //find the record to update
+                StockList.ThisStock.Find(LaptopId);
+                //set the ThisStock property to the new data
+                StockList.ThisStock = AStock;
+                //update the record
+                StockList.Update();
+            }
             Session["AStock"] = AStock;
-
             //navigate to the view page
             Response.Redirect("StockViewer.aspx");
         }
@@ -73,27 +114,38 @@ public partial class _1_DataEntry : System.Web.UI.Page
     }
     protected void btnFind_Click(object sender, EventArgs e)
     {
-        //create instance of the stock class
-        clsStock AStock = new clsStock();
-        //create a variable to store the primary key
-        Int32 LaptopId;
-        //create a boolean variable to store the result of the find operation
-        Boolean Found = false;
-        //get the primary key entered by the user
-        LaptopId = Convert.ToInt32(txtLaptopId.Text);
-        //find the record
-        Found = AStock.Find(LaptopId);
-        //if found
-        if (Found == true)
+        // Only attempt to find if the text box is NOT empty
+        if (txtLaptopId.Text.Length > 0)
         {
-            //display the values of the properties in the form
-            txtBrand.Text = AStock.Brand;
-            txtModelName.Text = AStock.Model;
-            txtDateAdded.Text = AStock.DateAdded.ToString();
-            txtPrice.Text = AStock.Price.ToString();
-            txtDiscountId.Text = AStock.DiscountId.ToString();
-            txtQuantity.Text = AStock.Quantity.ToString();
-            chkInStock.Checked = AStock.InStock;
+            //create instance of the stock class
+            clsStock AStock = new clsStock();
+            //create a boolean variable to store the result of the find operation
+            Boolean Found = false;
+
+            //get the primary key entered by the user
+            Int32 LaptopId = Convert.ToInt32(txtLaptopId.Text);
+
+            //find the record
+            Found = AStock.Find(LaptopId);
+
+            //if found
+            if (Found == true)
+            {
+                //display the values of the properties in the form
+                txtBrand.Text = AStock.Brand;
+                txtModelName.Text = AStock.Model;
+                txtDateAdded.Text = AStock.DateAdded.ToString();
+                txtPrice.Text = AStock.Price.ToString();
+                txtDiscountId.Text = AStock.DiscountId.ToString();
+                txtQuantity.Text = AStock.Quantity.ToString();
+                chkInStock.Checked = AStock.InStock;
+            }
+            else
+            {
+                // Optional: Tell the user the ID wasn't found in the database
+                lblError.Text = "Laptop ID not found.";
+            }
         }
     }
+
 }
