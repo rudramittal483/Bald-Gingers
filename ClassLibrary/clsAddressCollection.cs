@@ -67,7 +67,43 @@ namespace ClassLibrary
 
         public int Add()
         {
-            throw new NotImplementedException();
+            //adds a record to the database based on the values of mThisAddress
+            //connect to the database
+            clsDataConnection DB = new clsDataConnection();
+
+            //set the parameters for the stored procedure
+            DB.AddParameter("@CustomerNo", mThisAddress.CustomerNo);
+            DB.AddParameter("@Emirate", mThisAddress.Emirate);
+            DB.AddParameter("@BuildingName", mThisAddress.BuildingName);
+            DB.AddParameter("@StreetName", mThisAddress.StreetName);
+            DB.AddParameter("@AddressType", mThisAddress.AddressType);
+            DB.AddParameter("@Postcode", mThisAddress.Postcode);
+            DB.AddParameter("@IsDefault", mThisAddress.IsDefault);
+
+            //execute the query returning the primary key value
+            return DB.Execute("sproc_tblAddress_Insert");
+        }
+
+        public void Update()
+        {
+            //update an existing record based on the values of mThisAddress
+            //connect to the database
+            clsDataConnection DB = new clsDataConnection();
+
+            //set the parameters for the new stored procedure
+            //First parameter is the Primary Key
+            DB.AddParameter("@AddressId", mThisAddress.AddressId);
+            //The rest of the fields
+            DB.AddParameter("@CustomerNo", mThisAddress.CustomerNo);
+            DB.AddParameter("@Emirate", mThisAddress.Emirate);
+            DB.AddParameter("@BuildingName", mThisAddress.BuildingName);
+            DB.AddParameter("@StreetName", mThisAddress.StreetName);
+            DB.AddParameter("@AddressType", mThisAddress.AddressType);
+            DB.AddParameter("@Postcode", mThisAddress.Postcode);
+            DB.AddParameter("@IsDefault", mThisAddress.IsDefault);
+
+            //execute the stored procedure
+            DB.Execute("sproc_tblAddress_Update");
         }
     }
 }

@@ -18,29 +18,51 @@ public partial class _1_DataEntry : System.Web.UI.Page
         string FirstName = txtFirstName.Text;
         string LastName = txtLastName.Text;
         string Email = txtEmail.Text;
-        string DateJoined = txtDateJoined.Text;
+        string DateJoinedText = txtDateJoined.Text;
 
         //variable to store any error messages
         string Error = "";
 
         //validate the data
-        Error = ACustomer.Valid(FirstName, LastName, Email, DateJoined);
+        Error = ACustomer.Valid(FirstName, LastName, Email, DateJoinedText);
 
         if (Error == "")
         {
-            //capture the properties
-            ACustomer.CustomerNo = Convert.ToInt32(txtCustomerNo.Text);
+            //capture the customer no (DON'T MISS THIS BIT !!!!!)
+            //CustomerNo is the page-level variable we set in Page_Load
+            ACustomer.CustomerNo = CustomerNo;
+
+            //capture the rest of the properties
             ACustomer.FirstName = FirstName;
             ACustomer.LastName = LastName;
             ACustomer.Email = Email;
-            ACustomer.DateJoined = Convert.ToDateTime(DateJoined);
+            ACustomer.DateJoined = Convert.ToDateTime(DateJoinedText);
             ACustomer.IsActiveAccount = chkIsActiveAccount.Checked;
 
-            //store the customer in the session object
-            Session["ACustomer"] = ACustomer;
+            //create a new instance of the customer collection
+            clsCustomerCollection CustomerList = new clsCustomerCollection();
 
-            //redirect to the viewer page
-            Response.Redirect("CustomerViewer.aspx");
+            //if this is a new record i.e. CustomerNo = -1 then add the data
+            if (CustomerNo == -1)
+            {
+                //set the ThisCustomer property
+                CustomerList.ThisCustomer = ACustomer;
+                //add the new record
+                CustomerList.Add();
+            }
+            //otherwise it must be an update
+            else
+            {
+                //find the record to update
+                CustomerList.ThisCustomer.Find(CustomerNo);
+                //set the ThisCustomer property
+                CustomerList.ThisCustomer = ACustomer;
+                //update the record
+                CustomerList.Update();
+            }
+
+            //redirect back to the list page
+            Response.Redirect("CustomerList.aspx");
         }
         else
         {
@@ -77,5 +99,43 @@ public partial class _1_DataEntry : System.Web.UI.Page
             }
             else { lblError.Text = "Customer not found."; }
         }
+    }
+
+    //variable to store the primary key with page level scope
+    Int32 CustomerNo;
+
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        //get the number of the customer to be processed
+        CustomerNo = Convert.ToInt32(Session["CustomerNo"]);
+
+        if (IsPostBack == false)
+        {
+            //if this is not a new record (-1 means new)
+            if (CustomerNo != -1)
+            {
+                //display the current data for the record
+                DisplayCustomer();
+            }
+        }
+    }
+
+    // Method to fetch the existing record and fill the text boxes
+    void DisplayCustomer()
+    {
+        //create an instance of the customer collection
+        clsCustomerCollection CustomerBook = new clsCustomerCollection();
+
+        //find the record to update
+        CustomerBook.ThisCustomer.Find(CustomerNo);
+
+        //display the data for this record inside the text boxes
+        txtCustomerNo.Text = CustomerBook.ThisCustomer.CustomerNo.ToString();
+        txtFirstName.Text = CustomerBook.ThisCustomer.FirstName;
+        txtLastName.Text = CustomerBook.ThisCustomer.LastName;
+        txtEmail.Text = CustomerBook.ThisCustomer.Email;
+        // Format the date so it looks nice in the text box
+        txtDateJoined.Text = CustomerBook.ThisCustomer.DateJoined.ToString("dd/MM/yyyy");
+        chkIsActiveAccount.Checked = CustomerBook.ThisCustomer.IsActiveAccount;
     }
 }

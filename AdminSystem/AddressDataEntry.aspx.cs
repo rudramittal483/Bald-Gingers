@@ -14,47 +14,57 @@ public partial class AddressDataEntry : System.Web.UI.Page
         clsAddress AnAddress = new clsAddress();
 
         //capture the data from the UI controls as strings
-        string CustomerNo = txtCustomerNo.Text;
+        string CustomerNoText = txtCustomerNo.Text;
         string Emirate = txtEmirate.Text;
         string BuildingName = txtBuildingName.Text;
         string StreetName = txtStreetName.Text;
         string AddressType = txtAddressType.Text;
-        string Postcode = txtPostcode.Text;
+        string PostcodeText = txtPostcode.Text;
 
         //variable to store any error messages
         string Error = "";
 
         //validate the data
-        Error = AnAddress.Valid(CustomerNo, Emirate, BuildingName, StreetName, AddressType, Postcode);
+        Error = AnAddress.Valid(CustomerNoText, Emirate, BuildingName, StreetName, AddressType, PostcodeText);
 
         if (Error == "")
         {
-            //capture the properties
-            AnAddress.CustomerNo = Convert.ToInt32(CustomerNo);
+            //capture the address id (DON't MISS THIS BIT !!!!!)
+            //AddressId is the page-level variable we set in Page_Load
+            AnAddress.AddressId = AddressId;
+
+            //capture the rest of the properties
+            AnAddress.CustomerNo = Convert.ToInt32(CustomerNoText);
             AnAddress.Emirate = Emirate;
             AnAddress.BuildingName = BuildingName;
             AnAddress.StreetName = StreetName;
             AnAddress.AddressType = AddressType;
-            AnAddress.Postcode = Convert.ToInt32(Postcode);
+            AnAddress.Postcode = Convert.ToInt32(PostcodeText);
             AnAddress.IsDefault = chkIsDefault.Checked;
 
             //create a new instance of the address collection
             clsAddressCollection AddressList = new clsAddressCollection();
 
             //if this is a new record i.e. AddressId = -1 then add the data
-            if (Convert.ToInt32(Session["AddressId"]) == -1)
+            if (AddressId == -1)
             {
                 //set the ThisAddress property
                 AddressList.ThisAddress = AnAddress;
-                //add the new record to the database
+                //add the new record
                 AddressList.Add();
             }
+            //otherwise it must be an update
             else
             {
-                // NOTE: We will add the Update() logic here later!
+                //find the record to update
+                AddressList.ThisAddress.Find(AddressId);
+                //set the ThisAddress property
+                AddressList.ThisAddress = AnAddress;
+                //update the record
+                AddressList.Update();
             }
 
-            //redirect back to the list page so the user can see their new record
+            //redirect back to the list page
             Response.Redirect("AddressList.aspx");
         }
         else
@@ -106,5 +116,44 @@ public partial class AddressDataEntry : System.Web.UI.Page
                 lblError.Text = "Address not found.";
             }
         }
+    }
+
+    //variable to store the primary key with page level scope
+    Int32 AddressId;
+
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        //get the number of the address to be processed
+        AddressId = Convert.ToInt32(Session["AddressId"]);
+
+        if (IsPostBack == false)
+        {
+            //if this is not a new record (-1 means new)
+            if (AddressId != -1)
+            {
+                //display the current data for the record
+                DisplayAddress();
+            }
+        }
+    }
+
+    // Method to fetch the existing record and fill the text boxes
+    void DisplayAddress()
+    {
+        //create an instance of the address collection
+        clsAddressCollection AddressBook = new clsAddressCollection();
+
+        //find the record to update
+        AddressBook.ThisAddress.Find(AddressId);
+
+        //display the data for this record inside the text boxes
+        txtAddressId.Text = AddressBook.ThisAddress.AddressId.ToString();
+        txtCustomerNo.Text = AddressBook.ThisAddress.CustomerNo.ToString();
+        txtEmirate.Text = AddressBook.ThisAddress.Emirate;
+        txtBuildingName.Text = AddressBook.ThisAddress.BuildingName;
+        txtStreetName.Text = AddressBook.ThisAddress.StreetName;
+        txtAddressType.Text = AddressBook.ThisAddress.AddressType;
+        txtPostcode.Text = AddressBook.ThisAddress.Postcode.ToString();
+        chkIsDefault.Checked = AddressBook.ThisAddress.IsDefault;
     }
 }
