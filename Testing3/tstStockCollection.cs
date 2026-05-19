@@ -96,5 +96,111 @@ namespace Testing3
             //test to see that the count is correct
             Assert.AreEqual(AllStocks.Count, TestList.Count);
         }
+
+        [TestMethod]
+        public void AddMethodOK()
+        {
+            //create an instance of the class we want to create
+            clsStockCollection AllStocks = new clsStockCollection();
+            //create some test data to assign to the property
+            clsStock TestStock = new clsStock();
+            //var to store the primary key
+            Int32 PrimaryKey = 0;
+            //set the properties of the test object
+            TestStock.InStock = true;
+            TestStock.LaptopId = 6;
+            TestStock.Model = "LOQ 15ARP9";
+            TestStock.Brand = "Lenovo";
+            TestStock.Price = 899.99;
+            TestStock.DateAdded = DateTime.Now.Date;
+            TestStock.DiscountId = 0;
+            TestStock.Quantity = 25;
+            //set ThisStock to the test data
+            AllStocks.ThisStock = TestStock;
+            //add the record
+            PrimaryKey = AllStocks.Add();
+            //set the primary key of the test data
+            TestStock.LaptopId = PrimaryKey;
+            //find the record
+            AllStocks.ThisStock.Find(PrimaryKey);
+            //test to see that the two values are the same
+            Assert.AreEqual(AllStocks.ThisStock, TestStock);
+
+        }
+
+        [TestMethod]
+        public void UpdateMethodOK()
+        {
+            //create an instance of the class we want to create
+            clsStockCollection AllStocks = new clsStockCollection();
+            //create some test data to assign to the property
+            clsStock TestStock = new clsStock();
+            //var to store the primary key
+            Int32 PrimaryKey = 0;
+            //set the properties of the test object
+            TestStock.InStock = true;
+            TestStock.Model = "LOQ 15ARP9";
+            TestStock.Brand = "Lenovo";
+            TestStock.Price = 899.99;
+            TestStock.DateAdded = DateTime.Now.Date;
+            TestStock.DiscountId = 0;
+            TestStock.Quantity = 25;
+            //set ThisStock to the test data
+            AllStocks.ThisStock = TestStock;
+            //add the record
+            PrimaryKey = AllStocks.Add();
+            //set the primary key of the test data
+            TestStock.LaptopId = PrimaryKey;
+            //modify the test data
+            TestStock.InStock = false;
+            TestStock.Model = "LOQ 15ARP9";
+            TestStock.Brand = "Lenovo";
+            TestStock.Price = 799.99;
+            TestStock.DateAdded = DateTime.Now.Date;
+            TestStock.DiscountId = 0;
+            TestStock.Quantity = 0;
+            //set the record based on the new test data
+            AllStocks.ThisStock = TestStock;
+            //update the record
+            AllStocks.Update();
+            //find the record
+            AllStocks.ThisStock.Find(PrimaryKey);
+            //test to see that the two values are the same
+            Assert.AreEqual(AllStocks.ThisStock, TestStock);
+        }
+
+        [TestMethod]
+        public void DeleteMethodOK()
+        {
+            //create an instance of the class we want to create
+            clsStockCollection AllStocks = new clsStockCollection();
+            //create some test data to assign to the property
+            clsStock TestStock = new clsStock();
+            //var to store the primary key
+            Int32 PrimaryKey = 0;
+            //set the properties of the test object
+            TestStock.InStock = true;
+            TestStock.LaptopId = 16;
+            TestStock.Model = "MacBook Air";
+            TestStock.Brand = "Apple";
+            TestStock.Price = 1499.99;
+            TestStock.DateAdded = DateTime.Now.Date;
+            TestStock.DiscountId = 0;
+            TestStock.Quantity = 25;
+            //set ThisStock to the test data
+            AllStocks.ThisStock = TestStock;
+            //add the record
+            PrimaryKey = AllStocks.Add();
+            //set the primary key of the test data
+            TestStock.LaptopId = PrimaryKey;
+            //find the record
+            AllStocks.ThisStock.Find(PrimaryKey);
+            //delete the record
+            AllStocks.Delete();
+            //now find the record again
+            Boolean Found = AllStocks.ThisStock.Find(PrimaryKey);
+            //test to see that it was not found
+            Assert.IsFalse(Found);
+        }
     }
 }
