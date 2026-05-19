@@ -79,4 +79,38 @@ public partial class _1_List : System.Web.UI.Page
 
         }
     }
+
+    protected void btnApply_Click(object sender, EventArgs e)
+    {
+        //create an instance of the stock collection
+        clsStockCollection AllStocks = new clsStockCollection();
+        //apply the filter to the data
+        AllStocks.ReportByBrand(txtFilterBrand.Text);
+        //set the data source to the filtered list of stocks
+        lstStockList.DataSource = AllStocks.StockList;
+        //set the name of the primary key
+        lstStockList.DataValueField = "LaptopId";
+        //set the data field to display
+        lstStockList.DataTextField = "Brand";
+        //bind the data to the list
+        lstStockList.DataBind();
+    }
+
+    protected void btnClear_Click(object sender, EventArgs e)
+    {
+        //create an instance of the stock collection
+        clsStockCollection AllStocks = new clsStockCollection();
+        //display all records in the list
+        AllStocks.ReportByBrand("");
+        //clear any existing filter to tidy up the interface
+        txtFilterBrand.Text = "";
+        //set the data source to the unfiltered list of stocks
+        lstStockList.DataSource = AllStocks.StockList;
+        //set the name of the primary key
+        lstStockList.DataValueField = "LaptopId";
+        //set the data field to display
+        lstStockList.DataTextField = "Brand";
+        //bind the data to the list
+        lstStockList.DataBind();
+    }
 }

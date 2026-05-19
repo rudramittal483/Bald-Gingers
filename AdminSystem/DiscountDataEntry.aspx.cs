@@ -1,24 +1,49 @@
-﻿using System;
+﻿using ClassLibrary;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using ClassLibrary;
 
 public partial class _1_DataEntry : System.Web.UI.Page
 {
+    Int32 DiscountId;
     protected void Page_Load(object sender, EventArgs e)
     {
+        //get the number of the stock to be processed
+        DiscountId = Convert.ToInt32(Session["DiscountId"]);
+        if (IsPostBack == false)
+        {
+            //if this is not a new record
+            if (DiscountId != -1)
+            {
+                //display the current data for the record
+                DisplayDiscount();
+            }
+        }
+    }
 
+    void DisplayDiscount()
+    {
+        //create an instance of the discount class
+        clsDiscountCollection DiscountCollection = new clsDiscountCollection();
+        //find the record to update
+        DiscountCollection.ThisDiscount.Find(DiscountId);
+        //display the data for this record
+        txtDiscountCode.Text = DiscountCollection.ThisDiscount.DiscountCode;
+        txtDescription.Text = DiscountCollection.ThisDiscount.DiscountDescription;
+        txtDiscountPercent.Text = DiscountCollection.ThisDiscount.DiscountPercent.ToString();
+        txtStartDate.Text = DiscountCollection.ThisDiscount.DiscountStartDate.ToString();
+        txtEndDate.Text = DiscountCollection.ThisDiscount.DiscountEndDate.ToString();
     }
 
     protected void btnOK_Click(object sender, EventArgs e)
     {
         //create a new instance of clsDiscount
         ClassLibrary.clsDiscount ADiscount = new ClassLibrary.clsDiscount();
-        //capture the discount id
-        string DiscountId = txtDiscountId.Text;
+
         //capture the discount code
         string DiscountCode = txtDiscountCode.Text;
         //capture the description
@@ -35,8 +60,7 @@ public partial class _1_DataEntry : System.Web.UI.Page
         Error = ADiscount.Valid(DiscountCode, DiscountDescription, DiscountPercent, DiscountStartDate, DiscountEndDate);
         if (Error == "")
         {
-            //capture the discount id
-            ADiscount.DiscountId = Convert.ToInt32(txtDiscountId.Text);
+            ADiscount.DiscountId = DiscountId;
             //capture the discount code
             ADiscount.DiscountCode = txtDiscountCode.Text;
             //capture the description
@@ -47,10 +71,26 @@ public partial class _1_DataEntry : System.Web.UI.Page
             ADiscount.DiscountStartDate = Convert.ToDateTime(txtStartDate.Text);
             //capture the end date
             ADiscount.DiscountEndDate = Convert.ToDateTime(txtEndDate.Text);
+            //create a new instance of the discount collection
+            ClassLibrary.clsDiscountCollection DiscountList = new ClassLibrary.clsDiscountCollection();
 
-            //store the discount in the session object
+            //if this is a new record i.e. DiscountId = -1 then add the data
+            if (DiscountId == -1)
+            {
+                DiscountList.ThisDiscount = ADiscount;
+                DiscountList.Add();
+            }
+            else //otherwise it must be an update
+            {
+                //find the record to update
+                DiscountList.ThisDiscount.Find(DiscountId);
+                //set the ThisDiscount property to the new data
+                DiscountList.ThisDiscount = ADiscount;
+                //update the record
+                DiscountList.Update();
+            }
             Session["ADiscount"] = ADiscount;
-            //redirect to the viewer page
+            //navigate to the view page
             Response.Redirect("DiscountViewer.aspx");
         }
         else
@@ -61,26 +101,35 @@ public partial class _1_DataEntry : System.Web.UI.Page
     }
     protected void btnFind_Click(object sender, EventArgs e)
     {
-        //create instance of the stock class
-        clsDiscount ADiscount = new clsDiscount();
-        //create a variable to store the primary key
-        Int32 DiscountId;
-        //create a boolean variable to store the result of the find operation
-        Boolean Found = false;
-        //get the primary key entered by the user
-        DiscountId = Convert.ToInt32(txtDiscountId.Text);
-        //find the record
-        Found = ADiscount.Find(DiscountId);
-        //if found
-        if (Found == true)
+        // Only attempt to find if the text box is NOT empty
+        if (txtDiscountId.Text.Length > 0)
         {
-            //display the values of the properties in the form
-            txtDiscountCode.Text = ADiscount.DiscountCode.ToString();
-            txtDescription.Text = ADiscount.DiscountDescription.ToString();
-            txtDiscountPercent.Text = ADiscount.DiscountPercent.ToString();
-            txtStartDate.Text = ADiscount.DiscountStartDate.ToString();
-            txtEndDate.Text = ADiscount.DiscountEndDate.ToString();
-            txtDiscountId.Text = ADiscount.DiscountId.ToString();
+            //create instance of the discount class
+            clsDiscount ADiscount = new clsDiscount();
+            //create a boolean variable to store the result of the find operation
+            Boolean Found = false;
+
+            //get the primary key entered by the user
+            Int32 DiscountId = Convert.ToInt32(txtDiscountId.Text);
+
+            //find the record
+            Found = ADiscount.Find(DiscountId);
+
+            //if found
+            if (Found == true)
+            {
+                //display the values of the properties in the form
+                txtDiscountCode.Text = ADiscount.DiscountCode;
+                txtDescription.Text = ADiscount.DiscountDescription;
+                txtDiscountPercent.Text = ADiscount.DiscountPercent.ToString();
+                txtStartDate.Text = ADiscount.DiscountStartDate.ToString();
+                txtEndDate.Text = ADiscount.DiscountEndDate.ToString();
+            }
+            else
+            {
+                // Optional: Tell the user the ID wasn't found in the database
+                lblError.Text = "Discount ID not found.";
+            }
         }
     }
 }
