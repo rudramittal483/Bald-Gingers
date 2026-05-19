@@ -202,5 +202,63 @@ namespace Testing3
             //test to see that it was not found
             Assert.IsFalse(Found);
         }
+
+        [TestMethod]
+        public void ReportByBrandMethodOK()
+        {
+            //create an instance of the class containing unfiltered results
+            clsStockCollection AllStocks = new clsStockCollection();
+            //create an instance of the class containing filtered results
+            clsStockCollection FilteredStocks = new clsStockCollection();
+            //apply a blank string (should return all records)
+            FilteredStocks.ReportByBrand("");
+            //test to see that the two values are the same
+            Assert.AreEqual(AllStocks.Count, FilteredStocks.Count);
+        }
+
+        [TestMethod]
+        public void ReportByBrandNoneFound()
+        {
+            //create an instance of the class containing filtered results
+            clsStockCollection FilteredStocks = new clsStockCollection();
+            //apply a brand that doesn't exist
+            FilteredStocks.ReportByBrand("xxxxx");
+            //test to see that there are no records returned
+            Assert.AreEqual(0, FilteredStocks.Count);
+        }
+
+        [TestMethod]
+        public void ReportByBrandTestDataFound()
+        {
+            //create an instance of the class containing filtered results
+            clsStockCollection FilteredStocks = new clsStockCollection();
+            //var to store outcome
+            Boolean OK = true;
+
+            //apply a brand you know exists in the database
+            FilteredStocks.ReportByBrand("Lenovo");
+
+            //check that the correct number of records are found (should now be 2!)
+            if (FilteredStocks.Count == 2)
+            {
+                //check that the first record is ID 1
+                if (FilteredStocks.StockList[0].LaptopId != 1)
+                {
+                    OK = false;
+                }
+                //check that the second record is ID 6
+                if (FilteredStocks.StockList[1].LaptopId != 6)
+                {
+                    OK = false;
+                }
+            }
+            else
+            {
+                OK = false;
+            }
+
+            //test to see that the outcome is true
+            Assert.IsTrue(OK);
+        }
     }
 }
