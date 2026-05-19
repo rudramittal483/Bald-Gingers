@@ -88,5 +88,37 @@ namespace Testing1
             AllAddresses.AddressList = TestList;
             Assert.AreEqual(AllAddresses.Count, TestList.Count);
         }
+
+        [TestMethod]
+        public void AddMethodOK()
+        {
+            //create an instance of the class we want to create
+            clsAddressCollection AllAddresses = new clsAddressCollection();
+            //create the item of test data
+            clsAddress TestItem = new clsAddress();
+            //variable to store the primary key
+            Int32 PrimaryKey = 0;
+
+            //set its properties
+            TestItem.AddressId = 1;
+            TestItem.CustomerNo = 1;
+            TestItem.Emirate = "Dubai";
+            TestItem.BuildingName = "Burj Views";
+            TestItem.StreetName = "Downtown Road";
+            TestItem.AddressType = "Apartment";
+            TestItem.Postcode = 12345;
+            TestItem.IsDefault = true;
+
+            //set ThisAddress to the test data
+            AllAddresses.ThisAddress = TestItem;
+            //add the record
+            PrimaryKey = AllAddresses.Add();
+            //set the primary key of the test data
+            TestItem.AddressId = PrimaryKey;
+            //find the record
+            AllAddresses.ThisAddress.Find(PrimaryKey);
+            //test to see that the two values are the same
+            Assert.AreEqual(AllAddresses.ThisAddress, TestItem);
+        }
     }
 }

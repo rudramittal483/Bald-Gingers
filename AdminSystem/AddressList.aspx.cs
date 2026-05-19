@@ -35,4 +35,13 @@ public partial class AddressList : System.Web.UI.Page
         //bind the data to the list
         lstAddressList.DataBind();
     }
+
+    protected void btnAdd_Click(object sender, EventArgs e)
+    {
+        //store -1 into the session object to indicate this is a new record
+        Session["AddressId"] = -1;
+
+        //redirect to the data entry page we created earlier
+        Response.Redirect("AddressDataEntry.aspx");
+    }
 }
