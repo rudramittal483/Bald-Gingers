@@ -29,11 +29,7 @@ public partial class AddressDataEntry : System.Web.UI.Page
 
         if (Error == "")
         {
-            //capture the properties, parsing where necessary
-            if (!string.IsNullOrEmpty(txtAddressId.Text))
-            {
-                AnAddress.AddressId = Convert.ToInt32(txtAddressId.Text);
-            }
+            //capture the properties
             AnAddress.CustomerNo = Convert.ToInt32(CustomerNo);
             AnAddress.Emirate = Emirate;
             AnAddress.BuildingName = BuildingName;
@@ -42,11 +38,24 @@ public partial class AddressDataEntry : System.Web.UI.Page
             AnAddress.Postcode = Convert.ToInt32(Postcode);
             AnAddress.IsDefault = chkIsDefault.Checked;
 
-            //store the address in the session object
-            Session["AnAddress"] = AnAddress;
+            //create a new instance of the address collection
+            clsAddressCollection AddressList = new clsAddressCollection();
 
-            //redirect to the viewer page
-            Response.Redirect("AddressViewer.aspx");
+            //if this is a new record i.e. AddressId = -1 then add the data
+            if (Convert.ToInt32(Session["AddressId"]) == -1)
+            {
+                //set the ThisAddress property
+                AddressList.ThisAddress = AnAddress;
+                //add the new record to the database
+                AddressList.Add();
+            }
+            else
+            {
+                // NOTE: We will add the Update() logic here later!
+            }
+
+            //redirect back to the list page so the user can see their new record
+            Response.Redirect("AddressList.aspx");
         }
         else
         {

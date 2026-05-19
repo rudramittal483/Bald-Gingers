@@ -68,5 +68,22 @@ namespace ClassLibrary
                 Index++;
             }
         }
+
+        public int Add()
+        {
+            //adds a record to the database based on the values of mThisCustomer
+            //connect to the database
+            clsDataConnection DB = new clsDataConnection();
+
+            //set the parameters for the stored procedure
+            DB.AddParameter("@FirstName", mThisCustomer.FirstName);
+            DB.AddParameter("@LastName", mThisCustomer.LastName);
+            DB.AddParameter("@Email", mThisCustomer.Email);
+            DB.AddParameter("@DateJoined", mThisCustomer.DateJoined);
+            DB.AddParameter("@IsActiveAccount", mThisCustomer.IsActiveAccount);
+
+            //execute the query returning the primary key value
+            return DB.Execute("sproc_tblCustomer_Insert");
+        }
     }
 }

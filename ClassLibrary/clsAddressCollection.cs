@@ -64,5 +64,10 @@ namespace ClassLibrary
                 Index++;
             }
         }
+
+        public int Add()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
