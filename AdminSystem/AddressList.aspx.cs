@@ -1,6 +1,7 @@
 ﻿using ClassLibrary;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -8,12 +9,14 @@ using System.Web.UI.WebControls;
 
 public partial class AddressList : System.Web.UI.Page
 {
+    protected Label lblError;
+
     protected void Page_Load(object sender, EventArgs e)
     {
         //if this is the first time the page is displayed
         if (IsPostBack == false)
         {
-            //update the list box
+            //update the list boxs
             DisplayAddresses();
         }
     }
@@ -44,4 +47,28 @@ public partial class AddressList : System.Web.UI.Page
         //redirect to the data entry page we created earlier
         Response.Redirect("AddressDataEntry.aspx");
     }
+
+    protected void btnEdit_Click(object sender, EventArgs e)
+    {
+        //variable to store the primary key value of the record to be edited
+        Int32 AddressId;
+
+        //if a record has been selected from the list
+        if (lstAddressList.SelectedIndex != -1)
+        {
+            //get the primary key value of the record to edit
+            AddressId = Convert.ToInt32(lstAddressList.SelectedValue);
+
+            //store the data in the session object
+            Session["AddressId"] = AddressId;
+
+            //redirect to the edit page
+            Response.Redirect("AddressDataEntry.aspx");
+        }
+        else //if no record has been selected
+        {
+            lblError.Text = "Please select a record from the list to edit";
+        }
+    }
+
 }
