@@ -111,5 +111,58 @@ namespace TestingOrders
             AllOrders.ThisOrder.Find(PrimaryKey);
             Assert.AreEqual(AllOrders.ThisOrder, TestItem);
         }
+
+        [TestMethod]
+        public void DeleteMethodOK()
+        {
+            clsOrderCollection AllOrders = new clsOrderCollection();
+            clsOrder TestItem = new clsOrder();
+            Int32 PrimaryKey = 0;
+
+            TestItem.IsDispatched = true;
+            TestItem.CustomerNo = 1;
+            TestItem.OrderDate = DateTime.Now.Date;
+            TestItem.TotalAmount = 50.00;
+            TestItem.DeliveryAddress = "Delete Street";
+            AllOrders.ThisOrder = TestItem;
+
+            PrimaryKey = AllOrders.Add();
+            TestItem.OrderNo = PrimaryKey;
+            AllOrders.ThisOrder.Find(PrimaryKey);
+
+            // Delete the record
+            AllOrders.Delete();
+
+            // Now attempt to find it again
+            Boolean Found = AllOrders.ThisOrder.Find(PrimaryKey);
+
+            // Assert that the record is gone
+            Assert.IsFalse(Found);
+        }
+
+        [TestMethod]
+        public void ReportByDeliveryAddressMethodOK()
+        {
+            clsOrderCollection AllOrders = new clsOrderCollection();
+            clsOrderCollection FilteredOrders = new clsOrderCollection();
+
+            // Apply a blank string, which should return every record
+            FilteredOrders.ReportByDeliveryAddress("");
+
+            // Test to see that the two values are the same
+            Assert.AreEqual(AllOrders.Count, FilteredOrders.Count);
+        }
+
+        [TestMethod]
+        public void ReportByDeliveryAddressNoneFound()
+        {
+            clsOrderCollection FilteredOrders = new clsOrderCollection();
+
+            // Apply a filter that definitely doesn't exist
+            FilteredOrders.ReportByDeliveryAddress("xxxxxxxxxxxxx");
+
+            // Test to see that there are no records found
+            Assert.AreEqual(0, FilteredOrders.Count);
+        }
     }
 }

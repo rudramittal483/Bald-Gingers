@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ClassLibrary
 {
@@ -15,8 +12,15 @@ namespace ClassLibrary
         {
             clsDataConnection DB = new clsDataConnection();
             DB.Execute("sproc_tblOrderLine_SelectAll");
+            PopulateArray(DB);
+        }
+
+        void PopulateArray(clsDataConnection DB)
+        {
             Int32 Index = 0;
             Int32 RecordCount = DB.Count;
+            mOrderLineList = new List<clsOrderLine>();
+
             while (Index < RecordCount)
             {
                 clsOrderLine AnOrderLine = new clsOrderLine();
@@ -38,7 +42,7 @@ namespace ClassLibrary
         public int Count
         {
             get { return mOrderLineList.Count; }
-            set { /* handled by list size */ }
+            set { }
         }
 
         public clsOrderLine ThisOrderLine
@@ -64,6 +68,13 @@ namespace ClassLibrary
             DB.AddParameter("@LaptopNo", mThisOrderLine.LaptopNo);
             DB.AddParameter("@Quantity", mThisOrderLine.Quantity);
             DB.Execute("sproc_tblOrderLine_Update");
+        }
+
+        public void Delete()
+        {
+            clsDataConnection DB = new clsDataConnection();
+            DB.AddParameter("@OrderLineNo", mThisOrderLine.OrderLineNo);
+            DB.Execute("sproc_tblOrderLine_Delete");
         }
     }
 }
