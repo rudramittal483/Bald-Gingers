@@ -1,41 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ClassLibrary
 {
     public class clsOrderCollection
     {
         List<clsOrder> mOrderList = new List<clsOrder>();
-        // Private data member for ThisOrder
         clsOrder mThisOrder = new clsOrder();
-
-        public List<clsOrder> OrderList
-        {
-            get { return mOrderList; }
-            set { mOrderList = value; }
-        }
-
-        public int Count
-        {
-            get { return mOrderList.Count; } 
-            set { /* handled by list size */ }
-        }
-
-        public clsOrder ThisOrder
-        {
-            get { return mThisOrder; }
-            set { mThisOrder = value; }
-        }
 
         public clsOrderCollection()
         {
             clsDataConnection DB = new clsDataConnection();
             DB.Execute("sproc_tblOrder_SelectAll");
+            PopulateArray(DB);
+        }
+
+        void PopulateArray(clsDataConnection DB)
+        {
             Int32 Index = 0;
             Int32 RecordCount = DB.Count;
+            mOrderList = new List<clsOrder>();
+
             while (Index < RecordCount)
             {
                 clsOrder AnOrder = new clsOrder();
@@ -48,6 +33,24 @@ namespace ClassLibrary
                 mOrderList.Add(AnOrder);
                 Index++;
             }
+        }
+
+        public List<clsOrder> OrderList
+        {
+            get { return mOrderList; }
+            set { mOrderList = value; }
+        }
+
+        public int Count
+        {
+            get { return mOrderList.Count; }
+            set { }
+        }
+
+        public clsOrder ThisOrder
+        {
+            get { return mThisOrder; }
+            set { mThisOrder = value; }
         }
 
         public int Add()
@@ -71,6 +74,21 @@ namespace ClassLibrary
             DB.AddParameter("@DeliveryAddress", mThisOrder.DeliveryAddress);
             DB.AddParameter("@IsDispatched", mThisOrder.IsDispatched);
             DB.Execute("sproc_tblOrder_Update");
+        }
+
+        public void Delete()
+        {
+            clsDataConnection DB = new clsDataConnection();
+            DB.AddParameter("@OrderNo", mThisOrder.OrderNo);
+            DB.Execute("sproc_tblOrder_Delete");
+        }
+
+        public void ReportByDeliveryAddress(string DeliveryAddress)
+        {
+            clsDataConnection DB = new clsDataConnection();
+            DB.AddParameter("@DeliveryAddress", DeliveryAddress);
+            DB.Execute("sproc_tblOrder_FilterByDeliveryAddress");
+            PopulateArray(DB);
         }
     }
 }

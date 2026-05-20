@@ -99,5 +99,40 @@ namespace TestingOrderLines
             AllLines.ThisOrderLine.Find(PrimaryKey);
             Assert.AreEqual(AllLines.ThisOrderLine, TestItem);
         }
+
+        [TestMethod]
+        public void DeleteMethodOK()
+        {
+            // Create an instance of the class we want to create
+            clsOrderLineCollection AllLines = new clsOrderLineCollection();
+            // Create the item of test data
+            clsOrderLine TestItem = new clsOrderLine();
+            // Variable to store the primary key
+            Int32 PrimaryKey = 0;
+
+            // Set its properties
+            TestItem.OrderNo = 1;
+            TestItem.LaptopNo = 1;
+            TestItem.Quantity = 5;
+
+            // Set ThisOrderLine to the test data
+            AllLines.ThisOrderLine = TestItem;
+            // Add the record
+            PrimaryKey = AllLines.Add();
+            // Set the primary key of the test data
+            TestItem.OrderLineNo = PrimaryKey;
+
+            // Find the record
+            AllLines.ThisOrderLine.Find(PrimaryKey);
+
+            // Delete the record
+            AllLines.Delete();
+
+            // Now attempt to find it again
+            Boolean Found = AllLines.ThisOrderLine.Find(PrimaryKey);
+
+            // Test to see that the record was not found (it should be false)
+            Assert.IsFalse(Found);
+        }
     }
 }
