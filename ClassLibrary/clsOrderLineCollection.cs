@@ -46,5 +46,24 @@ namespace ClassLibrary
             get { return mThisOrderLine; }
             set { mThisOrderLine = value; }
         }
+
+        public int Add()
+        {
+            clsDataConnection DB = new clsDataConnection();
+            DB.AddParameter("@OrderNo", mThisOrderLine.OrderNo);
+            DB.AddParameter("@LaptopNo", mThisOrderLine.LaptopNo);
+            DB.AddParameter("@Quantity", mThisOrderLine.Quantity);
+            return DB.Execute("sproc_tblOrderLine_Insert");
+        }
+
+        public void Update()
+        {
+            clsDataConnection DB = new clsDataConnection();
+            DB.AddParameter("@OrderLineNo", mThisOrderLine.OrderLineNo);
+            DB.AddParameter("@OrderNo", mThisOrderLine.OrderNo);
+            DB.AddParameter("@LaptopNo", mThisOrderLine.LaptopNo);
+            DB.AddParameter("@Quantity", mThisOrderLine.Quantity);
+            DB.Execute("sproc_tblOrderLine_Update");
+        }
     }
 }

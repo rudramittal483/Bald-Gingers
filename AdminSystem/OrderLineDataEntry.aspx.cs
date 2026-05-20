@@ -1,5 +1,5 @@
 ﻿using System;
-using ClassLibrary; //
+using ClassLibrary;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,36 +8,71 @@ using System.Web.UI.WebControls;
 
 public partial class OrderLineDataEntry : System.Web.UI.Page
 {
+    Int32 OrderLineNo;
+
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        // Get the ID from the session
+        OrderLineNo = Convert.ToInt32(Session["OrderLineNo"]);
+
+        if (IsPostBack == false)
+        {
+            // If this is not a new record (ID is not 0)
+            if (OrderLineNo != 0)
+            {
+                DisplayOrderLine();
+            }
+        }
+    }
+
+    void DisplayOrderLine()
+    {
+        clsOrderLineCollection LineList = new clsOrderLineCollection();
+        LineList.ThisOrderLine.Find(OrderLineNo);
+        txtOrderLineNo.Text = LineList.ThisOrderLine.OrderLineNo.ToString();
+        txtOrderNo.Text = LineList.ThisOrderLine.OrderNo.ToString();
+        txtLaptopNo.Text = LineList.ThisOrderLine.LaptopNo.ToString();
+        txtQuantity.Text = LineList.ThisOrderLine.Quantity.ToString();
+    }
+
     protected void btnOK_Click(object sender, EventArgs e)
     {
-        // Create a new instance of clsOrderLine
         clsOrderLine AnOrderLine = new clsOrderLine();
-
-        // Capture inputs as strings for validation
         string OrderNo = txtOrderNo.Text;
         string LaptopNo = txtLaptopNo.Text;
         string Quantity = txtQuantity.Text;
 
         string Error = "";
-
-        // Validate the data
         Error = AnOrderLine.Valid(OrderNo, LaptopNo, Quantity);
 
         if (Error == "")
         {
-            // If valid, map to properties and convert types
-            AnOrderLine.OrderLineNo = Convert.ToInt32(txtOrderLineNo.Text);
+            AnOrderLine.OrderLineNo = OrderLineNo;
             AnOrderLine.OrderNo = Convert.ToInt32(OrderNo);
             AnOrderLine.LaptopNo = Convert.ToInt32(LaptopNo);
             AnOrderLine.Quantity = Convert.ToInt32(Quantity);
 
-            // Store in session and redirect
-            Session["AnOrderLine"] = AnOrderLine;
-            Response.Redirect("OrderLineViewer.aspx");
+            clsOrderLineCollection LineList = new clsOrderLineCollection();
+
+            // If this is a new record (ID is 0)
+            if (OrderLineNo == 0)
+            {
+                LineList.ThisOrderLine = AnOrderLine;
+                LineList.Add();
+            }
+            // Otherwise it must be an update
+            else
+            {
+                LineList.ThisOrderLine.Find(OrderLineNo);
+                LineList.ThisOrderLine = AnOrderLine;
+                LineList.Update();
+            }
+
+            // Redirect back to the list page
+            Response.Redirect("OrderLineList.aspx");
         }
         else
         {
-            // Show errors in the red label
             lblError.Text = Error;
         }
     }
@@ -50,13 +85,13 @@ public partial class OrderLineDataEntry : System.Web.UI.Page
     protected void btnFindLine_Click(object sender, EventArgs e)
     {
         clsOrderLine AnOrderLine = new clsOrderLine();
-        Int32 OrderLineNo;
+        Int32 OrderLineNoTemp;
         Boolean Found = false;
 
         if (txtOrderLineNo.Text != "")
         {
-            OrderLineNo = Convert.ToInt32(txtOrderLineNo.Text);
-            Found = AnOrderLine.Find(OrderLineNo);
+            OrderLineNoTemp = Convert.ToInt32(txtOrderLineNo.Text);
+            Found = AnOrderLine.Find(OrderLineNoTemp);
 
             if (Found == true)
             {

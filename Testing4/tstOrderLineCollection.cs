@@ -61,5 +61,43 @@ namespace TestingOrderLines
             AllOrderLines.OrderLineList = TestList;
             Assert.AreEqual(AllOrderLines.Count, TestList.Count);
         }
+
+        [TestMethod]
+        public void AddMethodOK()
+        {
+            clsOrderLineCollection AllLines = new clsOrderLineCollection();
+            clsOrderLine TestItem = new clsOrderLine();
+            Int32 PrimaryKey = 0;
+            TestItem.OrderNo = 1;
+            TestItem.LaptopNo = 1;
+            TestItem.Quantity = 5;
+            AllLines.ThisOrderLine = TestItem;
+            PrimaryKey = AllLines.Add();
+            TestItem.OrderLineNo = PrimaryKey;
+            AllLines.ThisOrderLine.Find(PrimaryKey);
+            Assert.AreEqual(AllLines.ThisOrderLine, TestItem);
+        }
+
+        [TestMethod]
+        public void UpdateMethodOK()
+        {
+            clsOrderLineCollection AllLines = new clsOrderLineCollection();
+            clsOrderLine TestItem = new clsOrderLine();
+            Int32 PrimaryKey = 0;
+            TestItem.OrderNo = 1;
+            TestItem.LaptopNo = 1;
+            TestItem.Quantity = 5;
+            AllLines.ThisOrderLine = TestItem;
+            PrimaryKey = AllLines.Add();
+            TestItem.OrderLineNo = PrimaryKey;
+
+            TestItem.OrderNo = 2;
+            TestItem.LaptopNo = 2;
+            TestItem.Quantity = 10;
+            AllLines.ThisOrderLine = TestItem;
+            AllLines.Update();
+            AllLines.ThisOrderLine.Find(PrimaryKey);
+            Assert.AreEqual(AllLines.ThisOrderLine, TestItem);
+        }
     }
 }

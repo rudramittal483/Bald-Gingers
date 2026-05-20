@@ -49,5 +49,28 @@ namespace ClassLibrary
                 Index++;
             }
         }
+
+        public int Add()
+        {
+            clsDataConnection DB = new clsDataConnection();
+            DB.AddParameter("@CustomerNo", mThisOrder.CustomerNo);
+            DB.AddParameter("@OrderDate", mThisOrder.OrderDate);
+            DB.AddParameter("@TotalAmount", mThisOrder.TotalAmount);
+            DB.AddParameter("@DeliveryAddress", mThisOrder.DeliveryAddress);
+            DB.AddParameter("@IsDispatched", mThisOrder.IsDispatched);
+            return DB.Execute("sproc_tblOrder_Insert");
+        }
+
+        public void Update()
+        {
+            clsDataConnection DB = new clsDataConnection();
+            DB.AddParameter("@OrderNo", mThisOrder.OrderNo);
+            DB.AddParameter("@CustomerNo", mThisOrder.CustomerNo);
+            DB.AddParameter("@OrderDate", mThisOrder.OrderDate);
+            DB.AddParameter("@TotalAmount", mThisOrder.TotalAmount);
+            DB.AddParameter("@DeliveryAddress", mThisOrder.DeliveryAddress);
+            DB.AddParameter("@IsDispatched", mThisOrder.IsDispatched);
+            DB.Execute("sproc_tblOrder_Update");
+        }
     }
 }
