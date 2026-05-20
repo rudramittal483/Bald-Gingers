@@ -23,6 +23,37 @@ namespace ClassLibrary
             set { mCustomerList = value; }
         }
 
+        void PopulateArray(clsDataConnection DB)
+        {
+            //populates the array list based on the data table in the parameter DB
+            Int32 Index = 0;
+            //get the count of records
+            Int32 RecordCount = DB.Count;
+            //clear the private array list
+            mCustomerList = new List<clsCustomer>();
+
+            //while there are records to process
+            while (Index < RecordCount)
+            {
+                //create a blank customer object
+                clsCustomer ACustomer = new clsCustomer();
+
+                //read in the fields from the current record
+                ACustomer.CustomerNo = Convert.ToInt32(DB.DataTable.Rows[Index]["CustomerNo"]);
+                ACustomer.FirstName = Convert.ToString(DB.DataTable.Rows[Index]["FirstName"]);
+                ACustomer.LastName = Convert.ToString(DB.DataTable.Rows[Index]["LastName"]);
+                ACustomer.Email = Convert.ToString(DB.DataTable.Rows[Index]["Email"]);
+                ACustomer.DateJoined = Convert.ToDateTime(DB.DataTable.Rows[Index]["DateJoined"]);
+                ACustomer.IsActiveAccount = Convert.ToBoolean(DB.DataTable.Rows[Index]["IsActiveAccount"]);
+
+                //add the record to the private data member
+                mCustomerList.Add(ACustomer);
+
+                //point at the next record
+                Index++;
+            }
+        }
+
         //public property for count
         public int Count
         {
@@ -104,6 +135,30 @@ namespace ClassLibrary
 
             //execute the stored procedure
             DB.Execute("sproc_tblCustomer_Update");
+        }
+
+        public void Delete()
+        {
+            //deletes the record pointed to by thisCustomer
+            //connect to the database
+            clsDataConnection DB = new clsDataConnection();
+            //set the parameters for the stored procedure
+            DB.AddParameter("@CustomerNo", mThisCustomer.CustomerNo);
+            //execute the stored procedure
+            DB.Execute("sproc_tblCustomer_Delete");
+        }
+
+        public void ReportByEmail(string Email)
+        {
+            //filters the records based on a full or partial email address
+            //connect to the database
+            clsDataConnection DB = new clsDataConnection();
+            //send the Email parameter to the database
+            DB.AddParameter("@Email", Email);
+            //execute the stored procedure
+            DB.Execute("sproc_tblCustomer_FilterByEmail");
+            //populate the array list with the data table
+            PopulateArray(DB);
         }
     }
 }

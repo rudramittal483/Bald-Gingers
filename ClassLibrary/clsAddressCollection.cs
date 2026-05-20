@@ -17,6 +17,39 @@ namespace ClassLibrary
             set { mAddressList = value; }
         }
 
+        void PopulateArray(clsDataConnection DB)
+        {
+            //populates the array list based on the data table in the parameter DB
+            Int32 Index = 0;
+            //get the count of records
+            Int32 RecordCount = DB.Count;
+            //clear the private array list
+            mAddressList = new List<clsAddress>();
+
+            //while there are records to process
+            while (Index < RecordCount)
+            {
+                //create a blank address object
+                clsAddress AnAddress = new clsAddress();
+
+                //read in the fields from the current record
+                AnAddress.AddressId = Convert.ToInt32(DB.DataTable.Rows[Index]["AddressId"]);
+                AnAddress.CustomerNo = Convert.ToInt32(DB.DataTable.Rows[Index]["CustomerNo"]);
+                AnAddress.Emirate = Convert.ToString(DB.DataTable.Rows[Index]["Emirate"]);
+                AnAddress.BuildingName = Convert.ToString(DB.DataTable.Rows[Index]["BuildingName"]);
+                AnAddress.StreetName = Convert.ToString(DB.DataTable.Rows[Index]["StreetName"]);
+                AnAddress.AddressType = Convert.ToString(DB.DataTable.Rows[Index]["AddressType"]);
+                AnAddress.Postcode = Convert.ToInt32(DB.DataTable.Rows[Index]["Postcode"]);
+                AnAddress.IsDefault = Convert.ToBoolean(DB.DataTable.Rows[Index]["IsDefault"]);
+
+                //add the record to the private data member
+                mAddressList.Add(AnAddress);
+
+                //point at the next record
+                Index++;
+            }
+        }
+
         //public property for count
         public int Count
         {
@@ -104,6 +137,30 @@ namespace ClassLibrary
 
             //execute the stored procedure
             DB.Execute("sproc_tblAddress_Update");
+        }
+
+        public void Delete()
+        {
+            //deletes the record pointed to by thisAddress
+            //connect to the database
+            clsDataConnection DB = new clsDataConnection();
+            //set the parameters for the stored procedure
+            DB.AddParameter("@AddressId", mThisAddress.AddressId);
+            //execute the stored procedure
+            DB.Execute("sproc_tblAddress_Delete");
+        }
+
+        public void ReportByPostcode(string Postcode)
+        {
+            //filters the records based on a full or partial postcode
+            //connect to the database
+            clsDataConnection DB = new clsDataConnection();
+            //send the Postcode parameter to the database
+            DB.AddParameter("@Postcode", Postcode);
+            //execute the stored procedure
+            DB.Execute("sproc_tblAddress_FilterByPostcode");
+            //populate the array list with the data table
+            PopulateArray(DB);
         }
     }
 }
