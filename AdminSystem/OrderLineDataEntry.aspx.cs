@@ -79,7 +79,7 @@ public partial class OrderLineDataEntry : System.Web.UI.Page
 
     protected void btnCancel_Click(object sender, EventArgs e)
     {
-        Response.Redirect("TeamMainMenu.aspx");
+        Response.Redirect("OrderLineList.aspx");
     }
 
     protected void btnFindLine_Click(object sender, EventArgs e)

@@ -9,7 +9,6 @@ using System.Web.UI.WebControls;
 
 public partial class CustomerList : System.Web.UI.Page
 {
-    protected Label lblError;
 
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -58,5 +57,61 @@ public partial class CustomerList : System.Web.UI.Page
         {
             lblError.Text = "Please select a record from the list to edit";
         }
+    }
+
+    protected void btnDelete_Click(object sender, EventArgs e)
+    {
+        //variable to store the primary key value of the record to be deleted
+        Int32 CustomerNo;
+
+        //if a record has been selected from the list
+        if (lstCustomerList.SelectedIndex != -1)
+        {
+            //get the primary key value of the record to delete
+            CustomerNo = Convert.ToInt32(lstCustomerList.SelectedValue);
+            //store the data in the session object
+            Session["CustomerNo"] = CustomerNo;
+            //redirect to the confirmation page
+            Response.Redirect("CustomerConfirmDelete.aspx");
+        }
+        else
+        {
+            //display an error
+            lblError.Text = "Please select a record to delete from the list";
+        }
+    }
+
+    protected void btnApplyFilter_Click(object sender, EventArgs e)
+    {
+        //create an instance of the customer object
+        clsCustomerCollection Customers = new clsCustomerCollection();
+        //invoke the method passing the filter text
+        Customers.ReportByEmail(txtFilter.Text);
+        //set the data source to the list of customers in the collection
+        lstCustomerList.DataSource = Customers.CustomerList;
+        //set the name of the primary key
+        lstCustomerList.DataValueField = "CustomerNo";
+        //set the name of the field to display
+        lstCustomerList.DataTextField = "Email";
+        //bind the data to the list
+        lstCustomerList.DataBind();
+    }
+
+    protected void btnClearFilter_Click(object sender, EventArgs e)
+    {
+        //create an instance of the customer object
+        clsCustomerCollection Customers = new clsCustomerCollection();
+        //invoke the method passing a blank string to clear the filter
+        Customers.ReportByEmail("");
+        //clear any existing filter to tidy up the interface
+        txtFilter.Text = "";
+        //set the data source to the list of customers in the collection
+        lstCustomerList.DataSource = Customers.CustomerList;
+        //set the name of the primary key
+        lstCustomerList.DataValueField = "CustomerNo";
+        //set the name of the field to display
+        lstCustomerList.DataTextField = "Email";
+        //bind the data to the list
+        lstCustomerList.DataBind();
     }
 }

@@ -73,7 +73,7 @@ public partial class _1_DataEntry : System.Web.UI.Page
 
     protected void btnCancel_Click(object sender, EventArgs e)
     {
-        Response.Redirect("TeamMainMenu.aspx");
+        Response.Redirect("CustomerList.aspx");
     }
 
     protected void btnFind_Click(object sender, EventArgs e)
