@@ -54,12 +54,14 @@
     <Compile Include="clsDataConnection.cs" />
     <Compile Include="clsDiscount.cs" />
     <Compile Include="clsDiscountCollection.cs" />
+    <Compile Include="clsDiscountUser.cs" />
     <Compile Include="clsOrder.cs" />
     <Compile Include="clsOrderCollection.cs" />
     <Compile Include="clsOrderLine.cs" />
     <Compile Include="clsOrderLineCollection.cs" />
     <Compile Include="clsStock.cs" />
     <Compile Include="clsStockCollection.cs" />
+    <Compile Include="clsStockUser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

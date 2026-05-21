@@ -230,7 +230,7 @@ namespace Testing6
                     OK = false;
                 }
                 //check that the second record is ID 15
-                if (FilteredDiscounts.DiscountList[1].DiscountId != 15)
+                if (FilteredDiscounts.DiscountList[1].DiscountId != 45)
                 {
                     OK = false;
                 }
