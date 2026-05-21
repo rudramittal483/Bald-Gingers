@@ -39,7 +39,7 @@ public partial class _1Viewer : System.Web.UI.Page
         }
         else if (Found == true)
         {
-            Response.Redirect("StockList.aspx");
+            Response.Redirect("DiscountList.aspx");
         }
         else if (Found == false)
         {
