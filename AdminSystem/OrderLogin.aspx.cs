@@ -16,7 +16,7 @@ public partial class _1Viewer : System.Web.UI.Page
     protected void btnLogin_Click(object sender, EventArgs e)
     {
         //create an instance of the class we want to create
-        clsDiscountUser AnUser = new clsDiscountUser();
+        clsOrderUser AnUser = new clsOrderUser();
 
         //capture the user name and password
         string UserName = txtUserName.Text;
@@ -39,7 +39,7 @@ public partial class _1Viewer : System.Web.UI.Page
         }
         else if (Found == true)
         {
-            Response.Redirect("DiscountList.aspx");
+            Response.Redirect("OrderList.aspx");
         }
         else if (Found == false)
         {
