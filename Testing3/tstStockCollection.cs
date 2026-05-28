@@ -108,10 +108,10 @@ namespace Testing3
             Int32 PrimaryKey = 0;
             //set the properties of the test object
             TestStock.InStock = true;
-            TestStock.LaptopId = 6;
-            TestStock.Model = "LOQ 15ARP9";
-            TestStock.Brand = "Lenovo";
-            TestStock.Price = 899.99;
+            TestStock.LaptopId = 9;
+            TestStock.Model = "MacBook Pro 16";
+            TestStock.Brand = "Apple";
+            TestStock.Price = 2999.99;
             TestStock.DateAdded = DateTime.Now.Date;
             TestStock.DiscountId = 0;
             TestStock.Quantity = 25;
@@ -139,9 +139,9 @@ namespace Testing3
             Int32 PrimaryKey = 0;
             //set the properties of the test object
             TestStock.InStock = true;
-            TestStock.Model = "LOQ 15ARP9";
-            TestStock.Brand = "Lenovo";
-            TestStock.Price = 899.99;
+            TestStock.Model = "MacBook Pro 16";
+            TestStock.Brand = "Apple";
+            TestStock.Price = 2999.99;
             TestStock.DateAdded = DateTime.Now.Date;
             TestStock.DiscountId = 0;
             TestStock.Quantity = 25;
@@ -153,9 +153,9 @@ namespace Testing3
             TestStock.LaptopId = PrimaryKey;
             //modify the test data
             TestStock.InStock = false;
-            TestStock.Model = "LOQ 15ARP9";
-            TestStock.Brand = "Lenovo";
-            TestStock.Price = 799.99;
+            TestStock.Model = "MacBook Pro 16";
+            TestStock.Brand = "Apple";
+            TestStock.Price = 2499.99;
             TestStock.DateAdded = DateTime.Now.Date;
             TestStock.DiscountId = 0;
             TestStock.Quantity = 0;

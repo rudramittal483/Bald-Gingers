@@ -139,7 +139,7 @@ namespace Testing6
             //set the primary key of the test data
             TestDiscount.DiscountId = PrimaryKey;
             //modify the test data
-            TestDiscount.DiscountCode = "REFERAFRIEND";
+            TestDiscount.DiscountCode = "REFER15";
             TestDiscount.DiscountPercent = 15.00;
             TestDiscount.DiscountDescription = "Referring a friend bonus";
             TestDiscount.DiscountStartDate = DateTime.Now.Date;
