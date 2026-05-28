@@ -641,5 +641,213 @@ namespace Testing3
             //test to see that the result is correct
             Assert.AreNotEqual(Error, "");
         }
+
+        [TestMethod]
+        public void ModelMin()
+        {
+            clsStock AStock = new clsStock();
+            String Error = "";
+            // 1 character
+            string TestModel = "a";
+            Error = AStock.Valid(TestModel, Brand, Price, DateAdded, DiscountId, Quantity);
+            Assert.AreEqual(Error, "");
+        }
+
+        [TestMethod]
+        public void ModelMinPlusOne()
+        {
+            clsStock AStock = new clsStock();
+            String Error = "";
+            // 2 characters
+            string TestModel = "ab";
+            Error = AStock.Valid(TestModel, Brand, Price, DateAdded, DiscountId, Quantity);
+            Assert.AreEqual(Error, "");
+        }
+
+        [TestMethod]
+        public void ModelMaxMinusOne()
+        {
+            clsStock AStock = new clsStock();
+            String Error = "";
+            // 99 characters
+            string TestModel = "".PadRight(99, 'a');
+            Error = AStock.Valid(TestModel, Brand, Price, DateAdded, DiscountId, Quantity);
+            Assert.AreEqual(Error, "");
+        }
+
+        [TestMethod]
+        public void ModelMax()
+        {
+            clsStock AStock = new clsStock();
+            String Error = "";
+            // 100 characters
+            string TestModel = "".PadRight(100, 'a');
+            Error = AStock.Valid(TestModel, Brand, Price, DateAdded, DiscountId, Quantity);
+            Assert.AreEqual(Error, "");
+        }
+
+        [TestMethod]
+        public void BrandMin()
+        {
+            clsStock AStock = new clsStock();
+            String Error = "";
+            // 1 character
+            string TestBrand = "H";
+            Error = AStock.Valid(Model, TestBrand, Price, DateAdded, DiscountId, Quantity);
+            Assert.AreEqual(Error, "");
+        }
+
+        [TestMethod]
+        public void BrandMinPlusOne()
+        {
+            clsStock AStock = new clsStock();
+            String Error = "";
+            // 2 characters
+            string TestBrand = "HP";
+            Error = AStock.Valid(Model, TestBrand, Price, DateAdded, DiscountId, Quantity);
+            Assert.AreEqual(Error, "");
+        }
+
+        [TestMethod]
+        public void BrandMaxMinusOne()
+        {
+            clsStock AStock = new clsStock();
+            String Error = "";
+            // 99 characters
+            string TestBrand = "".PadRight(99, 'a');
+            Error = AStock.Valid(Model, TestBrand, Price, DateAdded, DiscountId, Quantity);
+            Assert.AreEqual(Error, "");
+        }
+
+        [TestMethod]
+        public void BrandMax()
+        {
+            clsStock AStock = new clsStock();
+            String Error = "";
+            // 100 characters
+            string TestBrand = "".PadRight(100, 'a');
+            Error = AStock.Valid(Model, TestBrand, Price, DateAdded, DiscountId, Quantity);
+            Assert.AreEqual(Error, "");
+        }
+
+        [TestMethod]
+        public void PriceExtremeMin()
+        {
+            clsStock AStock = new clsStock();
+            String Error = "";
+            string TestPrice = "-1000.00";
+            Error = AStock.Valid(Model, Brand, TestPrice, DateAdded, DiscountId, Quantity);
+            Assert.AreNotEqual(Error, "");
+        }
+
+        [TestMethod]
+        public void PriceMin()
+        {
+            clsStock AStock = new clsStock();
+            String Error = "";
+            string TestPrice = "0.00";
+            Error = AStock.Valid(Model, Brand, TestPrice, DateAdded, DiscountId, Quantity);
+            Assert.AreEqual(Error, "");
+        }
+
+        [TestMethod]
+        public void PriceMinPlusOne()
+        {
+            clsStock AStock = new clsStock();
+            String Error = "";
+            string TestPrice = "1.00";
+            Error = AStock.Valid(Model, Brand, TestPrice, DateAdded, DiscountId, Quantity);
+            Assert.AreEqual(Error, "");
+        }
+
+        [TestMethod]
+        public void PriceExtremeMax()
+        {
+            clsStock AStock = new clsStock();
+            String Error = "";
+            string TestPrice = "99999.99";
+            Error = AStock.Valid(Model, Brand, TestPrice, DateAdded, DiscountId, Quantity);
+            Assert.AreEqual(Error, "");
+        }
+
+        [TestMethod]
+        public void QuantityExtremeMin()
+        {
+            clsStock AStock = new clsStock();
+            String Error = "";
+            string TestQuantity = "-500";
+            Error = AStock.Valid(Model, Brand, Price, DateAdded, DiscountId, TestQuantity);
+            Assert.AreNotEqual(Error, "");
+        }
+
+        [TestMethod]
+        public void QuantityMin()
+        {
+            clsStock AStock = new clsStock();
+            String Error = "";
+            string TestQuantity = "0";
+            Error = AStock.Valid(Model, Brand, Price, DateAdded, DiscountId, TestQuantity);
+            Assert.AreEqual(Error, "");
+        }
+
+        [TestMethod]
+        public void QuantityMinPlusOne()
+        {
+            clsStock AStock = new clsStock();
+            String Error = "";
+            string TestQuantity = "1";
+            Error = AStock.Valid(Model, Brand, Price, DateAdded, DiscountId, TestQuantity);
+            Assert.AreEqual(Error, "");
+        }
+
+        [TestMethod]
+        public void QuantityExtremeMax()
+        {
+            clsStock AStock = new clsStock();
+            String Error = "";
+            string TestQuantity = "10000";
+            Error = AStock.Valid(Model, Brand, Price, DateAdded, DiscountId, TestQuantity);
+            Assert.AreEqual(Error, "");
+        }
+
+        [TestMethod]
+        public void DiscountIdExtremeMin()
+        {
+            clsStock AStock = new clsStock();
+            String Error = "";
+            string TestDiscountId = "-100";
+            Error = AStock.Valid(Model, Brand, Price, DateAdded, TestDiscountId, Quantity);
+            Assert.AreNotEqual(Error, "");
+        }
+
+        [TestMethod]
+        public void DiscountIdMin()
+        {
+            clsStock AStock = new clsStock();
+            String Error = "";
+            string TestDiscountId = "0";
+            Error = AStock.Valid(Model, Brand, Price, DateAdded, TestDiscountId, Quantity);
+            Assert.AreEqual(Error, "");
+        }
+
+        [TestMethod]
+        public void DiscountIdMinPlusOne()
+        {
+            clsStock AStock = new clsStock();
+            String Error = "";
+            string TestDiscountId = "1";
+            Error = AStock.Valid(Model, Brand, Price, DateAdded, TestDiscountId, Quantity);
+            Assert.AreEqual(Error, "");
+        }
+
+        [TestMethod]
+        public void DiscountIdExtremeMax()
+        {
+            clsStock AStock = new clsStock();
+            String Error = "";
+            string TestDiscountId = "999";
+            Error = AStock.Valid(Model, Brand, Price, DateAdded, TestDiscountId, Quantity);
+            Assert.AreEqual(Error, "");
+        }
     }
 }
