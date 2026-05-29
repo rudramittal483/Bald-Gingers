@@ -63,6 +63,14 @@ namespace ClassLibrary
             set { mIsDefault = value; }
         }
 
+        public string FullAddress
+        {
+            get
+            {
+                return BuildingName + ", " + StreetName + ", " + Emirate + " - " + Postcode;
+            }
+        }
+
         // The Find Method
         public bool Find(int AddressId)
         {
