@@ -9,7 +9,6 @@ using System.Web.UI.WebControls;
 
 public partial class AddressList : System.Web.UI.Page
 {
-
     protected void Page_Load(object sender, EventArgs e)
     {
         //if this is the first time the page is displayed
@@ -31,8 +30,8 @@ public partial class AddressList : System.Web.UI.Page
         //set the name of the primary key
         lstAddressList.DataValueField = "AddressId";
 
-        //set the data field to display (Postcode is used here as a descriptor)
-        lstAddressList.DataTextField = "Postcode";
+        // *** CHANGED: Now points to your new glued-together property ***
+        lstAddressList.DataTextField = "FullAddress";
 
         //bind the data to the list
         lstAddressList.DataBind();
@@ -102,8 +101,10 @@ public partial class AddressList : System.Web.UI.Page
         lstAddressList.DataSource = Addresses.AddressList;
         //set the name of the primary key
         lstAddressList.DataValueField = "AddressId";
-        //set the name of the field to display
-        lstAddressList.DataTextField = "Postcode";
+
+        // *** CHANGED: Now points to your new glued-together property ***
+        lstAddressList.DataTextField = "FullAddress";
+
         //bind the data to the list
         lstAddressList.DataBind();
     }
@@ -120,10 +121,11 @@ public partial class AddressList : System.Web.UI.Page
         lstAddressList.DataSource = Addresses.AddressList;
         //set the name of the primary key
         lstAddressList.DataValueField = "AddressId";
-        //set the name of the field to display
-        lstAddressList.DataTextField = "Postcode";
+
+        // *** CHANGED: Now points to your new glued-together property ***
+        lstAddressList.DataTextField = "FullAddress";
+
         //bind the data to the list
         lstAddressList.DataBind();
     }
-
 }
