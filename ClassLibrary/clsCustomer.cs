@@ -79,6 +79,7 @@ namespace ClassLibrary
             }
         }
 
+        // The Valid Method
         public string Valid(string FirstName, string LastName, string Email, string DateJoined)
         {
             String Error = "";
@@ -87,49 +88,52 @@ namespace ClassLibrary
             // Validate First Name
             if (FirstName.Length == 0)
             {
-                Error = Error + "The first name may not be blank : ";
+                Error = Error + "First name cannot be blank. ";
             }
             if (FirstName.Length > 50)
             {
-                Error = Error + "The first name must be less than 50 characters : ";
+                Error = Error + "First name must be 50 characters or less. ";
             }
 
             // Validate Last Name
             if (LastName.Length == 0)
             {
-                Error = Error + "The last name may not be blank : ";
+                Error = Error + "Last name cannot be blank. ";
             }
             if (LastName.Length > 50)
             {
-                Error = Error + "The last name must be less than 50 characters : ";
+                Error = Error + "Last name must be 50 characters or less. ";
             }
 
             // Validate Email
             if (Email.Length == 0)
             {
-                Error = Error + "The email may not be blank : ";
+                Error = Error + "Email cannot be blank. ";
             }
             if (Email.Length > 50)
             {
-                Error = Error + "The email must be less than 50 characters : ";
+                Error = Error + "Email must be 50 characters or less. ";
             }
 
             // Validate Date Joined
             try
             {
                 DateTemp = Convert.ToDateTime(DateJoined);
-                if (DateTemp < DateTime.Now.Date)
+
+                // Check if the date is more than 100 years in the past
+                if (DateTemp < DateTime.Now.Date.AddYears(-100))
                 {
-                    Error = Error + "The date cannot be in the past : ";
+                    Error = Error + "Date cannot be more than 100 years in the past. ";
                 }
+                // Check if the date is in the future
                 if (DateTemp > DateTime.Now.Date)
                 {
-                    Error = Error + "The date cannot be in the future : ";
+                    Error = Error + "Date cannot be in the future. ";
                 }
             }
             catch
             {
-                Error = Error + "The date was not a valid date : ";
+                Error = Error + "The date was not a valid date. ";
             }
 
             return Error;
