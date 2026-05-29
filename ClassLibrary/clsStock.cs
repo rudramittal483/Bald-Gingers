@@ -161,11 +161,7 @@ namespace ClassLibrary
             }
 
             // --- DiscountId Validation ---
-            if (DiscountId.Length == 0)
-            {
-                Error = Error + "The Discount ID must not be blank. ";
-            }
-            else
+            if (DiscountId.Length > 0)
             {
                 try
                 {
