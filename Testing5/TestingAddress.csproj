@@ -52,6 +52,7 @@
     <Compile Include="tstAddress.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="tstAddressCollection.cs" />
+    <Compile Include="tstAddressUser.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
