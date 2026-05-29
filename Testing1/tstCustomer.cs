@@ -244,6 +244,331 @@ namespace Testing6
             //test to see that the result is correct
             Assert.AreNotEqual(Error, "");
         }
+
+        [TestMethod]
+        public void FirstNameMinBoundary()
+        {
+            clsCustomer ACustomer = new clsCustomer();
+            String Error = "";
+            string TestData = "a"; // 1 character
+            Error = ACustomer.Valid(TestData, LastName, Email, DateJoined);
+            Assert.AreEqual(Error, "");
+        }
+
+        [TestMethod]
+        public void FirstNameMinPlusOne()
+        {
+            clsCustomer ACustomer = new clsCustomer();
+            String Error = "";
+            string TestData = "aa"; // 2 characters
+            Error = ACustomer.Valid(TestData, LastName, Email, DateJoined);
+            Assert.AreEqual(Error, "");
+        }
+
+        [TestMethod]
+        public void FirstNameMaxMinusOne()
+        {
+            clsCustomer ACustomer = new clsCustomer();
+            String Error = "";
+            string TestData = "".PadRight(49, 'a'); // 49 characters
+            Error = ACustomer.Valid(TestData, LastName, Email, DateJoined);
+            Assert.AreEqual(Error, "");
+        }
+
+        [TestMethod]
+        public void FirstNameMaxBoundary()
+        {
+            clsCustomer ACustomer = new clsCustomer();
+            String Error = "";
+            string TestData = "".PadRight(50, 'a'); // 50 characters
+            Error = ACustomer.Valid(TestData, LastName, Email, DateJoined);
+            Assert.AreEqual(Error, "");
+        }
+
+        [TestMethod]
+        public void FirstNameMid()
+        {
+            clsCustomer ACustomer = new clsCustomer();
+            String Error = "";
+            string TestData = "".PadRight(25, 'a'); // 25 characters
+            Error = ACustomer.Valid(TestData, LastName, Email, DateJoined);
+            Assert.AreEqual(Error, "");
+        }
+
+        [TestMethod]
+        public void FirstNameExtremeMax()
+        {
+            clsCustomer ACustomer = new clsCustomer();
+            String Error = "";
+            string TestData = "".PadRight(500, 'a'); // 500 characters
+            Error = ACustomer.Valid(TestData, LastName, Email, DateJoined);
+            Assert.AreNotEqual(Error, "");
+        }
+
+        // ==========================================
+        // LAST NAME BOUNDARY TESTS (1 to 50 chars)
+        // ==========================================
+
+        [TestMethod]
+        public void LastNameMinLessOne()
+        {
+            clsCustomer ACustomer = new clsCustomer();
+            String Error = "";
+            string TestData = ""; // 0 characters
+            Error = ACustomer.Valid(FirstName, TestData, Email, DateJoined);
+            Assert.AreNotEqual(Error, "");
+        }
+
+        [TestMethod]
+        public void LastNameMinBoundary()
+        {
+            clsCustomer ACustomer = new clsCustomer();
+            String Error = "";
+            string TestData = "a"; // 1 character
+            Error = ACustomer.Valid(FirstName, TestData, Email, DateJoined);
+            Assert.AreEqual(Error, "");
+        }
+
+        [TestMethod]
+        public void LastNameMinPlusOne()
+        {
+            clsCustomer ACustomer = new clsCustomer();
+            String Error = "";
+            string TestData = "aa"; // 2 characters
+            Error = ACustomer.Valid(FirstName, TestData, Email, DateJoined);
+            Assert.AreEqual(Error, "");
+        }
+
+        [TestMethod]
+        public void LastNameMaxMinusOne()
+        {
+            clsCustomer ACustomer = new clsCustomer();
+            String Error = "";
+            string TestData = "".PadRight(49, 'a'); // 49 characters
+            Error = ACustomer.Valid(FirstName, TestData, Email, DateJoined);
+            Assert.AreEqual(Error, "");
+        }
+
+        [TestMethod]
+        public void LastNameMaxBoundary()
+        {
+            clsCustomer ACustomer = new clsCustomer();
+            String Error = "";
+            string TestData = "".PadRight(50, 'a'); // 50 characters
+            Error = ACustomer.Valid(FirstName, TestData, Email, DateJoined);
+            Assert.AreEqual(Error, "");
+        }
+
+        [TestMethod]
+        public void LastNameMaxPlusOne()
+        {
+            clsCustomer ACustomer = new clsCustomer();
+            String Error = "";
+            string TestData = "".PadRight(51, 'a'); // 51 characters
+            Error = ACustomer.Valid(FirstName, TestData, Email, DateJoined);
+            Assert.AreNotEqual(Error, "");
+        }
+
+        [TestMethod]
+        public void LastNameMid()
+        {
+            clsCustomer ACustomer = new clsCustomer();
+            String Error = "";
+            string TestData = "".PadRight(25, 'a'); // 25 characters
+            Error = ACustomer.Valid(FirstName, TestData, Email, DateJoined);
+            Assert.AreEqual(Error, "");
+        }
+
+        [TestMethod]
+        public void LastNameExtremeMax()
+        {
+            clsCustomer ACustomer = new clsCustomer();
+            String Error = "";
+            string TestData = "".PadRight(500, 'a'); // 500 characters
+            Error = ACustomer.Valid(FirstName, TestData, Email, DateJoined);
+            Assert.AreNotEqual(Error, "");
+        }
+
+        [TestMethod]
+        public void EmailMinLessOne()
+        {
+            clsCustomer ACustomer = new clsCustomer();
+            String Error = "";
+            string TestData = ""; 
+            Error = ACustomer.Valid(FirstName, LastName, TestData, DateJoined);
+            Assert.AreNotEqual(Error, "");
+        }
+
+        [TestMethod]
+        public void EmailMinBoundary()
+        {
+            clsCustomer ACustomer = new clsCustomer();
+            String Error = "";
+            string TestData = "a"; 
+            Error = ACustomer.Valid(FirstName, LastName, TestData, DateJoined);
+            Assert.AreEqual(Error, "");
+        }
+
+        [TestMethod]
+        public void EmailMinPlusOne()
+        {
+            clsCustomer ACustomer = new clsCustomer();
+            String Error = "";
+            string TestData = "aa"; 
+            Error = ACustomer.Valid(FirstName, LastName, TestData, DateJoined);
+            Assert.AreEqual(Error, "");
+        }
+
+        [TestMethod]
+        public void EmailMaxMinusOne()
+        {
+            clsCustomer ACustomer = new clsCustomer();
+            String Error = "";
+            string TestData = "".PadRight(49, 'a');
+            Error = ACustomer.Valid(FirstName, LastName, TestData, DateJoined);
+            Assert.AreEqual(Error, "");
+        }
+
+        [TestMethod]
+        public void EmailMaxBoundary()
+        {
+            clsCustomer ACustomer = new clsCustomer();
+            String Error = "";
+            string TestData = "".PadRight(50, 'a');
+            Error = ACustomer.Valid(FirstName, LastName, TestData, DateJoined);
+            Assert.AreEqual(Error, "");
+        }
+
+        [TestMethod]
+        public void EmailMaxPlusOne()
+        {
+            clsCustomer ACustomer = new clsCustomer();
+            String Error = "";
+            string TestData = "".PadRight(51, 'a');
+            Error = ACustomer.Valid(FirstName, LastName, TestData, DateJoined);
+            Assert.AreNotEqual(Error, "");
+        }
+
+        [TestMethod]
+        public void EmailMid()
+        {
+            clsCustomer ACustomer = new clsCustomer();
+            String Error = "";
+            string TestData = "".PadRight(25, 'a');
+            Error = ACustomer.Valid(FirstName, LastName, TestData, DateJoined);
+            Assert.AreEqual(Error, "");
+        }
+
+        [TestMethod]
+        public void EmailExtremeMax()
+        {
+            clsCustomer ACustomer = new clsCustomer();
+            String Error = "";
+            string TestData = "".PadRight(500, 'a');
+            Error = ACustomer.Valid(FirstName, LastName, TestData, DateJoined);
+            Assert.AreNotEqual(Error, "");
+        }
+        
+        [TestMethod]
+        public void DateExtremeMin()
+        {
+            clsCustomer ACustomer = new clsCustomer();
+            String Error = "";
+            DateTime TestDate;
+            TestDate = DateTime.Now.Date;
+            TestDate = TestDate.AddYears(-100).AddDays(-1);
+            string DateJoined = TestDate.ToString();
+            Error = ACustomer.Valid(FirstName, LastName, Email, DateJoined);
+            Assert.AreNotEqual(Error, "");
+        }
+
+        [TestMethod]
+        public void DateMinBoundary()
+        {
+            clsCustomer ACustomer = new clsCustomer();
+            String Error = "";
+            DateTime TestDate;
+            TestDate = DateTime.Now.Date;
+            TestDate = TestDate.AddYears(-100);
+            string DateJoined = TestDate.ToString();
+            Error = ACustomer.Valid(FirstName, LastName, Email, DateJoined);
+            Assert.AreEqual(Error, "");
+        }
+
+        [TestMethod]
+        public void DateMinPlusOne()
+        {
+            clsCustomer ACustomer = new clsCustomer();
+            String Error = "";
+            DateTime TestDate;
+            TestDate = DateTime.Now.Date;
+            TestDate = TestDate.AddYears(-100).AddDays(1);
+            string DateJoined = TestDate.ToString();
+            Error = ACustomer.Valid(FirstName, LastName, Email, DateJoined);
+            Assert.AreEqual(Error, "");
+        }
+
+        [TestMethod]
+        public void DateMaxMinusOne()
+        {
+            clsCustomer ACustomer = new clsCustomer();
+            String Error = "";
+            DateTime TestDate;
+            TestDate = DateTime.Now.Date;
+            TestDate = TestDate.AddDays(-1);
+            string DateJoined = TestDate.ToString();
+            Error = ACustomer.Valid(FirstName, LastName, Email, DateJoined);
+            Assert.AreEqual(Error, "");
+        }
+
+        [TestMethod]
+        public void DateMaxBoundary()
+        {
+            clsCustomer ACustomer = new clsCustomer();
+            String Error = "";
+            DateTime TestDate;
+            TestDate = DateTime.Now.Date;
+            string DateJoined = TestDate.ToString();
+            Error = ACustomer.Valid(FirstName, LastName, Email, DateJoined);
+            Assert.AreEqual(Error, "");
+        }
+
+        [TestMethod]
+        public void DateMaxPlusOne()
+        {
+            clsCustomer ACustomer = new clsCustomer();
+            String Error = "";
+            DateTime TestDate;
+            TestDate = DateTime.Now.Date;
+            TestDate = TestDate.AddDays(1);
+            string DateJoined = TestDate.ToString();
+            Error = ACustomer.Valid(FirstName, LastName, Email, DateJoined);
+            Assert.AreNotEqual(Error, "");
+        }
+
+        [TestMethod]
+        public void DateMid()
+        {
+            clsCustomer ACustomer = new clsCustomer();
+            String Error = "";
+            DateTime TestDate;
+            TestDate = DateTime.Now.Date;
+            TestDate = TestDate.AddYears(-50);
+            string DateJoined = TestDate.ToString;
+        }
+
+        [TestMethod]
+        public void DateExtremeMax()
+        {
+            clsCustomer ACustomer = new clsCustomer();
+            String Error = "";
+            DateTime TestDate;
+            TestDate = DateTime.Now.Date;
+            TestDate = TestDate.AddYears(100); // 100 years in the future
+            string DateJoined = TestDate.ToString();
+            Error = ACustomer.Valid(FirstName, LastName, Email, DateJoined);
+            Assert.AreNotEqual(Error, "");
+        }
     }
 }
 
