@@ -49,8 +49,10 @@
   <ItemGroup>
     <Compile Include="clsAddress.cs" />
     <Compile Include="clsAddressCollection.cs" />
+    <Compile Include="clsAddressUser.cs" />
     <Compile Include="clsCustomer.cs" />
     <Compile Include="clsCustomerCollection.cs" />
+    <Compile Include="clsCustomerUser.cs" />
     <Compile Include="clsDataConnection.cs" />
     <Compile Include="clsDiscount.cs" />
     <Compile Include="clsDiscountCollection.cs" />
