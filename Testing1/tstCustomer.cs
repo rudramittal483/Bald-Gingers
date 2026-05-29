@@ -1,6 +1,7 @@
 ﻿using ClassLibrary;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.IO;
 
 namespace Testing6
 {
@@ -21,6 +22,7 @@ namespace Testing6
             //test to see that it exists
             Assert.IsNotNull(ACustomer);
         }
+
         [TestMethod]
         public void CustomerNoPropertyOK()
         {
@@ -554,7 +556,9 @@ namespace Testing6
             DateTime TestDate;
             TestDate = DateTime.Now.Date;
             TestDate = TestDate.AddYears(-50);
-            string DateJoined = TestDate.ToString;
+            string DateJoined = TestDate.ToString();
+            Error = ACustomer.Valid(FirstName, LastName, Email, DateJoined);
+            Assert.AreEqual(Error, "");
         }
 
         [TestMethod]
@@ -569,6 +573,8 @@ namespace Testing6
             Error = ACustomer.Valid(FirstName, LastName, Email, DateJoined);
             Assert.AreNotEqual(Error, "");
         }
+
+        
     }
 }
 
