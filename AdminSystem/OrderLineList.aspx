@@ -1,5 +1,4 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="OrderLineList.aspx.cs" Inherits="OrderLineList" %>
-
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
@@ -42,6 +41,11 @@
                                 <asp:Label ID="lblError" runat="server" CssClass="text-danger fw-bold d-block"></asp:Label>
                             </div>
 
+                        </div>
+                        <div class="card-footer bg-white text-end py-3">
+                            <asp:LinkButton ID="btnReturn" runat="server" CssClass="btn btn-secondary px-4" OnClick="btnReturn_Click" CausesValidation="false">
+                                <i class="bi bi-arrow-return-left"></i> Main Menu
+                            </asp:LinkButton>
                         </div>
                     </div>
 

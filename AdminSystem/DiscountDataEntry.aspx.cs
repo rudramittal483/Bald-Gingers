@@ -132,4 +132,16 @@ public partial class _1_DataEntry : System.Web.UI.Page
             }
         }
     }
+
+    protected void btnReturn_Click(object sender, EventArgs e)
+    {
+        // Redirect to the Admin Menu page
+        Response.Redirect("TeamMainMenu.aspx");
+    }
+
+    protected void btnCancel_Click(object sender, EventArgs e)
+    {
+        // Redirect to the Discount List page
+        Response.Redirect("DiscountList.aspx");
+    }
 }

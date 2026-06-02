@@ -66,6 +66,13 @@
                             </div>
 
                         </div>
+                        
+                        <div class="card-footer bg-white text-end py-3">
+                            <asp:LinkButton ID="btnReturn" runat="server" CssClass="btn btn-secondary px-4" OnClick="btnReturn_Click" CausesValidation="false">
+                                <i class="bi bi-arrow-return-left"></i> Main Menu
+                            </asp:LinkButton>
+                        </div>
+                        
                     </div>
 
                 </div>

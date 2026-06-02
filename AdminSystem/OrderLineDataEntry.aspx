@@ -1,5 +1,4 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="OrderLineDataEntry.aspx.cs" Inherits="OrderLineDataEntry" %>
-
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
@@ -64,8 +63,12 @@
                                 <i class="bi bi-check-circle"></i> OK
                             </asp:LinkButton>
                             
-                            <asp:LinkButton ID="btnCancel" runat="server" CssClass="btn btn-danger px-4" OnClick="btnCancel_Click">
+                            <asp:LinkButton ID="btnCancel" runat="server" CssClass="btn btn-danger me-2 px-4" OnClick="btnCancel_Click">
                                 <i class="bi bi-x-circle"></i> Cancel
+                            </asp:LinkButton>
+
+                            <asp:LinkButton ID="btnReturn" runat="server" CssClass="btn btn-secondary px-4" OnClick="btnReturn_Click" CausesValidation="false">
+                                <i class="bi bi-arrow-return-left"></i> Main Menu
                             </asp:LinkButton>
                         </div>
                     </div>

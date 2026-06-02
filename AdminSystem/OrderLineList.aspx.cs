@@ -14,6 +14,13 @@ public partial class OrderLineList : System.Web.UI.Page
         {
             DisplayOrderLines();
         }
+
+        //create an instance of the stock collection
+        clsOrderLineUser AnUser = new clsOrderLineUser();
+        //retrieve the logged-in user from the session
+        AnUser = (clsOrderLineUser)Session["AnUser"];
+        //display the username of the logged-in user
+        Response.Write("Logged in as: " + AnUser.UserName);
     }
 
     void DisplayOrderLines()
@@ -59,5 +66,11 @@ public partial class OrderLineList : System.Web.UI.Page
         {
             lblError.Text = "Please select a record to delete from the list";
         }
+    }
+
+    protected void btnReturn_Click(object sender, EventArgs e)
+    {
+        // Redirect to the Admin Menu page
+        Response.Redirect("TeamMainMenu.aspx");
     }
 }

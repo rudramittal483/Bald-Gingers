@@ -17,6 +17,13 @@ public partial class _1_List : System.Web.UI.Page
             DisplayDiscounts();
         }
 
+        //create an instance of the stock collection
+        clsDiscountUser AnUser = new clsDiscountUser();
+        //retrieve the logged-in user from the session
+        AnUser = (clsDiscountUser)Session["AnUser"];
+        //display the username of the logged-in user
+        Response.Write("Logged in as: " + AnUser.UserName);
+
     }
 
     void DisplayDiscounts()
@@ -111,5 +118,11 @@ public partial class _1_List : System.Web.UI.Page
         lstDiscountList.DataTextField = "DiscountCode";
         //bind the data to the list
         lstDiscountList.DataBind();
+    }
+
+    protected void btnReturn_Click(object sender, EventArgs e)
+    {
+        // Redirect to the Admin Menu page
+        Response.Redirect("TeamMainMenu.aspx");
     }
 }

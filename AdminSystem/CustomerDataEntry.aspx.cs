@@ -138,4 +138,10 @@ public partial class _1_DataEntry : System.Web.UI.Page
         txtDateJoined.Text = CustomerBook.ThisCustomer.DateJoined.ToString("dd/MM/yyyy");
         chkIsActiveAccount.Checked = CustomerBook.ThisCustomer.IsActiveAccount;
     }
+
+    protected void btnReturn_Click(object sender, EventArgs e)
+    {
+        // Redirect to the Admin Menu page
+        Response.Redirect("TeamMainMenu.aspx");
+    }
 }

@@ -1,10 +1,9 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="StockLogin.aspx.cs" Inherits="_1Viewer" %>
 
 <!DOCTYPE html>
-
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <title>Order Management System</title>
+    <title>Stock Management Login</title>
     <link href="Content/bootstrap.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
     <script src="Scripts/bootstrap.bundle.min.js"></script>
@@ -45,7 +44,7 @@
                                 <i class="bi bi-box-arrow-in-right"></i> Login
                             </asp:LinkButton>
                             
-                            <asp:LinkButton ID="btnCancel" runat="server" CssClass="btn btn-outline-secondary">
+                            <asp:LinkButton ID="btnCancel" runat="server" CssClass="btn btn-outline-secondary" OnClick="btnCancel_Click" CausesValidation="false">
                                 <i class="bi bi-x-circle"></i> Cancel
                             </asp:LinkButton>
                         </div>
