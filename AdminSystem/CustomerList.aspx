@@ -4,35 +4,73 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <title></title>
+    <title>Order Management System</title>
+    <link href="Content/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+    <script src="Scripts/bootstrap.bundle.min.js"></script>
 </head>
-<body>
+<body class="bg-light">
     <form id="form1" runat="server">
-        <div>
-            <asp:ListBox ID="lstCustomerList" runat="server" Height="300px" Width="500px"></asp:ListBox>
+        <div class="container mt-5">
+            <div class="row justify-content-center">
+                <div class="col-md-10 col-lg-8">
+                    
+                    <div class="card shadow-sm border-0 rounded-3">
+                        <div class="card-header bg-primary text-white py-3">
+                            <h4 class="mb-0"><i class="bi bi-people-fill me-2"></i>Customer Directory</h4>
+                        </div>
+                        <div class="card-body p-4">
+                            
+                            <div class="mb-3">
+                                <asp:ListBox ID="lstCustomerList" runat="server" CssClass="form-control" Rows="10"></asp:ListBox>
+                            </div>
 
-            <asp:Button ID="btnAdd" runat="server" style="position: absolute; left: 10px; top: 330px;" Text="Add" OnClick="btnAdd_Click" />
+                            <div class="mb-4 d-flex gap-2">
+                                <asp:LinkButton ID="btnAdd" runat="server" CssClass="btn btn-success" OnClick="btnAdd_Click">
+                                    <i class="bi bi-plus-circle"></i> Add
+                                </asp:LinkButton>
+                                
+                                <asp:LinkButton ID="btnEdit" runat="server" CssClass="btn btn-warning text-dark" OnClick="btnEdit_Click">
+                                    <i class="bi bi-pencil-square"></i> Edit
+                                </asp:LinkButton>
+                                
+                                <asp:LinkButton ID="btnDelete" runat="server" CssClass="btn btn-danger" OnClick="btnDelete_Click">
+                                    <i class="bi bi-trash"></i> Delete
+                                </asp:LinkButton>
+                            </div>
 
-            <asp:Button ID="btnEdit" runat="server" style="position: absolute; left: 60px; top: 330px;" Text="Edit" OnClick="btnEdit_Click" />
+                            <hr />
 
-            <asp:Button ID="btnDelete" runat="server" style="position: absolute; left: 110px; top: 330px;" Text="Delete" OnClick="btnDelete_Click" />
+                            <div class="bg-light border rounded-3 p-3 mb-3">
+                                <h6 class="text-muted mb-3"><i class="bi bi-funnel-fill me-1"></i> Filter Options</h6>
+                                <div class="row g-2 align-items-center">
+                                    <div class="col-auto">
+                                        <asp:Label ID="lblFilter" runat="server" CssClass="col-form-label fw-bold" Text="Enter Email:"></asp:Label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <asp:TextBox ID="txtFilter" runat="server" CssClass="form-control" placeholder="example@email.com"></asp:TextBox>
+                                    </div>
+                                    <div class="col-auto d-flex gap-2">
+                                        <asp:LinkButton ID="btnApplyFilter" runat="server" CssClass="btn btn-primary" OnClick="btnApplyFilter_Click">
+                                            <i class="bi bi-search"></i> Apply Filter
+                                        </asp:LinkButton>
+                                        
+                                        <asp:LinkButton ID="btnClearFilter" runat="server" CssClass="btn btn-outline-secondary" OnClick="btnClearFilter_Click">
+                                            <i class="bi bi-eraser-fill"></i> Clear Filter
+                                        </asp:LinkButton>
+                                    </div>
+                                </div>
+                            </div>
 
+                            <div class="mt-3">
+                                <asp:Label ID="lblError" runat="server" CssClass="text-danger fw-bold"></asp:Label>
+                            </div>
 
+                        </div>
+                    </div>
 
-            <asp:Label ID="lblFilter" runat="server" style="position: absolute; left: 10px; top: 380px;" Text="Enter Email"></asp:Label>
-
-            <asp:TextBox ID="txtFilter" runat="server" style="position: absolute; left: 180px; top: 380px;"></asp:TextBox>
-
-
-
-            <asp:Button ID="btnApplyFilter" runat="server" style="position: absolute; left: 10px; top: 420px;" Text="Apply Filter" OnClick="btnApplyFilter_Click" />
-
-            <asp:Button ID="btnClearFilter" runat="server" style="position: absolute; left: 183px; top: 420px;" Text="Clear Filter" OnClick="btnClearFilter_Click" />
-
-
-
-            <asp:Label ID="lblError" runat="server" style="position: absolute; left: 10px; top: 470px;" ForeColor="Red"></asp:Label>
-
+                </div>
+            </div>
         </div>
     </form>
 </body>
