@@ -4,36 +4,86 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <title></title>
+    <title>Order Management System</title>
+    <link href="Content/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+    <script src="Scripts/bootstrap.bundle.min.js"></script>
 </head>
-<body>
+<body class="bg-light">
     <form id="form1" runat="server">
-                <div style="height: 23px">
-            This is This is the Discount Data Entry Page<asp:TextBox ID="txtDiscountId" runat="server" style="z-index: 1; top: 41px; position: absolute; left: 268px" height="25px" width="168px"></asp:TextBox>
-            <br />
-            <br />
+        <div class="container mt-5">
+            <div class="row justify-content-center">
+                <div class="col-md-8 col-lg-6">
+                    <div class="card shadow-sm border-0 rounded-3">
+                        <div class="card-header bg-primary text-white py-3">
+                            <h4 class="mb-0"><i class="bi bi-tags-fill me-2"></i>Discount Data Entry</h4>
+                        </div>
+                        <div class="card-body p-4">
+                            
+                            <div class="mb-3">
+                                <asp:Label ID="lblDiscountId" runat="server" CssClass="form-label fw-bold" Text="Discount ID"></asp:Label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-light"><i class="bi bi-hash"></i></span>
+                                    <asp:TextBox ID="txtDiscountId" runat="server" CssClass="form-control" placeholder="Enter Discount ID"></asp:TextBox>
+                                    <asp:LinkButton ID="btnFind" runat="server" CssClass="btn btn-outline-primary px-4" OnClick="btnFind_Click">
+                                        <i class="bi bi-search"></i> Find
+                                    </asp:LinkButton>
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <asp:Label ID="lblDiscountCode" runat="server" CssClass="form-label fw-bold" Text="Discount Code"></asp:Label>
+                                <asp:TextBox ID="txtDiscountCode" runat="server" CssClass="form-control" placeholder="e.g., SUMMER50"></asp:TextBox>
+                            </div>
+
+                            <div class="mb-3">
+                                <asp:Label ID="lblDiscountPercent" runat="server" CssClass="form-label fw-bold" Text="Discount Percent"></asp:Label>
+                                <div class="input-group">
+                                    <asp:TextBox ID="txtDiscountPercent" runat="server" CssClass="form-control" placeholder="e.g., 15"></asp:TextBox>
+                                    <span class="input-group-text bg-light"><i class="bi bi-percent"></i></span>
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <asp:Label ID="lblDescription" runat="server" CssClass="form-label fw-bold" Text="Description"></asp:Label>
+                                <asp:TextBox ID="txtDescription" runat="server" CssClass="form-control" placeholder="Enter description details"></asp:TextBox>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <asp:Label ID="lblStartDate" runat="server" CssClass="form-label fw-bold" Text="Start Date"></asp:Label>
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-light"><i class="bi bi-calendar-check"></i></span>
+                                        <asp:TextBox ID="txtStartDate" runat="server" CssClass="form-control" placeholder="YYYY-MM-DD"></asp:TextBox>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <asp:Label ID="lblEndDate" runat="server" CssClass="form-label fw-bold" Text="End Date"></asp:Label>
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-light"><i class="bi bi-calendar-x"></i></span>
+                                        <asp:TextBox ID="txtEndDate" runat="server" CssClass="form-control" placeholder="YYYY-MM-DD"></asp:TextBox>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mt-2 mb-2">
+                                <asp:Label ID="lblError" runat="server" CssClass="text-danger fw-semibold d-block"></asp:Label>
+                            </div>
+
+                        </div>
+                        <div class="card-footer bg-white text-end py-3">
+                            <asp:LinkButton ID="btnOK" runat="server" CssClass="btn btn-success me-2 px-4" OnClick="btnOK_Click">
+                                <i class="bi bi-check-circle"></i> OK
+                            </asp:LinkButton>
+                            
+                            <asp:LinkButton ID="btnCancel" runat="server" CssClass="btn btn-danger px-4">
+                                <i class="bi bi-x-circle"></i> Cancel
+                            </asp:LinkButton>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <p style="height: 320px; margin-top: 0px">
-            <asp:Label ID="lblDiscountId" runat="server" style="z-index: 1; left: 9px; top: 45px; position: absolute" Text="Discount ID" width="103px"></asp:Label>
-            <asp:Label ID="lblDiscountCode" runat="server" style="z-index: 1; left: 9px; top: 96px; position: absolute; width: 123px;" Text="Discount Code"></asp:Label>
-            <asp:Label ID="lblDiscountPercent" runat="server" style="z-index: 1; left: 9px; top: 154px; position: absolute; bottom: 381px;" Text="Discount Percent"></asp:Label>
-            <asp:TextBox ID="txtDiscountCode" runat="server" height="25px" style="z-index: 1; left: 268px; top: 92px; position: absolute" width="168px"></asp:TextBox>
-            <asp:TextBox ID="txtEndDate" runat="server" height="25px" style="z-index: 1; left: 268px; top: 321px; position: absolute" width="168px"></asp:TextBox>
-            <asp:Label ID="lblEndDate" runat="server" height="22px" style="z-index: 1; left: 9px; top: 326px; position: absolute" Text="End Date" width="103px"></asp:Label>
-        </p>
-        <p>
-            <asp:Button ID="btnFind" runat="server" OnClick="btnFind_Click" style="z-index: 1; left: 528px; top: 39px; position: absolute; width: 64px; bottom: 713px" Text="Find" />
-            <asp:Label ID="lblDescription" runat="server" style="z-index: 1; left: 9px; top: 214px; position: absolute" Text="Description" width="103px"></asp:Label>
-            <asp:TextBox ID="txtDiscountPercent" runat="server" height="25px" style="z-index: 1; left: 268px; top: 154px; position: absolute" width="168px"></asp:TextBox>
-        </p>
-        <asp:TextBox ID="txtDescription" runat="server" style="z-index: 1; left: 268px; top: 210px; position: absolute" height="25px" width="168px"></asp:TextBox>
-        <asp:Label ID="lblStartDate" runat="server" style="z-index: 1; left: 9px; top: 268px; position: absolute" Text="Start Date" width="103px"></asp:Label>
-        <asp:TextBox ID="txtStartDate" runat="server" style="z-index: 1; left: 268px; top: 264px; position: absolute" height="25px" width="168px"></asp:TextBox>
-        <p>
-            <asp:Label ID="lblError" runat="server" style="z-index: 1; left: 268px; top: 392px; position: absolute" width="103px"></asp:Label>
-            <asp:Button ID="btnOK" runat="server" style="z-index: 1; left: 42px; top: 428px; position: absolute" Text="OK" OnClick="btnOK_Click" />
-        </p>
-        <asp:Button ID="btnCancel" runat="server" style="z-index: 1; left: 110px; top: 429px; position: absolute" Text="Cancel" />
     </form>
 </body>
 </html>

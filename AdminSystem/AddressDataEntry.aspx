@@ -5,38 +5,82 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title>Address Data Entry</title>
+    <link href="Content/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+    <script src="Scripts/bootstrap.bundle.min.js"></script>
 </head>
-<body>
+<body class="bg-light">
     <form id="form1" runat="server">
-        <div>
-            <asp:Label ID="lblAddressId" runat="server" style="position: absolute; left: 10px; top: 20px;" Text="Address ID"></asp:Label>
-            <asp:TextBox ID="txtAddressId" runat="server" style="position: absolute; left: 150px; top: 20px;"></asp:TextBox>
-            <asp:Button ID="btnFind" runat="server" style="position: absolute; left: 358px; top: 16px;" Text="Find" OnClick="btnFind_Click" />
+        <div class="container mt-5">
+            <div class="row justify-content-center">
+                <div class="col-md-8 col-lg-6">
+                    <div class="card shadow-sm">
+                        <div class="card-header bg-primary text-white">
+                            <h4 class="mb-0">Address Data Entry</h4>
+                        </div>
+                        <div class="card-body">
+                            
+                            <div class="mb-3">
+                                <asp:Label ID="lblAddressId" runat="server" CssClass="form-label" Text="Address ID"></asp:Label>
+                                <div class="input-group">
+                                    <asp:TextBox ID="txtAddressId" runat="server" CssClass="form-control"></asp:TextBox>
+                                    <asp:LinkButton ID="btnFind" runat="server" CssClass="btn btn-outline-primary" OnClick="btnFind_Click">
+                                        <i class="bi bi-search"></i> Find
+                                    </asp:LinkButton>
+                                </div>
+                            </div>
 
-            <asp:Label ID="lblCustomerNo" runat="server" style="position: absolute; left: 10px; top: 60px;" Text="Customer No"></asp:Label>
-            <asp:TextBox ID="txtCustomerNo" runat="server" style="position: absolute; left: 150px; top: 60px;"></asp:TextBox>
+                            <div class="mb-3">
+                                <asp:Label ID="lblCustomerNo" runat="server" CssClass="form-label" Text="Customer No"></asp:Label>
+                                <asp:TextBox ID="txtCustomerNo" runat="server" CssClass="form-control"></asp:TextBox>
+                            </div>
 
-            <asp:Label ID="lblEmirate" runat="server" style="position: absolute; left: 10px; top: 100px;" Text="Emirate"></asp:Label>
-            <asp:TextBox ID="txtEmirate" runat="server" style="position: absolute; left: 150px; top: 100px;"></asp:TextBox>
+                            <div class="mb-3">
+                                <asp:Label ID="lblEmirate" runat="server" CssClass="form-label" Text="Emirate"></asp:Label>
+                                <asp:TextBox ID="txtEmirate" runat="server" CssClass="form-control"></asp:TextBox>
+                            </div>
 
-            <asp:Label ID="lblBuildingName" runat="server" style="position: absolute; left: 10px; top: 140px;" Text="Building Name"></asp:Label>
-            <asp:TextBox ID="txtBuildingName" runat="server" style="position: absolute; left: 150px; top: 140px;"></asp:TextBox>
+                            <div class="mb-3">
+                                <asp:Label ID="lblBuildingName" runat="server" CssClass="form-label" Text="Building Name"></asp:Label>
+                                <asp:TextBox ID="txtBuildingName" runat="server" CssClass="form-control"></asp:TextBox>
+                            </div>
 
-            <asp:Label ID="lblStreetName" runat="server" style="position: absolute; left: 10px; top: 180px;" Text="Street Name"></asp:Label>
-            <asp:TextBox ID="txtStreetName" runat="server" style="position: absolute; left: 150px; top: 180px;"></asp:TextBox>
+                            <div class="mb-3">
+                                <asp:Label ID="lblStreetName" runat="server" CssClass="form-label" Text="Street Name"></asp:Label>
+                                <asp:TextBox ID="txtStreetName" runat="server" CssClass="form-control"></asp:TextBox>
+                            </div>
 
-            <asp:Label ID="lblAddressType" runat="server" style="position: absolute; left: 10px; top: 220px;" Text="Address Type"></asp:Label>
-            <asp:TextBox ID="txtAddressType" runat="server" style="position: absolute; left: 150px; top: 220px;"></asp:TextBox>
+                            <div class="mb-3">
+                                <asp:Label ID="lblAddressType" runat="server" CssClass="form-label" Text="Address Type"></asp:Label>
+                                <asp:TextBox ID="txtAddressType" runat="server" CssClass="form-control"></asp:TextBox>
+                            </div>
 
-            <asp:Label ID="lblPostcode" runat="server" style="position: absolute; left: 10px; top: 260px;" Text="Postcode"></asp:Label>
-            <asp:TextBox ID="txtPostcode" runat="server" style="position: absolute; left: 150px; top: 260px;"></asp:TextBox>
+                            <div class="mb-3">
+                                <asp:Label ID="lblPostcode" runat="server" CssClass="form-label" Text="Postcode"></asp:Label>
+                                <asp:TextBox ID="txtPostcode" runat="server" CssClass="form-control"></asp:TextBox>
+                            </div>
 
-            <asp:CheckBox ID="chkIsDefault" runat="server" style="position: absolute; left: 10px; top: 300px;" Text="Is Default Address" />
+                            <div class="form-check mb-3">
+                                <asp:CheckBox ID="chkIsDefault" runat="server" CssClass="form-check-input" Text="Is Default Address" />
+                            </div>
 
-            <asp:Label ID="lblError" runat="server" style="position: absolute; left: 10px; top: 340px;" Text="" ForeColor="Red"></asp:Label>
+                            <div class="mb-3">
+                                <asp:Label ID="lblError" runat="server" CssClass="text-danger fw-bold" Text=""></asp:Label>
+                            </div>
 
-            <asp:Button ID="btnOK" runat="server" style="position: absolute; left: 10px; top: 380px;" Text="OK" OnClick="btnOK_Click" />
-            <asp:Button ID="btnCancel" runat="server" style="position: absolute; left: 80px; top: 380px;" Text="Cancel" OnClick="btnCancel_Click" />
+                        </div>
+                        <div class="card-footer text-end bg-white">
+                            <asp:LinkButton ID="btnOK" runat="server" CssClass="btn btn-success me-2" OnClick="btnOK_Click">
+                                <i class="bi bi-check-circle"></i> OK
+                            </asp:LinkButton>
+                            
+                            <asp:LinkButton ID="btnCancel" runat="server" CssClass="btn btn-danger" OnClick="btnCancel_Click">
+                                <i class="bi bi-x-circle"></i> Cancel
+                            </asp:LinkButton>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </form>
 </body>
