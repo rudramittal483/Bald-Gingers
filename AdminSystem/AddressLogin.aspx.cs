@@ -28,6 +28,8 @@ public partial class _1Viewer : System.Web.UI.Page
         Password = Convert.ToString(txtPassword.Text);
         //find the record
         Found = AnUser.FindUser(UserName, Password);
+        // add a session variable to store the user name of the logged in user
+        Session["AnUser"] = AnUser;
         //if username and/or password is empty
         if (txtUserName.Text == "")
         {
@@ -45,5 +47,11 @@ public partial class _1Viewer : System.Web.UI.Page
         {
             lblError.Text = "Login details are incorrect. Please try again.";
         }
+    }
+
+    protected void btnCancel_Click(object sender, EventArgs e)
+    {
+        // Redirect to the Team Main Menu page
+        Response.Redirect("TeamMainMenu.aspx");
     }
 }

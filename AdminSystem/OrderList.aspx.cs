@@ -14,6 +14,13 @@ public partial class OrderList : System.Web.UI.Page
         {
             DisplayOrders();
         }
+
+        //create an instance of the stock collection
+        clsOrderUser AnUser = new clsOrderUser();
+        //retrieve the logged-in user from the session
+        AnUser = (clsOrderUser)Session["AnUser"];
+        //display the username of the logged-in user
+        Response.Write("Logged in as: " + AnUser.UserName);
     }
 
     void DisplayOrders()
@@ -80,5 +87,11 @@ public partial class OrderList : System.Web.UI.Page
         lstOrderList.DataValueField = "OrderNo";
         lstOrderList.DataTextField = "DeliveryAddress";
         lstOrderList.DataBind();
+    }
+
+    protected void btnReturn_Click(object sender, EventArgs e)
+    {
+        // Redirect to the Admin Menu page
+        Response.Redirect("TeamMainMenu.aspx");
     }
 }

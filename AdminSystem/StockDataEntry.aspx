@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <title>Order Management System</title>
+    <title>Stock Data Entry</title>
     <link href="Content/bootstrap.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
     <script src="Scripts/bootstrap.bundle.min.js"></script>
@@ -93,8 +93,12 @@
                                 <i class="bi bi-check-circle"></i> OK
                             </asp:LinkButton>
                             
-                            <asp:LinkButton ID="btnCancel" runat="server" CssClass="btn btn-danger px-4">
+                            <asp:LinkButton ID="btnCancel" runat="server" CssClass="btn btn-danger me-2 px-4" OnClick="btnCancel_Click">
                                 <i class="bi bi-x-circle"></i> Cancel
+                            </asp:LinkButton>
+                            
+                            <asp:LinkButton ID="btnReturn" runat="server" CssClass="btn btn-secondary px-4" OnClick="btnReturn_Click" CausesValidation="false">
+                                <i class="bi bi-arrow-return-left"></i> Main Menu
                             </asp:LinkButton>
                         </div>
                     </div>

@@ -45,7 +45,7 @@
                                 <i class="bi bi-box-arrow-in-right"></i> Login
                             </asp:LinkButton>
                             
-                            <asp:LinkButton ID="btnCancel" runat="server" CssClass="btn btn-outline-secondary">
+                            <asp:LinkButton ID="btnCancel" runat="server" CssClass="btn btn-outline-secondary" OnClick="btnCancel_Click" CausesValidation="false">
                                 <i class="bi bi-x-circle"></i> Cancel
                             </asp:LinkButton>
                         </div>

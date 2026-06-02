@@ -17,6 +17,13 @@ public partial class AddressList : System.Web.UI.Page
             //update the list boxs
             DisplayAddresses();
         }
+
+        //create an instance of the stock collection
+        clsAddressUser AnUser = new clsAddressUser();
+        //retrieve the logged-in user from the session
+        AnUser = (clsAddressUser)Session["AnUser"];
+        //display the username of the logged-in user
+        Response.Write("Logged in as: " + AnUser.UserName);
     }
 
     void DisplayAddresses()
@@ -127,5 +134,11 @@ public partial class AddressList : System.Web.UI.Page
 
         //bind the data to the list
         lstAddressList.DataBind();
+    }
+
+    protected void btnReturn_Click(object sender, EventArgs e)
+    {
+        // Redirect to the Admin Menu page
+        Response.Redirect("TeamMainMenu.aspx");
     }
 }

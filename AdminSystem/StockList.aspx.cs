@@ -18,6 +18,13 @@ public partial class _1_List : System.Web.UI.Page
             DisplayStocks();
         }
 
+        //create an instance of the stock collection
+        clsStockUser AnUser = new clsStockUser();
+        //retrieve the logged-in user from the session
+        AnUser = (clsStockUser)Session["AnUser"];
+        //display the username of the logged-in user
+        Response.Write("Logged in as: " + AnUser.UserName);
+
     }
 
     void DisplayStocks()
@@ -112,5 +119,11 @@ public partial class _1_List : System.Web.UI.Page
         lstStockList.DataTextField = "Brand";
         //bind the data to the list
         lstStockList.DataBind();
+    }
+
+    protected void btnReturn_Click(object sender, EventArgs e)
+    {
+        // Redirect to the Admin Menu page
+        Response.Redirect("TeamMainMenu.aspx");
     }
 }

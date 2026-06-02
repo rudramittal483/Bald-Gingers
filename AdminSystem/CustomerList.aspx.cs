@@ -16,6 +16,13 @@ public partial class CustomerList : System.Web.UI.Page
         {
             DisplayCustomers();
         }
+
+        //create an instance of the stock collection
+        clsCustomerUser AnUser = new clsCustomerUser();
+        //retrieve the logged-in user from the session
+        AnUser = (clsCustomerUser)Session["AnUser"];
+        //display the username of the logged-in user
+        Response.Write("Logged in as: " + AnUser.UserName);
     }
 
     void DisplayCustomers()
@@ -113,5 +120,11 @@ public partial class CustomerList : System.Web.UI.Page
         lstCustomerList.DataTextField = "Email";
         //bind the data to the list
         lstCustomerList.DataBind();
+    }
+
+    protected void btnReturn_Click(object sender, EventArgs e)
+    {
+        // Redirect to the Admin Menu page
+        Response.Redirect("TeamMainMenu.aspx");
     }
 }

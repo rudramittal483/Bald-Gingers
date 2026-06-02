@@ -1,7 +1,6 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="AddressList.aspx.cs" Inherits="AddressList" %>
 
 <!DOCTYPE html>
-
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title>Order Management System</title>
@@ -15,11 +14,11 @@
             <div class="row justify-content-center">
                 <div class="col-md-10 col-lg-8">
                     
-                    <div class="card shadow-sm">
-                        <div class="card-header bg-primary text-white">
+                    <div class="card shadow-sm border-0 rounded-3">
+                        <div class="card-header bg-primary text-white py-3">
                             <h4 class="mb-0"><i class="bi bi-list-ul me-2"></i>Address Directory</h4>
                         </div>
-                        <div class="card-body">
+                        <div class="card-body p-4">
                             
                             <div class="mb-3">
                                 <asp:ListBox ID="lstAddressList" runat="server" CssClass="form-control" Rows="10"></asp:ListBox>
@@ -66,6 +65,12 @@
                                 <asp:Label ID="lblError" runat="server" CssClass="text-danger fw-bold"></asp:Label>
                             </div>
 
+                        </div>
+                        
+                        <div class="card-footer bg-white text-end py-3">
+                            <asp:LinkButton ID="btnReturn" runat="server" CssClass="btn btn-secondary px-4" OnClick="btnReturn_Click" CausesValidation="false">
+                                <i class="bi bi-arrow-return-left"></i> Main Menu
+                            </asp:LinkButton>
                         </div>
                     </div>
 

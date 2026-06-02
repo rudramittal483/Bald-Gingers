@@ -156,4 +156,10 @@ public partial class AddressDataEntry : System.Web.UI.Page
         txtPostcode.Text = AddressBook.ThisAddress.Postcode.ToString();
         chkIsDefault.Checked = AddressBook.ThisAddress.IsDefault;
     }
+
+    protected void btnReturn_Click(object sender, EventArgs e)
+    {
+        // Redirect to the Admin Menu page
+        Response.Redirect("TeamMainMenu.aspx");
+    }
 }

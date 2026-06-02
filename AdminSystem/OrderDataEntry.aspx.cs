@@ -110,4 +110,10 @@ public partial class OrderDataEntry : System.Web.UI.Page
             else { lblError.Text = "Order not found."; }
         }
     }
+
+    protected void btnReturn_Click(object sender, EventArgs e)
+    {
+        // Redirect to the Admin Menu page
+        Response.Redirect("TeamMainMenu.aspx");
+    }
 }

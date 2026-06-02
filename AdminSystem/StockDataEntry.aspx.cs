@@ -147,5 +147,17 @@ public partial class _1_DataEntry : System.Web.UI.Page
             }
         }
     }
+    protected void btnCancel_Click(object sender, EventArgs e)
+    {
+        // Redirect to the Stock List page
+        Response.Redirect("StockList.aspx");
+    }
 
+    protected void btnReturn_Click(object sender, EventArgs e)
+    {
+        // Redirect to the Main Menu page
+        Response.Redirect("TeamMainMenu.aspx");
+    }
 }
+
+
