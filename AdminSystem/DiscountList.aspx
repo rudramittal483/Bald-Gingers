@@ -1,8 +1,9 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="DiscountList.aspx.cs" Inherits="_1_List" %>
+
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <title>Order Management System</title>
+    <title>Discount Directory</title>
     <link href="Content/bootstrap.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
     <script src="Scripts/bootstrap.bundle.min.js"></script>
@@ -14,9 +15,15 @@
                 <div class="col-md-10 col-lg-8">
                     
                     <div class="card shadow-sm border-0 rounded-3">
-                        <div class="card-header bg-primary text-white py-3">
+                        
+                        <div class="card-header bg-primary text-white py-3 d-flex justify-content-between align-items-center">
                             <h4 class="mb-0"><i class="bi bi-percent me-2"></i>Discount Directory</h4>
+                            <span class="badge bg-light text-primary fs-6 px-3 py-2 rounded-pill shadow-sm">
+                                <i class="bi bi-person-circle me-1"></i>
+                                <asp:Label ID="lblUser" runat="server" Text="Not Logged In"></asp:Label>
+                            </span>
                         </div>
+                        
                         <div class="card-body p-4">
                             
                             <div class="mb-3">

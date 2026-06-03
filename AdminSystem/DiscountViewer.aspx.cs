@@ -11,7 +11,6 @@ public partial class _1Viewer : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-
         //create a new instance of clsDiscount
         clsDiscount ADiscount = new clsDiscount();
 
@@ -21,22 +20,31 @@ public partial class _1Viewer : System.Web.UI.Page
         // CHECK IF IT IS NULL BEFORE WRITING TO THE SCREEN
         if (ADiscount != null)
         {
-           
-            //display the data for this entry
-            Response.Write("Discount ID: " + ADiscount.DiscountId + "<br/>");
-            Response.Write("Discount Code: " + ADiscount.DiscountCode + "<br/>");
-            Response.Write("Description: " + ADiscount.DiscountDescription + "<br/>");
-            Response.Write("Discount Percentage: " + ADiscount.DiscountPercent + "<br/>");
-            Response.Write("Start Date: " + ADiscount.DiscountStartDate + "<br/>");
-            Response.Write("End Date: " + ADiscount.DiscountEndDate + "<br/>");
-
+            // Build the string securely using concatenation (C# 5 compatible) and send it to the Label
+            lblViewerData.Text =
+                "<b>Discount ID:</b> " + ADiscount.DiscountId + "<br/>" +
+                "<b>Discount Code:</b> " + ADiscount.DiscountCode + "<br/>" +
+                "<b>Description:</b> " + ADiscount.DiscountDescription + "<br/>" +
+                "<b>Discount Percentage:</b> " + ADiscount.DiscountPercent + "%<br/>" +
+                "<b>Start Date:</b> " + ADiscount.DiscountStartDate.ToString("dd-MM-yyyy") + "<br/>" +
+                "<b>End Date:</b> " + ADiscount.DiscountEndDate.ToString("dd-MM-yyyy");
         }
         else
         {
-              // If the session is empty, display a friendly message instead of crashing
-              Response.Write("<h3>No Discount data found.</h3>");
-              Response.Write("Please go back to the Data Entry page and submit a new record.");
+            // If the session is empty, display a friendly message in the Label
+            lblViewerData.Text = "<b>No Discount data found.</b><br/><br/>Please go back to the Data Entry page and submit a new record.";
         }
+    }
 
+    protected void btnBack_Click(object sender, EventArgs e)
+    {
+        // Redirects back to the list page (or Data Entry page, depending on your flow)
+        Response.Redirect("DiscountList.aspx");
+    }
+
+    protected void btnReturn_Click(object sender, EventArgs e)
+    {
+        // Redirects back to the main menu
+        Response.Redirect("TeamMainMenu.aspx");
     }
 }

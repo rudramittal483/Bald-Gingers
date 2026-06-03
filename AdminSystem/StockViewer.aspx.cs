@@ -1,39 +1,40 @@
-﻿using ClassLibrary;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
+﻿using System;
+using ClassLibrary; // Make sure this matches your actual library namespace
 
 public partial class _1Viewer : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        //create a new instance of clsStock
+        // Create a new instance of clsStock
         clsStock AStock = new clsStock();
 
-        //get the data from the session object
+        // Get the data from the session object
         AStock = (clsStock)Session["AStock"];
 
-        // CHECK IF IT IS NULL BEFORE WRITING TO THE SCREEN
+        // If the session object isn't completely empty, display the data inside the card's label
         if (AStock != null)
         {
-            //display the data for this entry
-            Response.Write("Laptop ID: " + AStock.LaptopId + "<br/>");
-            Response.Write("Discount ID: " + AStock.DiscountId + "<br/>");
-            Response.Write("Brand: " + AStock.Brand + "<br/>");
-            Response.Write("Model Name: " + AStock.Model + "<br/>");
-            Response.Write("Date Added: " + AStock.DateAdded + "<br/>");
-            Response.Write("Price: " + AStock.Price + "<br/>");
-            Response.Write("Quantity: " + AStock.Quantity + "<br/>");
-            Response.Write("In Stock: " + AStock.InStock + "<br/>");
+            lblViewerData.Text =
+                "<b>Laptop ID:</b> " + AStock.LaptopId + "<br/>" +
+                "<b>Discount ID:</b> " + AStock.DiscountId + "<br/>" +
+                "<b>Brand:</b> " + AStock.Brand + "<br/>" +
+                "<b>Model Name:</b> " + AStock.Model + "<br/>" +
+                "<b>Date Added:</b> " + AStock.DateAdded.ToString("dd-MM-yyyy") + "<br/>" +
+                "<b>Price:</b> $" + AStock.Price.ToString("0.00") + "<br/>" +
+                "<b>Quantity:</b> " + AStock.Quantity + "<br/>" +
+                "<b>In Stock:</b> " + AStock.InStock;
         }
-        else
-        {
-            // If the session is empty, display a friendly message instead of crashing
-            Response.Write("<h3>No stock data found.</h3>");
-            Response.Write("Please go back to the Data Entry page and submit a new record.");
-        }
+    }
+
+    protected void btnBack_Click(object sender, EventArgs e)
+    {
+        // Redirect back to the Data Entry or List page
+        Response.Redirect("StockDataEntry.aspx");
+    }
+
+    protected void btnReturn_Click(object sender, EventArgs e)
+    {
+        // Redirect back to the Main Menu
+        Response.Redirect("TeamMainMenu.aspx");
     }
 }

@@ -6,7 +6,6 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using ClassLibrary;
 
-
 public partial class _1_List : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
@@ -18,27 +17,36 @@ public partial class _1_List : System.Web.UI.Page
             DisplayStocks();
         }
 
-        //create an instance of the stock collection
-        clsStockUser AnUser = new clsStockUser();
-        //retrieve the logged-in user from the session
-        AnUser = (clsStockUser)Session["AnUser"];
-        //display the username of the logged-in user
-        Response.Write("Logged in as: " + AnUser.UserName);
+        // Check if a user is currently logged in
+        if (Session["AnUser"] != null)
+        {
+            //create an instance of the stock user
+            clsStockUser AnUser = new clsStockUser();
+            //retrieve the logged-in user from the session
+            AnUser = (clsStockUser)Session["AnUser"];
 
+            // Update the Bootstrap badge label with the username securely
+            lblUser.Text = AnUser.UserName;
+        }
+        else
+        {
+            // Fallback if accessed without logging in
+            lblUser.Text = "Guest";
+        }
     }
 
     void DisplayStocks()
     {
-        //create an instance of the stock collection
         clsStockCollection AllStocks = new clsStockCollection();
-        //set the data source to the list of stocks in the collection
-        lstStockList.DataSource = AllStocks.StockList;
-        //set the name of the primary key
-        lstStockList.DataValueField = "LaptopId";
-        //set the data field to display
-        lstStockList.DataTextField = "Model";
-        //bind the data to the list
-        lstStockList.DataBind();
+        lstStockList.Items.Clear();
+
+        foreach (clsStock AStock in AllStocks.StockList)
+        {
+            
+            string displayText = "Brand: " + AStock.Brand + " | Model: " + AStock.Model + " | Qty: " + AStock.Quantity + " | In Stock: " + AStock.InStock;
+            ListItem newItem = new ListItem(displayText, AStock.LaptopId.ToString());
+            lstStockList.Items.Add(newItem);
+        }
     }
 
     protected void btnAdd_Click(object sender, EventArgs e)
@@ -78,47 +86,42 @@ public partial class _1_List : System.Web.UI.Page
             LaptopId = Convert.ToInt32(lstStockList.SelectedValue);
             Session["LaptopId"] = LaptopId;
             Response.Redirect("StockConfirmDelete.aspx");
-
         }
         else
         {
             lblError.Text = "Please select a record to delete from the list";
-
         }
     }
 
     protected void btnApply_Click(object sender, EventArgs e)
     {
-        //create an instance of the stock collection
         clsStockCollection AllStocks = new clsStockCollection();
-        //apply the filter to the data
         AllStocks.ReportByBrand(txtFilterBrand.Text);
-        //set the data source to the filtered list of stocks
-        lstStockList.DataSource = AllStocks.StockList;
-        //set the name of the primary key
-        lstStockList.DataValueField = "LaptopId";
-        //set the data field to display
-        lstStockList.DataTextField = "Brand";
-        //bind the data to the list
-        lstStockList.DataBind();
+        lstStockList.Items.Clear();
+
+        foreach (clsStock AStock in AllStocks.StockList)
+        {
+            
+            string displayText = "Brand: " + AStock.Brand + " | Model: " + AStock.Model + " | Qty: " + AStock.Quantity + " | In Stock: " + AStock.InStock;
+            ListItem newItem = new ListItem(displayText, AStock.LaptopId.ToString());
+            lstStockList.Items.Add(newItem);
+        }
     }
 
     protected void btnClear_Click(object sender, EventArgs e)
     {
-        //create an instance of the stock collection
         clsStockCollection AllStocks = new clsStockCollection();
-        //display all records in the list
         AllStocks.ReportByBrand("");
-        //clear any existing filter to tidy up the interface
         txtFilterBrand.Text = "";
-        //set the data source to the unfiltered list of stocks
-        lstStockList.DataSource = AllStocks.StockList;
-        //set the name of the primary key
-        lstStockList.DataValueField = "LaptopId";
-        //set the data field to display
-        lstStockList.DataTextField = "Brand";
-        //bind the data to the list
-        lstStockList.DataBind();
+        lstStockList.Items.Clear();
+
+        foreach (clsStock AStock in AllStocks.StockList)
+        {
+            
+            string displayText = "Brand: " + AStock.Brand + " | Model: " + AStock.Model + " | Qty: " + AStock.Quantity + " | In Stock: " + AStock.InStock;
+            ListItem newItem = new ListItem(displayText, AStock.LaptopId.ToString());
+            lstStockList.Items.Add(newItem);
+        }
     }
 
     protected void btnReturn_Click(object sender, EventArgs e)

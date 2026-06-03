@@ -34,7 +34,7 @@
                                 <asp:Label ID="lblDiscountId" runat="server" CssClass="form-label fw-bold" Text="Discount ID"></asp:Label>
                                 <div class="input-group">
                                     <span class="input-group-text bg-light"><i class="bi bi-tags"></i></span>
-                                    <asp:TextBox ID="txtDiscountId" runat="server" CssClass="form-control" placeholder="Enter Discount ID"></asp:TextBox>
+                                    <asp:TextBox ID="txtDiscountId" runat="server" CssClass="form-control" placeholder="Enter Discount ID (Optional)"></asp:TextBox>
                                 </div>
                             </div>
 
@@ -79,12 +79,21 @@
                                 </div>
                             </div>
 
-                            <div class="form-check mb-4 mt-2">
-                                <asp:CheckBox ID="chkInStock" runat="server" CssClass="form-check-input" Text="In Stock" />
+                            <div class="row mt-3 mb-4">
+                                <div class="col-12">
+                                    <div class="form-check">
+                                        <input type="checkbox" id="chkInStock" runat="server" class="form-check-input" />
+                                        <label class="form-check-label fw-bold text-dark" for="chkInStock">
+                                            In Stock
+                                        </label>
+                                    </div>
+                                </div>
                             </div>
 
-                            <div class="mb-2">
-                                <asp:Label ID="lblError" runat="server" CssClass="text-danger fw-semibold d-block"></asp:Label>
+                            <div class="row mb-2">
+                                <div class="col-12">
+                                    <asp:Label ID="lblError" runat="server" CssClass="text-danger fw-bold"></asp:Label>
+                                </div>
                             </div>
 
                         </div>
@@ -93,7 +102,7 @@
                                 <i class="bi bi-check-circle"></i> OK
                             </asp:LinkButton>
                             
-                            <asp:LinkButton ID="btnCancel" runat="server" CssClass="btn btn-danger me-2 px-4" OnClick="btnCancel_Click">
+                            <asp:LinkButton ID="btnCancel" runat="server" CssClass="btn btn-danger me-2 px-4" OnClick="btnCancel_Click" CausesValidation="false">
                                 <i class="bi bi-x-circle"></i> Cancel
                             </asp:LinkButton>
                             
