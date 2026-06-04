@@ -28,7 +28,8 @@ public partial class OrderList : System.Web.UI.Page
         clsOrderCollection Orders = new clsOrderCollection();
         lstOrderList.DataSource = Orders.OrderList;
         lstOrderList.DataValueField = "OrderNo";
-        lstOrderList.DataTextField = "DeliveryAddress";
+        // Updated to pull the new summary property
+        lstOrderList.DataTextField = "OrderSummary";
         lstOrderList.DataBind();
     }
 
@@ -74,7 +75,7 @@ public partial class OrderList : System.Web.UI.Page
         Orders.ReportByDeliveryAddress(txtFilter.Text);
         lstOrderList.DataSource = Orders.OrderList;
         lstOrderList.DataValueField = "OrderNo";
-        lstOrderList.DataTextField = "DeliveryAddress";
+        lstOrderList.DataTextField = "OrderSummary";
         lstOrderList.DataBind();
     }
 
@@ -85,7 +86,7 @@ public partial class OrderList : System.Web.UI.Page
         txtFilter.Text = "";
         lstOrderList.DataSource = Orders.OrderList;
         lstOrderList.DataValueField = "OrderNo";
-        lstOrderList.DataTextField = "DeliveryAddress";
+        lstOrderList.DataTextField = "OrderSummary";
         lstOrderList.DataBind();
     }
 

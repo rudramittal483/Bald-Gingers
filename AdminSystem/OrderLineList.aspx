@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <title></title>
+    <title>Order Line Directory</title>
     <link href="Content/bootstrap.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
     <script src="Scripts/bootstrap.bundle.min.js"></script>
@@ -37,18 +37,42 @@
                                 </asp:LinkButton>
                             </div>
 
+                            <hr />
+
+                            <div class="bg-light border rounded-3 p-3 mb-3">
+                                <h6 class="text-muted mb-3"><i class="bi bi-funnel-fill me-1"></i> Filter Options</h6>
+                                <div class="row g-2 align-items-center">
+                                    <div class="col-auto">
+                                        <asp:Label ID="lblFilter" runat="server" CssClass="col-form-label fw-bold" Text="Enter Order Number:"></asp:Label>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <asp:TextBox ID="txtFilter" runat="server" CssClass="form-control" placeholder="e.g., 15"></asp:TextBox>
+                                    </div>
+                                    <div class="col-auto d-flex gap-2">
+                                        <asp:LinkButton ID="btnApplyFilter" runat="server" CssClass="btn btn-primary" OnClick="btnApplyFilter_Click">
+                                            <i class="bi bi-search"></i> Apply Filter
+                                        </asp:LinkButton>
+                                        
+                                        <asp:LinkButton ID="btnClearFilter" runat="server" CssClass="btn btn-outline-secondary" OnClick="btnClearFilter_Click">
+                                            <i class="bi bi-eraser-fill"></i> Clear Filter
+                                        </asp:LinkButton>
+                                    </div>
+                                </div>
+                            </div>
+
                             <div class="mt-2">
                                 <asp:Label ID="lblError" runat="server" CssClass="text-danger fw-bold d-block"></asp:Label>
                             </div>
 
                         </div>
+                        
                         <div class="card-footer bg-white text-end py-3">
                             <asp:LinkButton ID="btnReturn" runat="server" CssClass="btn btn-secondary px-4" OnClick="btnReturn_Click" CausesValidation="false">
                                 <i class="bi bi-arrow-return-left"></i> Main Menu
                             </asp:LinkButton>
                         </div>
+                        
                     </div>
-
                 </div>
             </div>
         </div>

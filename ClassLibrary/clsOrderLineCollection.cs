@@ -28,9 +28,28 @@ namespace ClassLibrary
                 AnOrderLine.OrderNo = Convert.ToInt32(DB.DataTable.Rows[Index]["OrderNo"]);
                 AnOrderLine.LaptopNo = Convert.ToInt32(DB.DataTable.Rows[Index]["LaptopNo"]);
                 AnOrderLine.Quantity = Convert.ToInt32(DB.DataTable.Rows[Index]["Quantity"]);
+
+                AnOrderLine.Brand = Convert.ToString(DB.DataTable.Rows[Index]["Brand"]);
+                AnOrderLine.ModelName = Convert.ToString(DB.DataTable.Rows[Index]["ModelName"]);
+
                 mOrderLineList.Add(AnOrderLine);
                 Index++;
             }
+        }
+
+        public void ReportByOrderNo(int OrderNo)
+        {
+            clsDataConnection DB = new clsDataConnection();
+            if (OrderNo == 0)
+            {
+                DB.Execute("sproc_tblOrderLine_SelectAll");
+            }
+            else
+            {
+                DB.AddParameter("@OrderNo", OrderNo);
+                DB.Execute("sproc_tblOrderLine_FilterByOrderNo");
+            }
+            PopulateArray(DB);
         }
 
         public List<clsOrderLine> OrderLineList

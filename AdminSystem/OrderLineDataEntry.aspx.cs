@@ -17,10 +17,14 @@ public partial class OrderLineDataEntry : System.Web.UI.Page
 
         if (IsPostBack == false)
         {
-            // If this is not a new record (ID is not 0)
             if (OrderLineNo != 0)
             {
                 DisplayOrderLine();
+            }
+            else
+            {
+                clsOrderLine AnOrderLine = new clsOrderLine();
+                txtOrderLineNo.Text = AnOrderLine.GetNextID().ToString();
             }
         }
     }

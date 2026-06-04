@@ -44,6 +44,14 @@ namespace ClassLibrary
             set { mIsDispatched = value; }
         }
 
+        public string OrderSummary
+        {
+            get
+            {
+                return "Order #" + mOrderNo + " | " + Convert.ToDateTime(mOrderDate).ToShortDateString() + " | Address: " + mDeliveryAddress;
+            }
+        }
+
         // The Find Method
         public bool Find(int OrderNo)
         {
@@ -92,6 +100,22 @@ namespace ClassLibrary
             catch { Error = Error + "The date was not a valid date. "; }
 
             return Error;
+        }
+
+        public int GetNextID()
+        {
+            clsDataConnection DB = new clsDataConnection();
+            DB.Execute("sproc_tblOrder_GetNextID");
+
+            // If it successfully pulled the number, return it
+            if (DB.Count == 1)
+            {
+                return Convert.ToInt32(DB.DataTable.Rows[0]["NextID"]);
+            }
+            else
+            {
+                return 1; // Fallback just in case the table is completely empty
+            }
         }
     }
 }
