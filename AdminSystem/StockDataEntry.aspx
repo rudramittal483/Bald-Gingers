@@ -58,7 +58,7 @@
                                 <asp:Label ID="lblDateAdded" runat="server" CssClass="form-label fw-bold" Text="Date Added"></asp:Label>
                                 <div class="input-group">
                                     <span class="input-group-text bg-light"><i class="bi bi-calendar-plus"></i></span>
-                                    <asp:TextBox ID="txtDateAdded" runat="server" CssClass="form-control" placeholder="YYYY-MM-DD"></asp:TextBox>
+                                    <asp:TextBox ID="txtDateAdded" runat="server" CssClass="form-control" placeholder="DD-MM-YYYY"></asp:TextBox>
                                 </div>
                             </div>
 

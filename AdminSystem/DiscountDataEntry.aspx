@@ -52,14 +52,14 @@
                                     <asp:Label ID="lblStartDate" runat="server" CssClass="form-label fw-bold" Text="Start Date"></asp:Label>
                                     <div class="input-group">
                                         <span class="input-group-text bg-light"><i class="bi bi-calendar-check"></i></span>
-                                        <asp:TextBox ID="txtStartDate" runat="server" CssClass="form-control" placeholder="YYYY-MM-DD"></asp:TextBox>
+                                        <asp:TextBox ID="txtStartDate" runat="server" CssClass="form-control" placeholder="DD-MM-YYYY"></asp:TextBox>
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <asp:Label ID="lblEndDate" runat="server" CssClass="form-label fw-bold" Text="End Date"></asp:Label>
                                     <div class="input-group">
                                         <span class="input-group-text bg-light"><i class="bi bi-calendar-x"></i></span>
-                                        <asp:TextBox ID="txtEndDate" runat="server" CssClass="form-control" placeholder="YYYY-MM-DD"></asp:TextBox>
+                                        <asp:TextBox ID="txtEndDate" runat="server" CssClass="form-control" placeholder="DD-MM-YYYY"></asp:TextBox>
                                     </div>
                                 </div>
                             </div>
