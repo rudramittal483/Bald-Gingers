@@ -2,7 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 
-namespace Testing4
+namespace TestingOrderLines
 {
     [TestClass]
     public class tstOrderLineUser
