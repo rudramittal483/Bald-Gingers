@@ -115,25 +115,22 @@ public partial class _1_DataEntry : System.Web.UI.Page
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        // Get the number of the customer to be processed
         CustomerNo = Convert.ToInt32(Session["CustomerNo"]);
 
         if (IsPostBack == false)
         {
-            // If this is not a new record
             if (CustomerNo != -1)
             {
-                // Display the current data for the record
+                // 1. Display the existing Customer Data
                 DisplayCustomer();
+
+                // 2. Fetch, Display, and Lock the Address Data
+                DisplayCustomerAddress(CustomerNo);
             }
             else
             {
                 // IT IS A NEW RECORD
-                // Autofill the text box with the predicted next ID
                 txtCustomerNo.Text = GetExpectedNextID().ToString();
-
-                // Note: We do NOT set ReadOnly = true. 
-                // The user can clear this number and use the Find button if they want.
             }
         }
     }
@@ -204,6 +201,48 @@ public partial class _1_DataEntry : System.Web.UI.Page
         // Format the date so it looks nice in the text box
         txtDateJoined.Text = CustomerBook.ThisCustomer.DateJoined.ToString("dd/MM/yyyy");
         chkIsActiveAccount.Checked = CustomerBook.ThisCustomer.IsActiveAccount;
+    }
+
+    void DisplayCustomerAddress(int currentCustomerNo)
+    {
+        // Create an instance of the address collection to search through
+        clsAddressCollection Addresses = new clsAddressCollection();
+
+        // Use LINQ to find the first address that belongs to this CustomerNo
+        var customerAddress = Addresses.AddressList.FirstOrDefault(a => a.CustomerNo == currentCustomerNo);
+
+        if (customerAddress != null)
+        {
+            // If an address is found, display the data
+            txtEmirate.Text = customerAddress.Emirate;
+            txtBuildingName.Text = customerAddress.BuildingName;
+            txtStreetName.Text = customerAddress.StreetName;
+            txtAddressType.Text = customerAddress.AddressType;
+            txtPostcode.Text = customerAddress.Postcode.ToString();
+        }
+        else
+        {
+            // If no address is found (e.g., old test data), show a safe placeholder
+            txtEmirate.Text = "N/A";
+            txtBuildingName.Text = "N/A";
+            txtStreetName.Text = "N/A";
+            txtAddressType.Text = "N/A";
+            txtPostcode.Text = "N/A";
+        }
+
+        // Lock all the text boxes so the user cannot type in them
+        txtEmirate.ReadOnly = true;
+        txtBuildingName.ReadOnly = true;
+        txtStreetName.ReadOnly = true;
+        txtAddressType.ReadOnly = true;
+        txtPostcode.ReadOnly = true;
+
+        // Visually grey them out using Bootstrap classes so the user knows they are locked
+        txtEmirate.CssClass = "form-control bg-light text-muted";
+        txtBuildingName.CssClass = "form-control bg-light text-muted";
+        txtStreetName.CssClass = "form-control bg-light text-muted";
+        txtAddressType.CssClass = "form-control bg-light text-muted";
+        txtPostcode.CssClass = "form-control bg-light text-muted";
     }
 
     protected void btnReturn_Click(object sender, EventArgs e)
