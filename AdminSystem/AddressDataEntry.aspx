@@ -31,7 +31,7 @@
 
                             <div class="mb-3">
                                 <asp:Label ID="lblCustomerNo" runat="server" CssClass="form-label" Text="Customer No"></asp:Label>
-                                <asp:TextBox ID="txtCustomerNo" runat="server" CssClass="form-control"></asp:TextBox>
+                                <asp:TextBox ID="txtCustomerNo" runat="server" CssClass="form-control bg-light" ReadOnly="true"></asp:TextBox>
                             </div>
 
                             <div class="mb-3">

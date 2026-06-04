@@ -25,9 +25,6 @@
                             </div>
 
                             <div class="mb-4 d-flex gap-2">
-                                <asp:LinkButton ID="btnAdd" runat="server" CssClass="btn btn-success" OnClick="btnAdd_Click">
-                                    <i class="bi bi-plus-circle"></i> Add
-                                </asp:LinkButton>
                                 
                                 <asp:LinkButton ID="btnEdit" runat="server" CssClass="btn btn-warning text-dark" OnClick="btnEdit_Click">
                                     <i class="bi bi-pencil-square"></i> Edit
