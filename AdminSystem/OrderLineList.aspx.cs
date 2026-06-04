@@ -28,7 +28,7 @@ public partial class OrderLineList : System.Web.UI.Page
         clsOrderLineCollection OrderLines = new clsOrderLineCollection();
         lstOrderLineList.DataSource = OrderLines.OrderLineList;
         lstOrderLineList.DataValueField = "OrderLineNo";
-        lstOrderLineList.DataTextField = "OrderLineNo";
+        lstOrderLineList.DataTextField = "OrderLineSummary";
         lstOrderLineList.DataBind();
     }
 
@@ -72,5 +72,41 @@ public partial class OrderLineList : System.Web.UI.Page
     {
         // Redirect to the Admin Menu page
         Response.Redirect("TeamMainMenu.aspx");
+    }
+
+    protected void btnApplyFilter_Click(object sender, EventArgs e)
+    {
+        clsOrderLineCollection OrderLines = new clsOrderLineCollection();
+        int orderNoFilter;
+
+        // Validate that the user typed a number
+        if (int.TryParse(txtFilter.Text, out orderNoFilter))
+        {
+            OrderLines.ReportByOrderNo(orderNoFilter);
+            lblError.Text = ""; // Clear errors
+        }
+        else
+        {
+            // If they typed text, pull everything and warn them
+            OrderLines.ReportByOrderNo(0);
+            lblError.Text = "Please enter a valid numeric Order Number to filter.";
+        }
+
+        lstOrderLineList.DataSource = OrderLines.OrderLineList;
+        lstOrderLineList.DataValueField = "OrderLineNo";
+        lstOrderLineList.DataTextField = "OrderLineSummary";
+        lstOrderLineList.DataBind();
+    }
+
+    protected void btnClearFilter_Click(object sender, EventArgs e)
+    {
+        clsOrderLineCollection OrderLines = new clsOrderLineCollection();
+        OrderLines.ReportByOrderNo(0); // 0 triggers the SelectAll logic
+        txtFilter.Text = "";
+        lblError.Text = "";
+        lstOrderLineList.DataSource = OrderLines.OrderLineList;
+        lstOrderLineList.DataValueField = "OrderLineNo";
+        lstOrderLineList.DataTextField = "OrderLineSummary";
+        lstOrderLineList.DataBind();
     }
 }

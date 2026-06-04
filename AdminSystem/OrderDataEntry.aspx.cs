@@ -17,10 +17,14 @@ public partial class OrderDataEntry : System.Web.UI.Page
 
         if (IsPostBack == false)
         {
-            // If this is not a new record (ID is not 0)
             if (OrderNo != 0)
             {
                 DisplayOrder();
+            }
+            else
+            {
+                clsOrder AnOrder = new clsOrder();
+                txtOrderNo.Text = AnOrder.GetNextID().ToString();
             }
         }
     }

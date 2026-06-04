@@ -9,6 +9,20 @@ namespace ClassLibrary
         private Int32 mLaptopNo;
         private Int32 mQuantity;
 
+        private string mBrand;
+        private string mModelName;
+
+        public string Brand { get { return mBrand; } set { mBrand = value; } }
+        public string ModelName { get { return mModelName; } set { mModelName = value; } }
+
+        public string OrderLineSummary
+        {
+            get
+            {
+                return "Order #" + mOrderNo + " | " + Brand + " " + ModelName + " (Qty: " + mQuantity + ")";
+            }
+        }
+
         public int OrderLineNo { get { return mOrderLineNo; } set { mOrderLineNo = value; } }
         public int OrderNo { get { return mOrderNo; } set { mOrderNo = value; } }
         public int LaptopNo { get { return mLaptopNo; } set { mLaptopNo = value; } }
@@ -52,6 +66,21 @@ namespace ClassLibrary
             catch { Error = Error + "The quantity is not a valid number : "; }
 
             return Error;
+        }
+
+        public int GetNextID()
+        {
+            clsDataConnection DB = new clsDataConnection();
+            DB.Execute("sproc_tblOrderLine_GetNextID");
+
+            if (DB.Count == 1)
+            {
+                return Convert.ToInt32(DB.DataTable.Rows[0]["NextID"]);
+            }
+            else
+            {
+                return 1;
+            }
         }
     }
 }
