@@ -19,10 +19,10 @@ namespace ClassLibrary
         {
             get
             {
-                return "Order #" + mOrderNo + " | " + Brand + " " + ModelName + " (Qty: " + mQuantity + ")";
+                return "OrderLineNo #" + mOrderLineNo + " | " + "Order #" + mOrderNo + " | " + Brand + " " + ModelName + " (Qty: " + mQuantity + ")";
             }
         }
-
+        
         public int OrderLineNo { get { return mOrderLineNo; } set { mOrderLineNo = value; } }
         public int OrderNo { get { return mOrderNo; } set { mOrderNo = value; } }
         public int LaptopNo { get { return mLaptopNo; } set { mLaptopNo = value; } }

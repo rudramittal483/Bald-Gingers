@@ -56,8 +56,9 @@
                                 <asp:TextBox ID="txtDeliveryAddress" runat="server" CssClass="form-control" placeholder="Enter complete delivery address"></asp:TextBox>
                             </div>
 
-                            <div class="form-check mb-4 mt-2">
-                                <asp:CheckBox ID="chkIsDispatched" runat="server" CssClass="form-check-input" Text="Is Dispatched" />
+                            <div class="form-check d-flex align-items-center mb-4 mt-2">
+                                <asp:CheckBox ID="chkIsDispatched" runat="server" CssClass="form-check-input mt-0 me-2" />
+                                <asp:Label ID="lblIsDispatched" runat="server" CssClass="form-check-label mb-0" AssociatedControlID="chkIsDispatched" Text="Is Dispatched"></asp:Label>
                             </div>
 
                             <div class="mb-2">
