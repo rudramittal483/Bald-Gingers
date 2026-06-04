@@ -28,9 +28,18 @@ public partial class CustomerList : System.Web.UI.Page
     void DisplayCustomers()
     {
         clsCustomerCollection Customers = new clsCustomerCollection();
-        lstCustomerList.DataSource = Customers.CustomerList;
+
+        // Use LINQ with classic string.Format (C# 5 compatible)
+        var formattedList = Customers.CustomerList.Select(c => new
+        {
+            CustomerNo = c.CustomerNo,
+            DisplayText = string.Format("[ID: {0}] {1} {2} | {3} | Joined: {4:dd/MM/yyyy}",
+                                        c.CustomerNo, c.FirstName, c.LastName, c.Email, c.DateJoined)
+        }).ToList();
+
+        lstCustomerList.DataSource = formattedList;
         lstCustomerList.DataValueField = "CustomerNo";
-        lstCustomerList.DataTextField = "Email";
+        lstCustomerList.DataTextField = "DisplayText";
         lstCustomerList.DataBind();
     }
 
@@ -90,35 +99,39 @@ public partial class CustomerList : System.Web.UI.Page
 
     protected void btnApplyFilter_Click(object sender, EventArgs e)
     {
-        //create an instance of the customer object
         clsCustomerCollection Customers = new clsCustomerCollection();
-        //invoke the method passing the filter text
         Customers.ReportByEmail(txtFilter.Text);
-        //set the data source to the list of customers in the collection
-        lstCustomerList.DataSource = Customers.CustomerList;
-        //set the name of the primary key
+
+        var formattedList = Customers.CustomerList.Select(c => new
+        {
+            CustomerNo = c.CustomerNo,
+            DisplayText = string.Format("[ID: {0}] {1} {2} | {3} | Joined: {4:dd/MM/yyyy}",
+                                        c.CustomerNo, c.FirstName, c.LastName, c.Email, c.DateJoined)
+        }).ToList();
+
+        lstCustomerList.DataSource = formattedList;
         lstCustomerList.DataValueField = "CustomerNo";
-        //set the name of the field to display
-        lstCustomerList.DataTextField = "Email";
-        //bind the data to the list
+        lstCustomerList.DataTextField = "DisplayText";
         lstCustomerList.DataBind();
     }
 
     protected void btnClearFilter_Click(object sender, EventArgs e)
     {
-        //create an instance of the customer object
         clsCustomerCollection Customers = new clsCustomerCollection();
-        //invoke the method passing a blank string to clear the filter
         Customers.ReportByEmail("");
-        //clear any existing filter to tidy up the interface
+
         txtFilter.Text = "";
-        //set the data source to the list of customers in the collection
-        lstCustomerList.DataSource = Customers.CustomerList;
-        //set the name of the primary key
+
+        var formattedList = Customers.CustomerList.Select(c => new
+        {
+            CustomerNo = c.CustomerNo,
+            DisplayText = string.Format("[ID: {0}] {1} {2} | {3} | Joined: {4:dd/MM/yyyy}",
+                                        c.CustomerNo, c.FirstName, c.LastName, c.Email, c.DateJoined)
+        }).ToList();
+
+        lstCustomerList.DataSource = formattedList;
         lstCustomerList.DataValueField = "CustomerNo";
-        //set the name of the field to display
-        lstCustomerList.DataTextField = "Email";
-        //bind the data to the list
+        lstCustomerList.DataTextField = "DisplayText";
         lstCustomerList.DataBind();
     }
 
