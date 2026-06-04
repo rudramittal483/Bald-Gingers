@@ -7,6 +7,7 @@ namespace TestingOrderLines
     [TestClass]
     public class tstOrderLine
     {
+        // Good test data
         string OrderNo = "1";
         string LaptopNo = "1";
         string Quantity = "1";
@@ -91,6 +92,98 @@ namespace TestingOrderLines
             clsOrderLine AnOrderLine = new clsOrderLine();
             Boolean Found = AnOrderLine.Find(1);
             Assert.IsTrue(AnOrderLine.Quantity == 1);
+        }
+
+        // ==========================================
+        // VALIDATION TESTS FOR QUANTITY
+        // ==========================================
+
+        [TestMethod]
+        public void ValidMethodOK()
+        {
+            clsOrderLine AnOrderLine = new clsOrderLine();
+            String Error = AnOrderLine.Valid(OrderNo, LaptopNo, Quantity);
+            Assert.AreEqual(Error, "");
+        }
+
+        [TestMethod]
+        public void QuantityExtremeMin()
+        {
+            clsOrderLine AnOrderLine = new clsOrderLine();
+            String Error = AnOrderLine.Valid(OrderNo, LaptopNo, "-1000");
+            Assert.AreNotEqual(Error, "");
+        }
+
+        [TestMethod]
+        public void QuantityMinLessOne()
+        {
+            clsOrderLine AnOrderLine = new clsOrderLine();
+            String Error = AnOrderLine.Valid(OrderNo, LaptopNo, "0");
+            Assert.AreNotEqual(Error, "");
+        }
+
+        [TestMethod]
+        public void QuantityMinBoundary()
+        {
+            clsOrderLine AnOrderLine = new clsOrderLine();
+            String Error = AnOrderLine.Valid(OrderNo, LaptopNo, "1");
+            Assert.AreEqual(Error, "");
+        }
+
+        [TestMethod]
+        public void QuantityMinPlusOne()
+        {
+            clsOrderLine AnOrderLine = new clsOrderLine();
+            String Error = AnOrderLine.Valid(OrderNo, LaptopNo, "2");
+            Assert.AreEqual(Error, "");
+        }
+
+        [TestMethod]
+        public void QuantityMaxMinusOne()
+        {
+            clsOrderLine AnOrderLine = new clsOrderLine();
+            String Error = AnOrderLine.Valid(OrderNo, LaptopNo, "49");
+            Assert.AreEqual(Error, "");
+        }
+
+        [TestMethod]
+        public void QuantityMaxBoundary()
+        {
+            clsOrderLine AnOrderLine = new clsOrderLine();
+            String Error = AnOrderLine.Valid(OrderNo, LaptopNo, "50");
+            Assert.AreEqual(Error, "");
+        }
+
+        [TestMethod]
+        public void QuantityMaxPlusOne()
+        {
+            clsOrderLine AnOrderLine = new clsOrderLine();
+            String Error = AnOrderLine.Valid(OrderNo, LaptopNo, "51");
+            Assert.AreNotEqual(Error, "");
+        }
+
+        [TestMethod]
+        public void QuantityMid()
+        {
+            clsOrderLine AnOrderLine = new clsOrderLine();
+            String Error = AnOrderLine.Valid(OrderNo, LaptopNo, "25");
+            Assert.AreEqual(Error, "");
+        }
+
+        [TestMethod]
+        public void QuantityExtremeMax()
+        {
+            clsOrderLine AnOrderLine = new clsOrderLine();
+            String Error = AnOrderLine.Valid(OrderNo, LaptopNo, "1000");
+            Assert.AreNotEqual(Error, "");
+        }
+
+        [TestMethod]
+        public void QuantityInvalidDataType()
+        {
+            clsOrderLine AnOrderLine = new clsOrderLine();
+            String Error = AnOrderLine.Valid(OrderNo, LaptopNo, "Fifty");
+            Assert.AreNotEqual(Error, "");
         }
     }
 }
