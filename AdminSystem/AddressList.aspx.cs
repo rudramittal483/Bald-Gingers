@@ -28,19 +28,19 @@ public partial class AddressList : System.Web.UI.Page
 
     void DisplayAddresses()
     {
-        //create an instance of the Address Collection
         clsAddressCollection Addresses = new clsAddressCollection();
 
-        //set the data source to the list of addresses in the collection
-        lstAddressList.DataSource = Addresses.AddressList;
+        // Format the string to include the Customer ID (C# 5 Safe)
+        var formattedList = Addresses.AddressList.Select(a => new
+        {
+            AddressId = a.AddressId,
+            DisplayText = string.Format("[Cust ID: {0}] {1} - {2}, {3} ({4})",
+                                        a.CustomerNo, a.AddressType, a.BuildingName, a.StreetName, a.Postcode)
+        }).ToList();
 
-        //set the name of the primary key
+        lstAddressList.DataSource = formattedList;
         lstAddressList.DataValueField = "AddressId";
-
-        // *** CHANGED: Now points to your new glued-together property ***
-        lstAddressList.DataTextField = "FullAddress";
-
-        //bind the data to the list
+        lstAddressList.DataTextField = "DisplayText";
         lstAddressList.DataBind();
     }
 
@@ -91,40 +91,50 @@ public partial class AddressList : System.Web.UI.Page
 
     protected void btnApplyFilter_Click(object sender, EventArgs e)
     {
-        //create an instance of the address object
         clsAddressCollection Addresses = new clsAddressCollection();
-        //invoke the method passing the filter text
-        Addresses.ReportByPostcode(txtFilter.Text);
-        //set the data source to the list of addresses in the collection
-        lstAddressList.DataSource = Addresses.AddressList;
-        //set the name of the primary key
+
+        // 1. Try to convert whatever the user typed into a number
+        int searchCustomerNo;
+        bool isNumber = int.TryParse(txtFilter.Text, out searchCustomerNo);
+
+        // 2. Start with the full list
+        var filteredAddresses = Addresses.AddressList;
+
+        // 3. If they typed a valid number, filter the list by CustomerNo
+        if (isNumber)
+        {
+            filteredAddresses = Addresses.AddressList.Where(a => a.CustomerNo == searchCustomerNo).ToList();
+            lblError.Text = ""; // Clear any previous errors
+        }
+        else if (txtFilter.Text != "")
+        {
+            // If they typed text instead of a number, show an error and don't filter
+            lblError.Text = "Please enter a valid numeric Customer Number.";
+            return;
+        }
+
+        // 4. Format and bind the newly filtered list
+        var formattedList = filteredAddresses.Select(a => new
+        {
+            AddressId = a.AddressId,
+            DisplayText = string.Format("[Cust ID: {0}] {1} - {2}, {3} ({4})",
+                                        a.CustomerNo, a.AddressType, a.BuildingName, a.StreetName, a.Postcode)
+        }).ToList();
+
+        lstAddressList.DataSource = formattedList;
         lstAddressList.DataValueField = "AddressId";
-
-        // *** CHANGED: Now points to your new glued-together property ***
-        lstAddressList.DataTextField = "FullAddress";
-
-        //bind the data to the list
+        lstAddressList.DataTextField = "DisplayText";
         lstAddressList.DataBind();
     }
 
     protected void btnClearFilter_Click(object sender, EventArgs e)
     {
-        //create an instance of the address object
-        clsAddressCollection Addresses = new clsAddressCollection();
-        //invoke the method passing a blank string to clear the filter
-        Addresses.ReportByPostcode("");
-        //clear any existing filter to tidy up the interface
+        // Tidy up the text box and error labels
         txtFilter.Text = "";
-        //set the data source to the list of addresses in the collection
-        lstAddressList.DataSource = Addresses.AddressList;
-        //set the name of the primary key
-        lstAddressList.DataValueField = "AddressId";
+        lblError.Text = "";
 
-        // *** CHANGED: Now points to your new glued-together property ***
-        lstAddressList.DataTextField = "FullAddress";
-
-        //bind the data to the list
-        lstAddressList.DataBind();
+        // Just call the display method again to reset the list and save code!
+        DisplayAddresses();
     }
 
     protected void btnReturn_Click(object sender, EventArgs e)

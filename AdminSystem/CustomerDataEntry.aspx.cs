@@ -67,19 +67,32 @@ public partial class _1_DataEntry : System.Web.UI.Page
                 CustomerList.ThisCustomer.Find(CustomerNo);
                 CustomerList.ThisCustomer = ACustomer;
                 CustomerList.Update();
+                if (ViewState["AddingExtraAddress"] != null && (bool)ViewState["AddingExtraAddress"] == true)
+                {
+                    clsAddressCollection AddressList = new clsAddressCollection();
+                    clsAddress ExtraAddress = new clsAddress();
 
-                // Note: If updating a customer, you usually handle updating their address via the AddressList page, 
-                // so we skip AddressList.Update() here unless you want to load and overwrite it.
+                    ExtraAddress.CustomerNo = CustomerNo; // Link to the current customer
+                    ExtraAddress.Emirate = txtEmirate.Text;
+                    ExtraAddress.BuildingName = txtBuildingName.Text;
+                    ExtraAddress.StreetName = txtStreetName.Text;
+                    ExtraAddress.AddressType = txtAddressType.Text;
+                    ExtraAddress.Postcode = Convert.ToInt32(txtPostcode.Text);
+                    ExtraAddress.IsDefault = false; // Extra addresses are usually not default
+
+                    AddressList.ThisAddress = ExtraAddress;
+                    AddressList.Add();
+
+                }
             }
 
-            Response.Redirect("CustomerList.aspx");
-        }
+                Response.Redirect("CustomerList.aspx");
+            }
         else
-        {
-            lblError.Text = Error;
+            {
+                lblError.Text = Error;
+            }
         }
-    }
-
     protected void btnCancel_Click(object sender, EventArgs e)
     {
         Response.Redirect("CustomerList.aspx");
@@ -121,16 +134,15 @@ public partial class _1_DataEntry : System.Web.UI.Page
         {
             if (CustomerNo != -1)
             {
-                // 1. Display the existing Customer Data
                 DisplayCustomer();
-
-                // 2. Fetch, Display, and Lock the Address Data
-                DisplayCustomerAddress(CustomerNo);
+                LoadAddressDropdown(CustomerNo); // Loads the dropdown
             }
             else
             {
-                // IT IS A NEW RECORD
+                // Brand new customer: Hide the dropdown and extra button
                 txtCustomerNo.Text = GetExpectedNextID().ToString();
+                divAddressDropdown.Visible = false;
+                btnPrepareNewAddress.Visible = false;
             }
         }
     }
@@ -251,5 +263,90 @@ public partial class _1_DataEntry : System.Web.UI.Page
         Response.Redirect("TeamMainMenu.aspx");
     }
 
+    void LoadAddressDropdown(int currentCustomerNo)
+    {
+        clsAddressCollection Addresses = new clsAddressCollection();
+
+        // Find ALL addresses linked to this customer
+        var customerAddresses = Addresses.AddressList.Where(a => a.CustomerNo == currentCustomerNo).ToList();
+
+        if (customerAddresses.Count > 0)
+        {
+            // Format a clean label for the dropdown (C# 5 compatible)
+            var formattedList = customerAddresses.Select(a => new {
+                AddressId = a.AddressId,
+                DisplayText = string.Format("{0} - {1}, {2} (Postcode: {3})", a.AddressType, a.StreetName, a.Emirate, a.Postcode)
+            }).ToList();
+
+            ddlAddresses.DataSource = formattedList;
+            ddlAddresses.DataValueField = "AddressId";
+            ddlAddresses.DataTextField = "DisplayText";
+            ddlAddresses.DataBind();
+
+            // Load the first address into the locked boxes
+            DisplaySelectedAddress(Convert.ToInt32(ddlAddresses.SelectedValue));
+        }
+        else
+        {
+            ddlAddresses.Items.Add(new ListItem("No Addresses Found", "-1"));
+            ddlAddresses.Enabled = false;
+        }
+    }
+
+    void DisplaySelectedAddress(int addressId)
+    {
+        clsAddressCollection Addresses = new clsAddressCollection();
+        var address = Addresses.AddressList.FirstOrDefault(a => a.AddressId == addressId);
+
+        if (address != null)
+        {
+            txtEmirate.Text = address.Emirate;
+            txtBuildingName.Text = address.BuildingName;
+            txtStreetName.Text = address.StreetName;
+            txtAddressType.Text = address.AddressType;
+            txtPostcode.Text = address.Postcode.ToString();
+
+            // Lock them and grey them out
+            txtEmirate.ReadOnly = true; txtEmirate.CssClass = "form-control bg-light text-muted";
+            txtBuildingName.ReadOnly = true; txtBuildingName.CssClass = "form-control bg-light text-muted";
+            txtStreetName.ReadOnly = true; txtStreetName.CssClass = "form-control bg-light text-muted";
+            txtAddressType.ReadOnly = true; txtAddressType.CssClass = "form-control bg-light text-muted";
+            txtPostcode.ReadOnly = true; txtPostcode.CssClass = "form-control bg-light text-muted";
+        }
+    }
+
+    protected void ddlAddresses_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        // When the user picks a different address from the dropdown, update the boxes
+        int selectedId = Convert.ToInt32(ddlAddresses.SelectedValue);
+        if (selectedId != -1)
+        {
+            DisplaySelectedAddress(selectedId);
+            ViewState["AddingExtraAddress"] = false; // Cancel adding mode if they click the dropdown
+        }
+    }
+
+    protected void btnPrepareNewAddress_Click(object sender, EventArgs e)
+    {
+        // Clear all boxes
+        txtEmirate.Text = "";
+        txtBuildingName.Text = "";
+        txtStreetName.Text = "";
+        txtAddressType.Text = ""; // User can type "Work" or "Holiday Home" here
+        txtPostcode.Text = "";
+
+        // Unlock boxes and make them white again
+        txtEmirate.ReadOnly = false; txtEmirate.CssClass = "form-control border-success";
+        txtBuildingName.ReadOnly = false; txtBuildingName.CssClass = "form-control border-success";
+        txtStreetName.ReadOnly = false; txtStreetName.CssClass = "form-control border-success";
+        txtAddressType.ReadOnly = false; txtAddressType.CssClass = "form-control border-success";
+        txtPostcode.ReadOnly = false; txtPostcode.CssClass = "form-control border-success";
+
+        // Tell the OK button that we are saving an extra address!
+        ViewState["AddingExtraAddress"] = true;
+
+        lblError.Text = "Please enter the new address details and click OK to save.";
+        lblError.CssClass = "text-success fw-bold";
+    }
 
 }
