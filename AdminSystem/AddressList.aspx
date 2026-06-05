@@ -41,10 +41,10 @@
                                 <h6 class="text-muted mb-3"><i class="bi bi-funnel-fill me-1"></i> Filter Options</h6>
                                 <div class="row g-2 align-items-center">
                                     <div class="col-auto">
-                                        <asp:Label ID="lblFilter" runat="server" CssClass="col-form-label fw-bold" Text="Enter Postcode:"></asp:Label>
+                                        <asp:Label ID="lblFilter" runat="server" CssClass="col-form-label fw-bold" Text="Enter Customer No:"></asp:Label>
                                     </div>
                                     <div class="col-md-4">
-                                        <asp:TextBox ID="txtFilter" runat="server" CssClass="form-control"></asp:TextBox>
+                                        <asp:TextBox ID="txtFilter" runat="server" CssClass="form-control" placeholder="e.g. 5"></asp:TextBox>
                                     </div>
                                     <div class="col-auto d-flex gap-2">
                                         <asp:LinkButton ID="btnApplyFilter" runat="server" CssClass="btn btn-primary" OnClick="btnApplyFilter_Click">

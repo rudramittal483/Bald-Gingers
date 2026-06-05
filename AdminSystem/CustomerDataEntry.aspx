@@ -66,8 +66,19 @@
                                 <asp:Label ID="lblError" runat="server" CssClass="text-danger fw-semibold" Text=""></asp:Label>
                             </div>
                          
-                            <hr />
-                            <h5 class="mb-3 text-primary">Customer Address Details</h5>
+                           <hr />
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <h5 class="text-primary mb-0">Customer Address Details</h5>
+                                <asp:LinkButton ID="btnPrepareNewAddress" runat="server" CssClass="btn btn-sm btn-outline-success fw-bold" OnClick="btnPrepareNewAddress_Click">
+                                    <i class="bi bi-plus-circle"></i> Add Extra Address
+                                </asp:LinkButton>
+                            </div>
+
+                            <div class="mb-4 bg-white border p-3 rounded-3 shadow-sm" id="divAddressDropdown" runat="server">
+                                <asp:Label ID="lblSavedAddresses" runat="server" CssClass="form-label fw-bold text-muted" Text="Saved Addresses"></asp:Label>
+                                <asp:DropDownList ID="ddlAddresses" runat="server" CssClass="form-select border-primary" AutoPostBack="true" OnSelectedIndexChanged="ddlAddresses_SelectedIndexChanged">
+                                </asp:DropDownList>
+                            </div>
 
                             <div class="mb-3">
                                 <asp:Label ID="lblEmirate" runat="server" CssClass="form-label fw-bold" Text="Emirate"></asp:Label>
