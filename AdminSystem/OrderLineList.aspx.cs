@@ -15,12 +15,22 @@ public partial class OrderLineList : System.Web.UI.Page
             DisplayOrderLines();
         }
 
-        //create an instance of the stock collection
-        clsOrderLineUser AnUser = new clsOrderLineUser();
-        //retrieve the logged-in user from the session
-        AnUser = (clsOrderLineUser)Session["AnUser"];
-        //display the username of the logged-in user
-        Response.Write("Logged in as: " + AnUser.UserName);
+        // Check if a user is currently logged in
+        if (Session["AnUser"] != null)
+        {
+            //create an instance of the user
+            clsOrderLineUser AnUser = new clsOrderLineUser();
+
+            //retrieve the logged-in user from the session
+            AnUser = (clsOrderLineUser)Session["AnUser"];
+
+            lblUser.Text = AnUser.UserName;
+        }
+        else
+        {
+            // Fallback if accessed without logging in
+            lblUser.Text = "Guest";
+        }
     }
 
     void DisplayOrderLines()
